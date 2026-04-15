@@ -11,6 +11,11 @@ import { Programs } from './pages/Programs';
 import { Admissions } from './pages/Admissions';
 import { Experience } from './pages/Experience';
 import { About } from './pages/About';
+import { SimulationLabs } from './pages/SimulationLabs';
+import { Partnerships } from './pages/Partnerships';
+import { Community } from './pages/Community';
+import { Faculty } from './pages/Faculty';
+import { Contact } from './pages/Contact';
 import { GenericPage } from './components/GenericPage';
 
 export default function App() {
@@ -38,19 +43,19 @@ export default function App() {
       
       // Footer & Missing Pages
       case 'faculty':
-        return <GenericPage title="Our Faculty" description="Meet the practitioners and visionaries leading the next generation of African business." onBack={() => setActivePage('home')} />;
+        return <Faculty />;
       case 'learning':
         return <GenericPage title="Learning Model" description="Explore our unique pedagogical approach blending institutional rigor with digital velocity." onBack={() => setActivePage('home')} />;
       case 'simulation-labs':
-        return <GenericPage title="Simulation Labs" description="High-fidelity environments for stress-testing sovereign business strategies." onBack={() => setActivePage('home')} />;
+        return <SimulationLabs />;
       case 'careers':
         return <GenericPage title="Careers" description="Join the team architecting the future of African business education." onBack={() => setActivePage('home')} />;
       case 'community':
-        return <GenericPage title="Community" description="A curated network of 40,000+ global leaders and alumni." onBack={() => setActivePage('home')} />;
+        return <Community />;
       case 'partnerships':
-        return <GenericPage title="Partnerships" description="Collaborate with ABC to drive continental transformation." onBack={() => setActivePage('home')} />;
+        return <Partnerships />;
       case 'contact':
-        return <GenericPage title="Contact Us" description="Get in touch with our institutional support team." onBack={() => setActivePage('home')} />;
+        return <Contact />;
       case 'privacy':
         return <GenericPage title="Privacy Policy" description="How we protect your data and maintain institutional integrity." onBack={() => setActivePage('home')} />;
       case 'terms':

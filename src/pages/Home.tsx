@@ -49,7 +49,7 @@ const Hero = () => {
         >
           <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 relative group">
             <img 
-              src="https://picsum.photos/seed/leader/800/800" 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
               alt="Leadership" 
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
               referrerPolicy="no-referrer"

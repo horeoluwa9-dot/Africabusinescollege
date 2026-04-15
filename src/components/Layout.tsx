@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Globe, Share2, Linkedin, Twitter, Youtube, Mail, CheckCircle2, Loader2, ChevronDown, GraduationCap } from 'lucide-react';
+import { Globe, Share2, Linkedin, Twitter, Youtube, Mail, CheckCircle2, Loader2, ChevronDown } from 'lucide-react';
 
 export type Page = 
   | 'home' | 'insights' | 'programs' | 'admissions' | 'experience' | 'about'
@@ -113,25 +113,24 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
         <div className="max-w-[1600px] mx-auto px-6 flex justify-between items-center">
           {/* LEFT: LOGO */}
           <div 
-            className="flex items-center space-x-3 cursor-pointer group"
+            className="flex items-center space-x-3 cursor-pointer group shrink-0"
             onClick={() => onPageChange('home')}
           >
-            <div className="w-10 h-10 bg-botanical-950 rounded-xl flex items-center justify-center group-hover:bg-emerald-500 transition-colors shadow-lg shadow-botanical-950/10">
-              <GraduationCap className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-black tracking-tighter text-botanical-950 leading-none">ABC</span>
-              <span className="text-[8px] font-black uppercase tracking-[0.3em] text-emerald-500 leading-none mt-1">Sovereign</span>
-            </div>
+            <img 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_0.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              alt="ABC Logo" 
+              className="h-10 w-auto object-contain"
+              referrerPolicy="no-referrer"
+            />
           </div>
           
           {/* CENTER: NAV LINKS */}
-          <div className="hidden xl:flex items-center space-x-1">
+          <div className="hidden xl:flex items-center space-x-0.5">
             {navLinks.map((item) => (
               <button 
                 key={item.name} 
                 onClick={() => onPageChange(item.page as Page)}
-                className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all rounded-lg relative ${
+                className={`px-3 py-2 text-[9px] font-black uppercase tracking-widest transition-all rounded-lg relative whitespace-nowrap ${
                   activePage === item.page
                     ? 'text-emerald-500 bg-emerald-50' 
                     : 'text-slate-500 hover:text-botanical-950 hover:bg-slate-50'
@@ -175,11 +174,11 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
           </div>
 
           {/* RIGHT: ACTIONS */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4">
             {/* LANGUAGE SWITCHER */}
             <div className="relative" onMouseEnter={() => setIsLangOpen(true)} onMouseLeave={() => setIsLangOpen(false)}>
-              <button className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors py-2 px-3 rounded-lg hover:bg-slate-50">
-                <Globe className="w-4 h-4" />
+              <button className="flex items-center space-x-1.5 text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors py-2 px-2 rounded-lg hover:bg-slate-50">
+                <Globe className="w-3.5 h-3.5" />
                 <span>{currentLang}</span>
               </button>
               
@@ -212,13 +211,13 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
 
             <button 
               onClick={() => onPageChange('login-student')}
-              className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors"
+              className="text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors"
             >
               Login
             </button>
             <button 
               onClick={() => onPageChange('admissions')}
-              className="bg-emerald-500 text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-emerald-400 transition-all active:scale-95 shadow-lg shadow-emerald-500/20"
+              className="bg-emerald-500 text-white px-5 py-2.5 text-[9px] font-black uppercase tracking-widest rounded-lg hover:bg-emerald-400 transition-all active:scale-95 shadow-lg shadow-emerald-500/20"
             >
               Apply Now
             </button>
