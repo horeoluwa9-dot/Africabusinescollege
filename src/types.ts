@@ -23,6 +23,64 @@ export interface Report {
   downloadSize: string;
 }
 
+export interface Program {
+  id: string;
+  title: string;
+  category: string;
+  tag: string;
+  excerpt: string;
+}
+
+export interface Lab {
+  id: string;
+  title: string;
+  description: string;
+  icon?: string;
+  type: 'large' | 'small';
+}
+
+export interface Session {
+  id: string;
+  date: { day: string; month: string };
+  title: string;
+  description: string;
+  type: string;
+  location: string;
+  attendees: string;
+}
+
+export interface StudioTool {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export interface ProgramDetail extends Program {
+  duration: string;
+  format: string;
+  level: string;
+  focus: string;
+}
+
+export interface Deadline {
+  id: string;
+  date: string;
+  title: string;
+}
+
+export interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export interface Faculty {
+  id: string;
+  name: string;
+  role: string;
+  image: string;
+}
+
 export interface Contributor {
   id: string;
   name: string;

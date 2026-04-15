@@ -1,4 +1,4 @@
-import { Article, DeepDive, Report, Contributor } from './types';
+import { Article, DeepDive, Report, Contributor, Program, Lab, StudioTool, Session, ProgramDetail, Deadline, FAQ, Faculty } from './types';
 
 export const ARTICLES: Article[] = [
   {
@@ -93,4 +93,162 @@ export const CONTRIBUTORS: Contributor[] = [
     role: 'Venture Partner',
     image: 'https://picsum.photos/seed/nia/400/400'
   }
+];
+
+export const PROGRAMS: ProgramDetail[] = [
+  {
+    id: '1',
+    title: 'Venture Building',
+    category: 'Entrepreneurship',
+    tag: 'ADMISSIONS',
+    excerpt: 'From ideation to Series A. Learn the mechanics of building scalable businesses in the African landscape.',
+    duration: '8 Months',
+    format: 'Full-time',
+    level: 'Intermediate',
+    focus: 'Scaling & VC'
+  },
+  {
+    id: '2',
+    title: 'Innovation Leadership',
+    category: 'Leadership',
+    tag: 'FEATURED',
+    excerpt: 'Master the art of leading high-performance teams in the digital age. A 12-month intensive journey.',
+    duration: '12 Months',
+    format: 'Hybrid / Global',
+    level: 'Executive',
+    focus: 'Ops & Culture'
+  },
+  {
+    id: '3',
+    title: 'Digital Business',
+    category: 'Entrepreneurship',
+    tag: 'EXEC-CERT',
+    excerpt: 'Scaling digital products and platforms in emerging markets. Focus on product-led growth.',
+    duration: '6 Months',
+    format: 'Full-time',
+    level: 'Intermediate',
+    focus: 'Product Management'
+  },
+  {
+    id: '4',
+    title: 'Investment & Finance',
+    category: 'Finance',
+    tag: 'EXEC-CERT',
+    excerpt: 'Equipping financial architects with global market instruments and fintech integration strategies.',
+    duration: '6 Months',
+    format: 'Part-time',
+    level: 'Advanced',
+    focus: 'Capital Markets'
+  },
+  {
+    id: '5',
+    title: 'Technology for Business',
+    category: 'Tech',
+    tag: 'EXEC-CERT',
+    excerpt: 'Bridging the gap between engineering and the C-suite. Learn to lead tech transformations.',
+    duration: '4 Months',
+    format: 'Online',
+    level: 'Intermediate',
+    focus: 'Digital Strategy'
+  },
+  {
+    id: '6',
+    title: 'African Market Strategy',
+    category: 'Strategy',
+    tag: 'EXEC-CERT',
+    excerpt: 'Deep dive into trade dynamics, cross-border operations, and local consumer behavior.',
+    duration: '5 Months',
+    format: 'Hybrid',
+    level: 'Advanced',
+    focus: 'Market Entry'
+  }
+];
+
+export const LABS: Lab[] = [
+  {
+    id: '1',
+    title: 'The War Room',
+    description: 'High-pressure crisis management simulations involving supply chain disruptions and political shifts.',
+    type: 'large'
+  },
+  {
+    id: '2',
+    title: 'Market Pulse Lab',
+    description: 'Stock exchange and commodity trading floor replica.',
+    type: 'small'
+  },
+  {
+    id: '3',
+    title: 'Logistics Hub',
+    description: 'Simulating cross-border trade and AfCFTA dynamics.',
+    type: 'small'
+  },
+  {
+    id: '4',
+    title: 'Cyber Lab',
+    description: 'Navigating modern corporate digital threats.',
+    type: 'small'
+  }
+];
+
+export const STUDIO_TOOLS: StudioTool[] = [
+  {
+    id: '1',
+    title: 'Sovereign AI',
+    description: 'Proprietary large language models trained on African corporate law and economic history.'
+  },
+  {
+    id: '2',
+    title: 'Risk Modeler',
+    description: 'Visualizing currency volatility and geopolitical risk across 54 sovereign states.'
+  },
+  {
+    id: '3',
+    title: 'Impact Tracker',
+    description: 'Measuring ESG metrics against UN Agenda 2063 benchmarks.'
+  },
+  {
+    id: '4',
+    title: 'Deal Architect',
+    description: 'Interactive structuring for M&A and venture capital equity flows.'
+  }
+];
+
+export const SESSIONS: Session[] = [
+  {
+    id: '1',
+    date: { day: '14', month: 'NOV' },
+    title: 'The Future of Sovereign Wealth Funds',
+    description: 'Join Dr. Amara Diop for an in-depth analysis of African national investment strategies.',
+    type: 'VIRTUAL EVENT',
+    location: 'PAN-AFRICAN ZOOM',
+    attendees: '1.2K SILENT'
+  },
+  {
+    id: '2',
+    date: { day: '22', month: 'NOV' },
+    title: 'Agribusiness Supply Chain Summit',
+    description: 'Solving the last-mile delivery challenge for agricultural exports in the region.',
+    type: 'ON-CAMPUS CONF',
+    location: 'EMBA HALL',
+    attendees: '250 SEATS'
+  }
+];
+
+export const DEADLINES: Deadline[] = [
+  { id: '1', date: 'MAR 15, 2024', title: 'Innovation Leadership (Summer Intake)' },
+  { id: '2', date: 'APR 02, 2024', title: 'Venture Building Cohort B' }
+];
+
+export const FAQS: FAQ[] = [
+  { id: '1', question: 'Can I work while studying?', answer: 'Yes, our hybrid and part-time programs are designed for working professionals.' },
+  { id: '2', question: 'Where are the residency weeks held?', answer: 'Residency weeks are held at our main campus and regional hubs across the continent.' },
+  { id: '3', question: 'Is there an application fee?', answer: 'There is a standard application fee of $100, which is waived for scholarship applicants.' }
+];
+
+export const FACULTY: Faculty[] = [
+  { id: '1', name: 'Dr. Amadi Chenzira', role: 'Chancellor & Lead Economist', image: 'https://picsum.photos/seed/amadi/400/400' },
+  { id: '2', name: 'Sarah Mensah, MBA', role: 'Dean of Operations', image: 'https://picsum.photos/seed/sarah/400/400' },
+  { id: '3', name: 'Kofi Adebayo', role: 'Director of Digital Infra', image: 'https://picsum.photos/seed/kofi/400/400' },
+  { id: '4', name: 'Elena Diop', role: 'Chair, Venture Lab', image: 'https://picsum.photos/seed/elena/400/400' }
 ];
