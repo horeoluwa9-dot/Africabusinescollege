@@ -50,7 +50,7 @@ const Hero = () => {
         >
           <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-slate-100 shadow-2xl">
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
               alt="Campus" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
@@ -121,7 +121,7 @@ const FeaturedProgram = () => {
           </div>
           <div className="md:w-1/2 relative overflow-hidden">
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
               alt="Innovation" 
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
               referrerPolicy="no-referrer"
@@ -240,18 +240,18 @@ const Ecosystem = () => {
         <div className="grid grid-cols-2 gap-4 relative">
           <div className="space-y-4">
             <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_12.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_12.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
           </div>
           <div className="space-y-4 pt-12">
             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_14.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_14.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
           </div>
           

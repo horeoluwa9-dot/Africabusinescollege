@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Globe, Share2, Linkedin, Twitter, Youtube, Mail, CheckCircle2, Loader2, ChevronDown } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { Language } from '../translations';
 
 export type Page = 
   | 'home' | 'insights' | 'programs' | 'admissions' | 'experience' | 'about'
@@ -8,7 +10,8 @@ export type Page =
   | 'entrepreneurship' | 'venture-building' | 'digital-business' | 'innovation-leadership'
   | 'community' | 'partnerships' | 'contact'
   | 'privacy' | 'terms' | 'accreditation'
-  | 'login-student' | 'login-faculty';
+  | 'login-student' | 'login-faculty'
+  | 'dashboard-student' | 'dashboard-faculty';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,6 +20,7 @@ interface LayoutProps {
 }
 
 const Newsletter = () => {
+  const { t } = useLanguage();
   const [email, setEmail] = React.useState('');
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'success'>('idle');
 
@@ -85,35 +89,42 @@ const Newsletter = () => {
 };
 
 export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChange }) => {
+  const { language, setLanguage, t, isRTL } = useLanguage();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('EN');
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const navLinks = [
-    { name: 'About', page: 'about' },
-    { name: 'Programs', page: 'programs' },
-    { name: 'Learning', page: 'learning' },
-    { name: 'Simulation Labs', page: 'simulation-labs' },
-    { name: 'Admissions', page: 'admissions' },
-    { name: 'Faculty', page: 'faculty' },
-    { name: 'Community', page: 'community' },
+    { name: t('nav.about'), page: 'about' },
+    { name: t('nav.programs'), page: 'programs' },
+    { name: t('nav.learning'), page: 'learning' },
+    { name: t('nav.simulationLabs'), page: 'simulation-labs' },
+    { name: t('nav.admissions'), page: 'admissions' },
+    { name: t('nav.faculty'), page: 'faculty' },
+    { name: t('nav.community'), page: 'community' },
   ];
 
   const moreLinks = [
-    { name: 'Contact', page: 'contact' },
-    { name: 'Insights', page: 'insights' },
-    { name: 'Partnerships', page: 'partnerships' },
+    { name: t('nav.contact'), page: 'contact' },
+    { name: t('nav.insights'), page: 'insights' },
+    { name: t('nav.partnerships'), page: 'partnerships' },
   ];
 
-  const languages = ['EN', 'FR', 'ZH', 'AR', 'ES'];
+  const languages: { code: Language; name: string }[] = [
+    { code: 'EN', name: 'English' },
+    { code: 'FR', name: 'Français' },
+    { code: 'ZH', name: '中文' },
+    { code: 'AR', name: 'العربية' },
+    { code: 'ES', name: 'Español' },
+  ];
 
   return (
-    <div className="min-h-screen font-sans bg-white">
+    <div className={`min-h-screen font-sans bg-white ${isRTL ? 'text-right' : 'text-left'}`}>
       <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl py-3 border-b border-slate-100">
         <div className="max-w-[1600px] mx-auto px-6 flex justify-between items-center">
           {/* LEFT: LOGO */}
           <div 
-            className="flex items-center space-x-3 cursor-pointer group shrink-0"
+            className={`flex items-center space-x-3 cursor-pointer group shrink-0 ${isRTL ? 'space-x-reverse' : ''}`}
             onClick={() => onPageChange('home')}
           >
             <img 
@@ -125,10 +136,10 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
           </div>
           
           {/* CENTER: NAV LINKS */}
-          <div className="hidden xl:flex items-center space-x-0.5">
+          <div className={`hidden xl:flex items-center space-x-0.5 ${isRTL ? 'space-x-reverse' : ''}`}>
             {navLinks.map((item) => (
               <button 
-                key={item.name} 
+                key={item.page} 
                 onClick={() => onPageChange(item.page as Page)}
                 className={`px-3 py-2 text-[9px] font-black uppercase tracking-widest transition-all rounded-lg relative whitespace-nowrap ${
                   activePage === item.page
@@ -142,8 +153,8 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
             
             {/* MORE DROPDOWN */}
             <div className="relative" onMouseEnter={() => setIsMoreOpen(true)} onMouseLeave={() => setIsMoreOpen(false)}>
-              <button className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 hover:bg-slate-50 rounded-lg flex items-center space-x-1">
-                <span>More</span>
+              <button className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 hover:bg-slate-50 rounded-lg flex items-center space-x-1 ${isRTL ? 'space-x-reverse' : ''}`}>
+                <span>{t('nav.more')}</span>
                 <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isMoreOpen ? 'rotate-180' : ''}`} />
               </button>
               
@@ -153,16 +164,16 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-100 rounded-xl shadow-2xl shadow-slate-200/50 p-2 z-50"
+                    className={`absolute top-full mt-1 w-48 bg-white border border-slate-100 rounded-xl shadow-2xl shadow-slate-200/50 p-2 z-50 ${isRTL ? 'right-0' : 'left-0'}`}
                   >
                     {moreLinks.map((item) => (
                       <button
-                        key={item.name}
+                        key={item.page}
                         onClick={() => {
                           onPageChange(item.page as Page);
                           setIsMoreOpen(false);
                         }}
-                        className="w-full text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors"
+                        className={`w-full text-left px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
                       >
                         {item.name}
                       </button>
@@ -174,12 +185,13 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
           </div>
 
           {/* RIGHT: ACTIONS */}
-          <div className="flex items-center space-x-4">
+          <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse' : ''}`}>
             {/* LANGUAGE SWITCHER */}
             <div className="relative" onMouseEnter={() => setIsLangOpen(true)} onMouseLeave={() => setIsLangOpen(false)}>
-              <button className="flex items-center space-x-1.5 text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors py-2 px-2 rounded-lg hover:bg-slate-50">
+              <button className={`flex items-center space-x-1.5 text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors py-2 px-2 rounded-lg hover:bg-slate-50 ${isRTL ? 'space-x-reverse' : ''}`}>
                 <Globe className="w-3.5 h-3.5" />
-                <span>{currentLang}</span>
+                <span>{language}</span>
+                <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isLangOpen ? 'rotate-180' : ''}`} />
               </button>
               
               <AnimatePresence>
@@ -188,20 +200,20 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full right-0 mt-1 w-24 bg-white border border-slate-100 rounded-xl shadow-2xl shadow-slate-200/50 p-2 z-50"
+                    className={`absolute top-full mt-1 w-32 bg-white border border-slate-100 rounded-xl shadow-2xl shadow-slate-200/50 p-2 z-50 ${isRTL ? 'left-0' : 'right-0'}`}
                   >
                     {languages.map((lang) => (
                       <button
-                        key={lang}
+                        key={lang.code}
                         onClick={() => {
-                          setCurrentLang(lang);
+                          setLanguage(lang.code);
                           setIsLangOpen(false);
                         }}
                         className={`w-full text-center px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-colors ${
-                          currentLang === lang ? 'text-emerald-500 bg-emerald-50' : 'text-slate-500 hover:text-emerald-500 hover:bg-slate-50'
+                          language === lang.code ? 'text-emerald-500 bg-emerald-50' : 'text-slate-500 hover:text-emerald-500 hover:bg-slate-50'
                         }`}
                       >
-                        {lang}
+                        {lang.name}
                       </button>
                     ))}
                   </motion.div>
@@ -209,23 +221,55 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
               </AnimatePresence>
             </div>
 
-            <button 
-              onClick={() => onPageChange('login-student')}
-              className="text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors"
-            >
-              Login
-            </button>
+            {/* LOGIN DROPDOWN */}
+            <div className="relative" onMouseEnter={() => setIsLoginOpen(true)} onMouseLeave={() => setIsLoginOpen(false)}>
+              <button className={`flex items-center space-x-1 text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 transition-colors py-2 px-2 rounded-lg hover:bg-slate-50 ${isRTL ? 'space-x-reverse' : ''}`}>
+                <span>{t('nav.login')}</span>
+                <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isLoginOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {isLoginOpen && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className={`absolute top-full mt-1 w-48 bg-white border border-slate-100 rounded-xl shadow-2xl shadow-slate-200/50 p-2 z-50 ${isRTL ? 'left-0' : 'right-0'}`}
+                  >
+                    <button
+                      onClick={() => {
+                        onPageChange('dashboard-student');
+                        setIsLoginOpen(false);
+                      }}
+                      className={`w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
+                    >
+                      {t('nav.studentLogin')}
+                    </button>
+                    <button
+                      onClick={() => {
+                        onPageChange('dashboard-faculty');
+                        setIsLoginOpen(false);
+                      }}
+                      className={`w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
+                    >
+                      {t('nav.facultyLogin')}
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <button 
               onClick={() => onPageChange('admissions')}
               className="bg-emerald-500 text-white px-5 py-2.5 text-[9px] font-black uppercase tracking-widest rounded-lg hover:bg-emerald-400 transition-all active:scale-95 shadow-lg shadow-emerald-500/20"
             >
-              Apply Now
+              {t('nav.applyNow')}
             </button>
           </div>
         </div>
       </nav>
 
-      <main>{children}</main>
+      <main className="pt-16">{children}</main>
 
       <footer className="bg-botanical-950 relative overflow-hidden">
         {/* Dark Gradient Overlay */}
@@ -233,16 +277,16 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
         
         {/* TOP CTA SECTION */}
         <div className="relative z-10 border-b border-white/5">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col md:flex-row justify-between items-center gap-12">
-            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter text-center md:text-left">
+          <div className={`max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col md:flex-row justify-between items-center gap-12 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
+            <h2 className={`text-4xl md:text-6xl font-black text-white tracking-tighter text-center ${isRTL ? 'md:text-right' : 'md:text-left'}`}>
               Start Learning <br /> by Building
             </h2>
-            <div className="flex flex-col sm:flex-row gap-6">
+            <div className={`flex flex-col sm:flex-row gap-6 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
               <button 
                 onClick={() => onPageChange('admissions')}
                 className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-2xl shadow-emerald-500/20"
               >
-                Apply Now
+                {t('nav.applyNow')}
               </button>
               <button 
                 onClick={() => onPageChange('programs')}
@@ -256,7 +300,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
 
         {/* MAIN FOOTER GRID */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16">
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 ${isRTL ? 'text-right' : 'text-left'}`}>
             {/* COLUMN 1: BRAND */}
             <div className="lg:col-span-4">
               <div 
@@ -268,7 +312,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-10 leading-loose max-w-xs">
                 A virtual-first African business institution building the next generation of entrepreneurs, leaders, and innovators.
               </p>
-              <div className="flex space-x-6">
+              <div className={`flex space-x-6 ${isRTL ? 'space-x-reverse' : ''}`}>
                 <Linkedin className="w-5 h-5 text-slate-500 cursor-pointer hover:text-emerald-500 transition-colors" />
                 <Twitter className="w-5 h-5 text-slate-500 cursor-pointer hover:text-emerald-500 transition-colors" />
                 <Youtube className="w-5 h-5 text-slate-500 cursor-pointer hover:text-emerald-500 transition-colors" />
@@ -280,10 +324,10 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
               <h6 className="text-[10px] font-black uppercase tracking-widest text-white mb-8">About ABC</h6>
               <ul className="space-y-4">
                 {[
-                  { name: 'About', page: 'about' },
-                  { name: 'Faculty', page: 'faculty' },
-                  { name: 'Learning', page: 'learning' },
-                  { name: 'Simulation Labs', page: 'simulation-labs' },
+                  { name: t('nav.about'), page: 'about' },
+                  { name: t('nav.faculty'), page: 'faculty' },
+                  { name: t('nav.learning'), page: 'learning' },
+                  { name: t('nav.simulationLabs'), page: 'simulation-labs' },
                   { name: 'Careers', page: 'careers' }
                 ].map(item => (
                   <li key={item.name}>
@@ -326,10 +370,10 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
               <h6 className="text-[10px] font-black uppercase tracking-widest text-white mb-8">Resources</h6>
               <ul className="space-y-4">
                 {[
-                  { name: 'Insights', page: 'insights' },
-                  { name: 'Community', page: 'community' },
-                  { name: 'Partnerships', page: 'partnerships' },
-                  { name: 'Contact', page: 'contact' }
+                  { name: t('nav.insights'), page: 'insights' },
+                  { name: t('nav.community'), page: 'community' },
+                  { name: t('nav.partnerships'), page: 'partnerships' },
+                  { name: t('nav.contact'), page: 'contact' }
                 ].map(item => (
                   <li key={item.name}>
                     <button 
@@ -352,11 +396,11 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
 
         {/* BOTTOM BAR */}
         <div className="relative z-10 border-t border-white/5 py-12">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className={`max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">
               © 2026 AFRICA BUSINESS COLLEGE
             </p>
-            <div className="flex flex-wrap justify-center gap-8">
+            <div className={`flex flex-wrap justify-center gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
               {[
                 { name: 'Privacy Policy', page: 'privacy' },
                 { name: 'Terms of Service', page: 'terms' },

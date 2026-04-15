@@ -70,7 +70,7 @@ export const Experience = () => {
             ].map((item, i) => (
               <div key={i} className="group cursor-pointer">
                 <div className="aspect-[3/4] rounded-[40px] overflow-hidden relative mb-8">
-                  <img src={i === 0 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_12.png?alt=media&token=48021020-001c-438c-8594-551711200000" : i === 1 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=48021020-001c-438c-8594-551711200000" : "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=48021020-001c-438c-8594-551711200000"} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src={i === 0 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_12.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" : i === 1 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" : "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3"} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/90 via-botanical-950/20 to-transparent" />
                   <div className="absolute top-8 left-8">
                     <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">{item.tag}</span>
@@ -152,7 +152,7 @@ export const Experience = () => {
               ].map((mentor, i) => (
                 <div key={i} className="bg-slate-50 p-8 rounded-3xl flex items-center space-x-6">
                   <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-200 shrink-0">
-                    <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt={mentor.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={mentor.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </div>
                   <div>
                     <h4 className="font-black text-botanical-950 uppercase tracking-tight">{mentor.name}</h4>

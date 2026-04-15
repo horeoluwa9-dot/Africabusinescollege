@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Play, BookOpen, Target, Zap, Globe, Landmark, Users, ArrowRight, Quote } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const SimulationLabs = () => {
+  const { t } = useLanguage();
   return (
     <div className="pt-24">
       {/* Hero Section */}
@@ -44,7 +46,7 @@ export const SimulationLabs = () => {
           >
             <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_8.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_8.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
                 alt="Simulation Lab" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -105,7 +107,7 @@ export const SimulationLabs = () => {
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="aspect-square rounded-3xl overflow-hidden shadow-xl">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Sim 1" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Sim 1" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
                 <div className="aspect-square rounded-3xl bg-emerald-400 flex items-center justify-center p-12">
                   <Zap className="w-full h-full text-white" />
@@ -116,7 +118,7 @@ export const SimulationLabs = () => {
                   <Target className="w-full h-full text-emerald-500" />
                 </div>
                 <div className="aspect-square rounded-3xl overflow-hidden shadow-xl">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Sim 2" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Sim 2" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
               </div>
             </div>

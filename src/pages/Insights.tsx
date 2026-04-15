@@ -32,7 +32,7 @@ export const Insights = () => {
             className="mt-16 relative rounded-[40px] overflow-hidden aspect-[21/9] min-h-[400px] group cursor-pointer"
           >
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_5.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_5.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
               alt="Featured Report" 
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
               referrerPolicy="no-referrer"
@@ -111,7 +111,7 @@ export const Insights = () => {
             ].map((insight, i) => (
               <div key={i} className="group cursor-pointer">
                 <div className="aspect-video rounded-[32px] overflow-hidden mb-8 shadow-sm">
-                  <img src={i === 0 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_0.png?alt=media&token=48021020-001c-438c-8594-551711200000" : i === 1 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_6.png?alt=media&token=48021020-001c-438c-8594-551711200000" : "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_9.png?alt=media&token=48021020-001c-438c-8594-551711200000"} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src={i === 0 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_0.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" : i === 1 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_6.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" : "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_9.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3"} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                 </div>
                 <div className="flex items-center space-x-4 mb-4">
                   <span className="text-emerald-500 text-[8px] font-black uppercase tracking-widest">{insight.cat}</span>
@@ -227,7 +227,7 @@ export const Insights = () => {
             ].map((voice, i) => (
               <div key={i} className="text-center group">
                 <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mx-auto mb-8 border-4 border-white/5 group-hover:border-emerald-500 transition-all duration-500">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt={voice.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" referrerPolicy="no-referrer" />
+                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={voice.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" referrerPolicy="no-referrer" />
                 </div>
                 <h4 className="text-xl font-black uppercase tracking-tight mb-2">{voice.name}</h4>
                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{voice.role}</p>

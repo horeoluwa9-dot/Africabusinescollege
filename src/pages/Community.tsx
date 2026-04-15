@@ -42,7 +42,7 @@ export const Community = () => {
           >
             <div className="aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
                 alt="Community" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -139,7 +139,7 @@ export const Community = () => {
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="relative rounded-[40px] overflow-hidden aspect-video">
-            <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Cohort" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Cohort" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             <div className="absolute inset-0 bg-emerald-500/10" />
           </div>
           <div>
@@ -180,7 +180,7 @@ export const Community = () => {
             ].map((event, i) => (
               <div key={i} className="bg-white rounded-[40px] overflow-hidden border border-slate-100 group">
                 <div className="aspect-video relative overflow-hidden">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                   <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-botanical-950">
                     {event.date}
                   </div>

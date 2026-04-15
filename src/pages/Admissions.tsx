@@ -108,7 +108,7 @@ const SelectionJourney = () => {
               Our selection process is rigorous, designed to identify visionaries who possess both the intellect and the character to lead the continent.
             </p>
             <div className="aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Journey" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
+              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Journey" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
             </div>
           </div>
 
@@ -274,7 +274,7 @@ const FinalCTA = () => {
   return (
     <section className="py-32 bg-emerald-500 relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
-        <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Lead" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
+        <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Lead" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
       </div>
       <div className="absolute inset-0 bg-emerald-500/80" />
       

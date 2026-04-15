@@ -50,7 +50,7 @@ export const Faculty = () => {
           >
             <div className="aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_2.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_2.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
                 alt="Featured Faculty" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -94,7 +94,7 @@ export const Faculty = () => {
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="relative rounded-[40px] overflow-hidden aspect-[4/5] shadow-2xl">
-            <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Elena Vance" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Elena Vance" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             <div className="absolute bottom-0 left-0 p-12 bg-gradient-to-t from-botanical-950/90 to-transparent w-full">
               <h3 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter">Elena Vance</h3>
               <p className="text-emerald-400 font-black uppercase tracking-widest text-xs">Head of Emerging Markets at Apex Ventures</p>
@@ -150,7 +150,7 @@ export const Faculty = () => {
             ].map((faculty, i) => (
               <div key={i} className="bg-white rounded-[40px] overflow-hidden border border-slate-100 group">
                 <div className="aspect-[3/4] relative overflow-hidden">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_2.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt={faculty.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
+                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_2.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={faculty.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
                   <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-[8px] font-black uppercase tracking-widest text-botanical-950">
                     {faculty.tag}
                   </div>
@@ -217,7 +217,7 @@ export const Faculty = () => {
             ].map((article, i) => (
               <div key={i} className="group cursor-pointer">
                 <div className="aspect-video rounded-[40px] overflow-hidden mb-8 shadow-sm">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_5.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_5.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">BY {article.author}</span>
                 <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tighter leading-tight group-hover:text-emerald-500 transition-colors">{article.title}</h3>

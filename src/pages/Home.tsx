@@ -8,8 +8,10 @@ import {
 } from 'lucide-react';
 import { PROGRAMS, LABS, STUDIO_TOOLS, SESSIONS } from '../constants';
 import { Program, Lab, StudioTool, Session } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Hero = () => {
+  const { t } = useLanguage();
   return (
     <section className="relative bg-botanical-950 pt-48 pb-32 overflow-hidden">
       <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_70%)]" />
@@ -21,22 +23,22 @@ const Hero = () => {
         >
           <div className="flex items-center space-x-4 mb-8">
             <div className="h-px w-12 bg-emerald-500" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">Institutional Excellence</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">{t('home.institutionalExcellence')}</span>
           </div>
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-white mb-8">
-            A New <br />
-            Generation of <br />
-            <span className="text-emerald-500 luminescence-glow">African Business Leadership</span>
+            {t('home.heroTitle').split(' ').slice(0, 2).join(' ')} <br />
+            {t('home.heroTitle').split(' ').slice(2, 4).join(' ')} <br />
+            <span className="text-emerald-500 luminescence-glow">{t('home.heroTitle').split(' ').slice(4).join(' ')}</span>
           </h1>
           <p className="text-lg text-slate-400 leading-relaxed font-medium max-w-lg mb-12">
-            Empowering the continent's brightest minds through sovereign leadership, simulation-driven learning, and global strategic insights.
+            {t('home.heroSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-6">
             <button className="bg-emerald-500 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-xl shadow-emerald-500/20">
-              Explore Programs
+              {t('home.explorePrograms')}
             </button>
             <button className="border border-white/20 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all active:scale-95">
-              View Research
+              {t('home.viewResearch')}
             </button>
           </div>
         </motion.div>
@@ -49,7 +51,7 @@ const Hero = () => {
         >
           <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 relative group">
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
               alt="Leadership" 
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
               referrerPolicy="no-referrer"
@@ -150,10 +152,16 @@ const Ecosystem = () => {
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div className="relative">
-          <div className="aspect-[4/3] bg-botanical-950 rounded-3xl p-12 flex items-center justify-center overflow-hidden">
+          <div className="aspect-[4/3] bg-botanical-950 rounded-3xl p-12 flex items-center justify-center overflow-hidden group">
+            <img 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              alt="Ecosystem" 
+              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
+              referrerPolicy="no-referrer"
+            />
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,#00D98E_0%,transparent_70%)]" />
             <div className="relative z-10 w-full max-w-md">
-              <div className="bg-slate-800 rounded-2xl p-4 shadow-2xl border border-white/10">
+              <div className="bg-slate-800/80 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-white/10">
                 <div className="aspect-video bg-botanical-950 rounded-lg flex items-center justify-center border border-white/5">
                   <span className="text-emerald-500 font-black tracking-widest text-[10px] uppercase">Learning Platform</span>
                 </div>
@@ -204,7 +212,13 @@ const SimulationLabs = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Large Lab */}
-          <div className="lg:col-span-5 bg-botanical-950 rounded-3xl p-12 relative overflow-hidden group cursor-pointer">
+          <div className="lg:col-span-5 bg-botanical-950 rounded-3xl p-12 relative overflow-hidden group cursor-pointer min-h-[400px]">
+            <img 
+              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_8.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              alt="War Room" 
+              className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000"
+              referrerPolicy="no-referrer"
+            />
             <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:opacity-20 transition-opacity">
               <div className="w-32 h-32 border-4 border-emerald-500 rounded-full" />
             </div>
@@ -307,6 +321,12 @@ const Sessions = () => {
 const CTA = () => {
   return (
     <section className="py-32 bg-botanical-950 relative overflow-hidden">
+      <img 
+        src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+        alt="CTA Background" 
+        className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale"
+        referrerPolicy="no-referrer"
+      />
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_bottom_left,#00D98E_0%,transparent_70%)]" />
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8 leading-none">

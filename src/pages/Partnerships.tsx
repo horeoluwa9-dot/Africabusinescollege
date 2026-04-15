@@ -34,7 +34,7 @@ export const Partnerships = () => {
           >
             <div className="aspect-[4/3] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
                 alt="Partnerships" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -124,7 +124,7 @@ export const Partnerships = () => {
 
             {/* Global Network Expansion */}
             <div className="lg:col-span-8 relative rounded-[40px] overflow-hidden group min-h-[400px]">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=48021020-001c-438c-8594-551711200000" alt="Network" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Network" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
               <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/80 via-botanical-950/20 to-transparent" />
               <div className="absolute bottom-0 left-0 p-12">
                 <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Global Network Expansion</h3>

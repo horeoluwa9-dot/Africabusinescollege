@@ -30,7 +30,7 @@ export const Contact = () => {
           >
             <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_0.png?alt=media&token=48021020-001c-438c-8594-551711200000" 
+                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_0.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
                 alt="ABC Campus" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

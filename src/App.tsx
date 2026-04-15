@@ -17,9 +17,44 @@ import { Community } from './pages/Community';
 import { Faculty } from './pages/Faculty';
 import { Contact } from './pages/Contact';
 import { GenericPage } from './components/GenericPage';
+import { StudentDashboard } from './pages/dashboards/StudentDashboard';
+import { FacultyDashboard } from './pages/dashboards/FacultyDashboard';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 export default function App() {
-  const [activePage, setActivePage] = useState<Page>('home');
+  const [activePage, setActivePage] = useState<Page>(() => {
+    const path = window.location.pathname;
+    if (path === '/dashboard/student') return 'dashboard-student';
+    if (path === '/dashboard/faculty') return 'dashboard-faculty';
+    return 'home';
+  });
+
+  // Handle URL changes (for dashboard links)
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === '/dashboard/student') setActivePage('dashboard-student');
+      else if (path === '/dashboard/faculty') setActivePage('dashboard-faculty');
+      else setActivePage('home');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Update URL when page changes
+  useEffect(() => {
+    if (activePage === 'dashboard-student') {
+      window.history.pushState({}, '', '/dashboard/student');
+    } else if (activePage === 'dashboard-faculty') {
+      window.history.pushState({}, '', '/dashboard/faculty');
+    } else {
+      // For other pages, we could use URL prefixes like /en/about but for now let's keep it simple
+      // and just clear the path if it's a main page
+      if (window.location.pathname.startsWith('/dashboard')) {
+        window.history.pushState({}, '', '/');
+      }
+    }
+  }, [activePage]);
 
   // Scroll to top on page change
   useEffect(() => {
@@ -40,6 +75,12 @@ export default function App() {
         return <Experience />;
       case 'about':
         return <About />;
+      
+      // Dashboards
+      case 'dashboard-student':
+        return <StudentDashboard />;
+      case 'dashboard-faculty':
+        return <FacultyDashboard />;
       
       // Footer & Missing Pages
       case 'faculty':
@@ -82,9 +123,22 @@ export default function App() {
     }
   };
 
+  // Don't show layout on dashboard pages
+  const isDashboard = activePage.startsWith('dashboard-');
+
+  if (isDashboard) {
+    return (
+      <LanguageProvider>
+        {renderPage()}
+      </LanguageProvider>
+    );
+  }
+
   return (
-    <Layout activePage={activePage} onPageChange={setActivePage}>
-      {renderPage()}
-    </Layout>
+    <LanguageProvider>
+      <Layout activePage={activePage} onPageChange={setActivePage}>
+        {renderPage()}
+      </Layout>
+    </LanguageProvider>
   );
 }
