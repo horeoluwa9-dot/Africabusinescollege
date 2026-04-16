@@ -16,11 +16,18 @@ import {
   ArrowRight,
   MoreHorizontal,
   Plus,
-  Mail
+  Mail,
+  LogOut,
+  Home as HomeIcon
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { Page } from '../../components/Layout';
 
-export const StudentDashboard = () => {
+interface DashboardProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
   const { t, isRTL } = useLanguage();
 
   const sidebarItems = [
@@ -38,8 +45,11 @@ export const StudentDashboard = () => {
     <div className="flex min-h-screen bg-slate-50 font-sans text-slate-900">
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-slate-200 p-6 flex flex-col shrink-0">
-        <div className="mb-10">
-          <h1 className="text-xl font-black tracking-tighter text-botanical-950">ABC Dashboard</h1>
+        <div 
+          className="mb-10 cursor-pointer group"
+          onClick={() => onPageChange('home')}
+        >
+          <h1 className="text-xl font-black tracking-tighter text-botanical-950 group-hover:text-emerald-500 transition-colors">ABC Dashboard</h1>
           <p className="text-[8px] font-black uppercase tracking-widest text-slate-400">Global Leadership</p>
         </div>
 
@@ -58,6 +68,23 @@ export const StudentDashboard = () => {
             </button>
           ))}
         </nav>
+
+        <div className="mt-auto space-y-2">
+          <button 
+            onClick={() => onPageChange('home')}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-all"
+          >
+            <HomeIcon className="w-5 h-5" />
+            <span className="text-sm">Back to Site</span>
+          </button>
+          <button 
+            onClick={() => onPageChange('home')}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 transition-all"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="text-sm">Logout</span>
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}
@@ -84,7 +111,7 @@ export const StudentDashboard = () => {
                 <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">MBA Candidate</div>
               </div>
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" 
                 alt="Profile" 
                 className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
                 referrerPolicy="no-referrer"

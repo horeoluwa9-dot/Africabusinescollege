@@ -8,7 +8,7 @@ export const ARTICLES: Article[] = [
     readTime: '8 Min Read',
     excerpt: 'How decentralization and localized energy grids are transforming the blueprint of the African metropolis.',
     author: 'Amara Okafor',
-    image: 'https://picsum.photos/seed/urban/800/500'
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=50'
   },
   {
     id: '2',
@@ -17,7 +17,7 @@ export const ARTICLES: Article[] = [
     readTime: '15 Min Read',
     excerpt: 'Analyzing the regulatory shifts enabling seamless capital flow across the continental free trade zone.',
     author: 'Kofi Mensah',
-    image: 'https://picsum.photos/seed/markets/800/500'
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=50'
   },
   {
     id: '3',
@@ -26,7 +26,7 @@ export const ARTICLES: Article[] = [
     readTime: '10 Min Read',
     excerpt: 'Why the most successful African CEOs are prioritizing long-term social utility over short-term dividends.',
     author: 'Fatima Diop',
-    image: 'https://picsum.photos/seed/strategy/800/500'
+    image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=50'
   }
 ];
 
@@ -73,25 +73,25 @@ export const CONTRIBUTORS: Contributor[] = [
     id: '1',
     name: 'Dr. Olowu Ade',
     role: 'Policy Lead',
-    image: 'https://picsum.photos/seed/ade/400/400'
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=50'
   },
   {
     id: '2',
     name: 'Zara Ibrahim',
     role: 'Market Analyst',
-    image: 'https://picsum.photos/seed/zara/400/400'
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=50'
   },
   {
     id: '3',
     name: 'Joel Tsegaye',
     role: 'Senior Fellow',
-    image: 'https://picsum.photos/seed/joel/400/400'
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=50'
   },
   {
     id: '4',
     name: 'Nia Mbeki',
     role: 'Venture Partner',
-    image: 'https://picsum.photos/seed/nia/400/400'
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=50'
   }
 ];
 
@@ -247,8 +247,8 @@ export const FAQS: FAQ[] = [
 ];
 
 export const FACULTY: Faculty[] = [
-  { id: '1', name: 'Dr. Amadi Chenzira', role: 'Chancellor & Lead Economist', image: 'https://picsum.photos/seed/amadi/400/400' },
-  { id: '2', name: 'Sarah Mensah, MBA', role: 'Dean of Operations', image: 'https://picsum.photos/seed/sarah/400/400' },
-  { id: '3', name: 'Kofi Adebayo', role: 'Director of Digital Infra', image: 'https://picsum.photos/seed/kofi/400/400' },
-  { id: '4', name: 'Elena Diop', role: 'Chair, Venture Lab', image: 'https://picsum.photos/seed/elena/400/400' }
+  { id: '1', name: 'Dr. Amadi Chenzira', role: 'Chancellor & Lead Economist', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=50' },
+  { id: '2', name: 'Sarah Mensah, MBA', role: 'Dean of Operations', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=50' },
+  { id: '3', name: 'Kofi Adebayo', role: 'Director of Digital Infra', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=50' },
+  { id: '4', name: 'Elena Diop', role: 'Chair, Venture Lab', image: 'https://images.unsplash.com/photo-1567532939847-8a5556c1fe3c?auto=format&fit=crop&w=400&q=50' }
 ];

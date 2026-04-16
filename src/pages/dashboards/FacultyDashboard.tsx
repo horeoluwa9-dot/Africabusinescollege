@@ -21,11 +21,18 @@ import {
   Users2,
   Clock,
   BarChart3,
-  PieChart
+  PieChart,
+  LogOut,
+  Home as HomeIcon
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { Page } from '../../components/Layout';
 
-export const FacultyDashboard = () => {
+interface DashboardProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const FacultyDashboard = ({ onPageChange }: DashboardProps) => {
   const { t, isRTL } = useLanguage();
 
   const sidebarItems = [
@@ -43,8 +50,11 @@ export const FacultyDashboard = () => {
     <div className="flex min-h-screen bg-slate-50 font-sans text-slate-900">
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-slate-200 p-6 flex flex-col shrink-0">
-        <div className="mb-10">
-          <h1 className="text-xl font-black tracking-tighter text-botanical-950">ABC Dashboard</h1>
+        <div 
+          className="mb-10 cursor-pointer group"
+          onClick={() => onPageChange('home')}
+        >
+          <h1 className="text-xl font-black tracking-tighter text-botanical-950 group-hover:text-emerald-500 transition-colors">ABC Dashboard</h1>
           <p className="text-[8px] font-black uppercase tracking-widest text-slate-400">Global Leadership</p>
         </div>
 
@@ -64,9 +74,26 @@ export const FacultyDashboard = () => {
           ))}
         </nav>
 
+        <div className="mt-8 space-y-2 mb-8">
+          <button 
+            onClick={() => onPageChange('home')}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-all"
+          >
+            <HomeIcon className="w-5 h-5" />
+            <span className="text-sm">Back to Site</span>
+          </button>
+          <button 
+            onClick={() => onPageChange('home')}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 transition-all"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="text-sm">Logout</span>
+          </button>
+        </div>
+
         <div className="mt-auto p-4 bg-slate-100 rounded-2xl flex items-center space-x-3">
           <img 
-            src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" 
             alt="Faculty" 
             className="w-10 h-10 rounded-full object-cover grayscale"
             referrerPolicy="no-referrer"
@@ -197,8 +224,12 @@ export const FacultyDashboard = () => {
                   <div className="flex justify-between items-center mb-8">
                     <h4 className="text-xl font-black text-botanical-950 tracking-tight">Student Monitoring</h4>
                     <div className="flex -space-x-2">
-                      {[1, 2, 3].map(i => (
-                        <img key={i} src={`https://picsum.photos/seed/stu${i}/100/100`} className="w-8 h-8 rounded-full border-2 border-white object-cover" referrerPolicy="no-referrer" />
+                      {[
+                        "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80",
+                        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80",
+                        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                      ].map((src, i) => (
+                        <img key={i} src={src} className="w-8 h-8 rounded-full border-2 border-white object-cover" referrerPolicy="no-referrer" />
                       ))}
                       <div className="w-8 h-8 rounded-full bg-slate-100 border-2 border-white flex items-center justify-center text-[8px] font-black text-slate-400">+14</div>
                     </div>
@@ -294,7 +325,7 @@ export const FacultyDashboard = () => {
                 {/* Insight Card */}
                 <div className="bg-emerald-900 rounded-[32px] p-8 text-white relative overflow-hidden group cursor-pointer">
                   <div className="absolute inset-0 opacity-20">
-                    <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </div>
                   <div className="relative z-10">
                     <h4 className="text-xl font-black mb-4">Student Insight of the Week</h4>

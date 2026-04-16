@@ -126,7 +126,7 @@ const MarketFocus = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div className="relative">
           <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
-            <img src="https://picsum.photos/seed/market/1000/1000?grayscale" alt="Market" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80" alt="Market" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
           </div>
           <div className="absolute -bottom-12 -right-12 bg-white p-12 rounded-3xl shadow-2xl max-w-xs border border-slate-100">
             <p className="text-lg font-black text-botanical-950 italic">
@@ -186,7 +186,7 @@ const TechSection = () => {
 
         <div className="relative">
           <div className="bg-white p-4 rounded-3xl shadow-2xl border border-slate-100">
-            <img src="https://picsum.photos/seed/tech/800/600" alt="Tech" className="w-full h-full rounded-2xl object-cover" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1551288049-bbda4833effb?auto=format&fit=crop&w=800&q=80" alt="Tech" className="w-full h-full rounded-2xl object-cover" referrerPolicy="no-referrer" />
           </div>
         </div>
       </div>

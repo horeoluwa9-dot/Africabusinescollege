@@ -12,7 +12,13 @@ import {
 import { PROGRAMS, DEADLINES } from '../constants';
 import { ProgramDetail } from '../types';
 
-const Hero = () => {
+import { Page } from '../components/Layout';
+
+interface ProgramsProps {
+  onPageChange: (page: Page) => void;
+}
+
+const Hero = ({ onPageChange }: ProgramsProps) => {
   return (
     <section className="pt-48 pb-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -33,7 +39,10 @@ const Hero = () => {
             Architecture of the next generation of African business leaders. Our programs blend institutional stability with technological velocity to prepare you for the global stage.
           </p>
           <div className="flex flex-col sm:flex-row gap-6">
-            <button className="bg-botanical-950 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all active:scale-95 shadow-xl">
+            <button 
+              onClick={() => onPageChange('admissions')}
+              className="bg-botanical-950 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all active:scale-95 shadow-xl"
+            >
               View All Paths
             </button>
             <button className="bg-slate-100 text-botanical-950 px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all active:scale-95">
@@ -50,7 +59,7 @@ const Hero = () => {
         >
           <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-slate-100 shadow-2xl">
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              src="https://images.unsplash.com/photo-1541339907198-e08759dfeb3f?auto=format&fit=crop&w=800&q=80" 
               alt="Campus" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
@@ -88,7 +97,7 @@ const FilterBar = () => {
   );
 };
 
-const FeaturedProgram = () => {
+const FeaturedProgram = ({ onPageChange }: ProgramsProps) => {
   const featured = PROGRAMS.find(p => p.tag === 'FEATURED');
   if (!featured) return null;
 
@@ -115,13 +124,19 @@ const FeaturedProgram = () => {
                 </div>
               </div>
             </div>
-            <button className="bg-botanical-950 text-white px-8 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl mt-12 hover:bg-emerald-500 transition-all self-start">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                onPageChange('application');
+              }}
+              className="bg-botanical-950 text-white px-8 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl mt-12 hover:bg-emerald-500 transition-all self-start"
+            >
               Apply for Fellowship
             </button>
           </div>
           <div className="md:w-1/2 relative overflow-hidden">
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" 
               alt="Innovation" 
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
               referrerPolicy="no-referrer"
@@ -140,10 +155,14 @@ const FeaturedProgram = () => {
               Join a curated network of 40 global leaders per intake for radical peer-to-peer learning.
             </p>
             <div className="flex -space-x-3">
-              {[1, 2, 3].map(i => (
+              {[
+                "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80",
+                "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+              ].map((src, i) => (
                 <img 
                   key={i}
-                  src={`https://picsum.photos/seed/user${i}/100/100`} 
+                  src={src} 
                   alt="User" 
                   className="w-10 h-10 rounded-full border-2 border-white object-cover"
                   referrerPolicy="no-referrer"
@@ -240,18 +259,18 @@ const Ecosystem = () => {
         <div className="grid grid-cols-2 gap-4 relative">
           <div className="space-y-4">
             <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://images.unsplash.com/photo-1551288049-bbda4833effb?auto=format&fit=crop&w=400&q=80" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_12.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://images.unsplash.com/photo-1522071823991-b1ae5e6a3058?auto=format&fit=crop&w=400&q=80" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
           </div>
           <div className="space-y-4 pt-12">
             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://images.unsplash.com/photo-1518186239751-2467ef4f5ca1?auto=format&fit=crop&w=400&q=80" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_14.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=400&q=80" alt="Eco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
           </div>
           
@@ -297,7 +316,7 @@ const Comparison = () => {
   );
 };
 
-const Deadlines = () => {
+const Deadlines = ({ onPageChange }: ProgramsProps) => {
   return (
     <section className="bg-botanical-950 py-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
@@ -310,7 +329,10 @@ const Deadlines = () => {
                   <div className="text-[8px] font-black uppercase tracking-widest text-emerald-500 mb-2">{d.date}</div>
                   <h4 className="text-xl font-black text-white">{d.title}</h4>
                 </div>
-                <button className="bg-emerald-500 text-white px-8 py-3 text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-emerald-400 transition-all">
+                <button 
+                  onClick={() => onPageChange('application')}
+                  className="bg-emerald-500 text-white px-8 py-3 text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-emerald-400 transition-all"
+                >
                   Apply
                 </button>
               </div>
@@ -330,7 +352,7 @@ const Deadlines = () => {
             </p>
             <div className="flex items-center space-x-6">
               <img 
-                src="https://picsum.photos/seed/kofi/100/100" 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" 
                 alt="Kofi" 
                 className="w-16 h-16 rounded-full border-2 border-emerald-500 object-cover"
                 referrerPolicy="no-referrer"
@@ -347,16 +369,16 @@ const Deadlines = () => {
   );
 };
 
-export const Programs = () => {
+export const Programs = ({ onPageChange }: ProgramsProps) => {
   return (
     <>
-      <Hero />
+      <Hero onPageChange={onPageChange} />
       <FilterBar />
-      <FeaturedProgram />
+      <FeaturedProgram onPageChange={onPageChange} />
       <ProgramGrid />
       <Ecosystem />
       <Comparison />
-      <Deadlines />
+      <Deadlines onPageChange={onPageChange} />
     </>
   );
 };

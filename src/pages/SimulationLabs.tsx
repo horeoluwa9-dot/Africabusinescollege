@@ -46,7 +46,7 @@ export const SimulationLabs = () => {
           >
             <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_8.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+                src="https://images.unsplash.com/photo-1551288049-bbda4833effb?auto=format&fit=crop&w=800&q=80" 
                 alt="Simulation Lab" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -107,7 +107,7 @@ export const SimulationLabs = () => {
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="aspect-square rounded-3xl overflow-hidden shadow-xl">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Sim 1" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Sim 1" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
                 <div className="aspect-square rounded-3xl bg-emerald-400 flex items-center justify-center p-12">
                   <Zap className="w-full h-full text-white" />
@@ -118,7 +118,7 @@ export const SimulationLabs = () => {
                   <Target className="w-full h-full text-emerald-500" />
                 </div>
                 <div className="aspect-square rounded-3xl overflow-hidden shadow-xl">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Sim 2" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1518186239751-2467ef4f5ca1?auto=format&fit=crop&w=400&q=80" alt="Sim 2" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
               </div>
             </div>
@@ -262,7 +262,7 @@ export const SimulationLabs = () => {
             </p>
             <div className="flex items-center justify-center space-x-4">
               <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-200">
-                <img src="https://picsum.photos/seed/elena/100/100" alt="Dr. Elena Vance" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" alt="Dr. Elena Vance" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
               <div className="text-left">
                 <h4 className="font-black text-botanical-950 uppercase tracking-tight">Dr. Elena Vance</h4>

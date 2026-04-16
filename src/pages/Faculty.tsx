@@ -31,9 +31,13 @@ export const Faculty = () => {
               </button>
               <div className="flex items-center space-x-4">
                 <div className="flex -space-x-3">
-                  {[1, 2, 3].map(i => (
+                  {[
+                    "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80",
+                    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80",
+                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                  ].map((src, i) => (
                     <div key={i} className="w-12 h-12 rounded-full border-4 border-white overflow-hidden bg-slate-200">
-                      <img src={`https://picsum.photos/seed/faculty${i}/100/100`} alt="Faculty" referrerPolicy="no-referrer" />
+                      <img src={src} alt="Faculty" referrerPolicy="no-referrer" />
                     </div>
                   ))}
                 </div>
@@ -50,7 +54,7 @@ export const Faculty = () => {
           >
             <div className="aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_2.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" 
                 alt="Featured Faculty" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -94,7 +98,7 @@ export const Faculty = () => {
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="relative rounded-[40px] overflow-hidden aspect-[4/5] shadow-2xl">
-            <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Elena Vance" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Elena Vance" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             <div className="absolute bottom-0 left-0 p-12 bg-gradient-to-t from-botanical-950/90 to-transparent w-full">
               <h3 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter">Elena Vance</h3>
               <p className="text-emerald-400 font-black uppercase tracking-widest text-xs">Head of Emerging Markets at Apex Ventures</p>
@@ -143,14 +147,14 @@ export const Faculty = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { name: 'Marcus Thorne', role: 'Founder, Neobank Nigeria', tag: 'ENTREPRENEURS', sub: ['FINTECH', 'SCALING'] },
-              { name: 'Zara El-Amin', role: 'Partner, Blue Ocean Capital', tag: 'INVESTORS', sub: ['M&A', 'GOVERNANCE'] },
-              { name: 'David Okafor', role: 'COO, Pan-African Logistics', tag: 'OPERATORS', sub: ['OPERATIONS', 'SUPPLY CHAIN'] },
-              { name: 'Amara Diop', role: 'Former Minister of Innovation', tag: 'POLICY LEADERS', sub: ['PUBLIC POLICY', 'REGULATION'] }
+              { name: 'Marcus Thorne', role: 'Founder, Neobank Nigeria', tag: 'ENTREPRENEURS', sub: ['FINTECH', 'SCALING'], img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80' },
+              { name: 'Zara El-Amin', role: 'Partner, Blue Ocean Capital', tag: 'INVESTORS', sub: ['M&A', 'GOVERNANCE'], img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80' },
+              { name: 'David Okafor', role: 'COO, Pan-African Logistics', tag: 'OPERATORS', sub: ['OPERATIONS', 'SUPPLY CHAIN'], img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80' },
+              { name: 'Amara Diop', role: 'Former Minister of Innovation', tag: 'POLICY LEADERS', sub: ['PUBLIC POLICY', 'REGULATION'], img: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=600&q=80' }
             ].map((faculty, i) => (
               <div key={i} className="bg-white rounded-[40px] overflow-hidden border border-slate-100 group">
                 <div className="aspect-[3/4] relative overflow-hidden">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_2.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={faculty.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
+                  <img src={faculty.img} alt={faculty.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
                   <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-[8px] font-black uppercase tracking-widest text-botanical-950">
                     {faculty.tag}
                   </div>
@@ -211,13 +215,13 @@ export const Faculty = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { author: 'David Okafor', title: 'Optimizing Last-Mile Logistics in Megacities', img: 'logistics' },
-              { author: 'Amara Diop', title: 'Regulatory Sandbox: A Guide for Tech Founders', img: 'regulatory' },
-              { author: 'Zara El-Amin', title: 'Exit Strategies for African Tech Startups', img: 'exit' }
+              { author: 'David Okafor', title: 'Optimizing Last-Mile Logistics in Megacities', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' },
+              { author: 'Amara Diop', title: 'Regulatory Sandbox: A Guide for Tech Founders', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80' },
+              { author: 'Zara El-Amin', title: 'Exit Strategies for African Tech Startups', img: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80' }
             ].map((article, i) => (
               <div key={i} className="group cursor-pointer">
                 <div className="aspect-video rounded-[40px] overflow-hidden mb-8 shadow-sm">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_5.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src={article.img} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                 </div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">BY {article.author}</span>
                 <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tighter leading-tight group-hover:text-emerald-500 transition-colors">{article.title}</h3>

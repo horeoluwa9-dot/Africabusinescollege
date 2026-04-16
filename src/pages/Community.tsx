@@ -42,7 +42,7 @@ export const Community = () => {
           >
             <div className="aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" 
                 alt="Community" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -53,9 +53,14 @@ export const Community = () => {
               <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/20">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="flex -space-x-3">
-                    {[1, 2, 3, 4].map(i => (
+                    {[
+                      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80",
+                      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80",
+                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",
+                      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80"
+                    ].map((src, i) => (
                       <div key={i} className="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-slate-200">
-                        <img src={`https://picsum.photos/seed/user${i}/100/100`} alt="User" referrerPolicy="no-referrer" />
+                        <img src={src} alt="User" referrerPolicy="no-referrer" />
                       </div>
                     ))}
                     <div className="w-10 h-10 rounded-full border-2 border-white bg-emerald-500 flex items-center justify-center text-[10px] font-black text-white">
@@ -88,9 +93,13 @@ export const Community = () => {
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex -space-x-2">
-                {[5, 6, 7].map(i => (
+                {[
+                  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80",
+                  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80",
+                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                ].map((src, i) => (
                   <div key={i} className="w-12 h-12 rounded-full border-4 border-white overflow-hidden bg-slate-200">
-                    <img src={`https://picsum.photos/seed/alumni${i}/100/100`} alt="Alumni" referrerPolicy="no-referrer" />
+                    <img src={src} alt="Alumni" referrerPolicy="no-referrer" />
                   </div>
                 ))}
               </div>
@@ -139,7 +148,7 @@ export const Community = () => {
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="relative rounded-[40px] overflow-hidden aspect-video">
-            <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Cohort" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80" alt="Cohort" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             <div className="absolute inset-0 bg-emerald-500/10" />
           </div>
           <div>
@@ -174,13 +183,13 @@ export const Community = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { date: 'DEC 12', title: 'ABC Annual Summit 2024', location: 'Lagos, Nigeria • Hybrid', img: 'summit' },
-              { date: 'JAN 05', title: "Founders' Private Dinner", location: 'Nairobi, Kenya • Invite Only', img: 'dinner' },
-              { date: 'FEB 10', title: 'Regional Meetup: Joburg', location: 'Johannesburg, RSA • In-Person', img: 'meetup' }
+              { date: 'DEC 12', title: 'ABC Annual Summit 2024', location: 'Lagos, Nigeria • Hybrid', img: 'https://images.unsplash.com/photo-1540575861501-7c00117f2404?auto=format&fit=crop&w=800&q=80' },
+              { date: 'JAN 05', title: "Founders' Private Dinner", location: 'Nairobi, Kenya • Invite Only', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80' },
+              { date: 'FEB 10', title: 'Regional Meetup: Joburg', location: 'Johannesburg, RSA • In-Person', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80' }
             ].map((event, i) => (
               <div key={i} className="bg-white rounded-[40px] overflow-hidden border border-slate-100 group">
                 <div className="aspect-video relative overflow-hidden">
-                  <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_3.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src={event.img} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                   <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-botanical-950">
                     {event.date}
                   </div>

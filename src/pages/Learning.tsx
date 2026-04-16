@@ -2,34 +2,55 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Play, BookOpen, Zap, Users, Shield, TrendingUp, ArrowRight, CheckCircle2, Microscope } from 'lucide-react';
 
-export const Experience = () => {
+import { Page } from '../components/Layout';
+
+interface ExperienceProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const Learning = ({ onPageChange }: ExperienceProps) => {
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative py-32 px-6 md:px-12 overflow-hidden bg-white">
+        <div className="absolute inset-0 z-0 opacity-10">
+          <img 
+            src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1920&q=80" 
+            alt="Online Learning" 
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-8">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Architecture of Excellence</span>
+            <div className="inline-flex items-center space-x-2 mb-8">
+              <div className="w-12 h-px bg-emerald-500" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">The ABC Learning Model</span>
             </div>
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] text-botanical-950 mb-12 uppercase">
-              Learn by Doing, <br />
-              <span className="text-emerald-500 italic">Not Just</span> Studying.
+            <h1 className="text-7xl md:text-[120px] font-black tracking-tighter leading-[0.8] text-botanical-950 mb-12 uppercase">
+              Online Rigor, <br />
+              <span className="text-emerald-500 italic">Real-World Impact.</span>
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed font-medium mb-12 max-w-2xl mx-auto">
-              Transcend traditional academic boundaries with a curriculum architected for the sovereign leader. Master complex business instruments through immersive execution.
+              We've re-engineered business education for the digital age. Our model combines high-fidelity online classes with immersive simulation labs and global peer networks.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all">
+              <button 
+                onClick={() => onPageChange('programs')}
+                className="bg-botanical-950 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/20"
+              >
                 Explore Curriculum
               </button>
-              <button className="bg-slate-100 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all">
-                View Admission Tiers
+              <button 
+                onClick={() => onPageChange('simulation-labs')}
+                className="bg-white border border-slate-200 text-slate-600 px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all"
+              >
+                Enter Simulation Labs
               </button>
             </div>
           </motion.div>
@@ -40,7 +61,7 @@ export const Experience = () => {
       <section className="py-24 px-6 md:px-12 bg-slate-50">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { id: '01', title: 'Learn', desc: 'Master core frameworks through high-fidelity editorial content and world-class expert sessions.' },
+            { id: '01', title: 'Learn', desc: 'Engage in high-fidelity online classes led by industry practitioners and global thought leaders.' },
             { id: '02', title: 'Apply', desc: 'Deploy frameworks immediately on real-world scenarios within our managed learning clusters.' },
             { id: '03', title: 'Simulate', desc: 'Stress-test your strategies in high-stakes digital twin environments and simulation labs.' },
             { id: '04', title: 'Build', desc: 'Synthesize your learnings into enterprise-grade assets and sovereign ventures.' }
@@ -58,26 +79,31 @@ export const Experience = () => {
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="mb-24">
-            <h2 className="text-5xl font-black tracking-tighter text-botanical-950 uppercase mb-4">Multi-Dimensional <br /> Architectures.</h2>
+            <h2 className="text-6xl font-black tracking-tighter text-botanical-950 uppercase mb-4">Multi-Dimensional <br /> Architectures.</h2>
             <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">Synchronized for high-performance professionals.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: 'Sovereign Cohorts', tag: 'LIVE SESSION', desc: 'Direct synchronization with industry titans in closed-door sessions.', img: 'cohorts' },
-              { title: 'Knowledge Vault', tag: 'ON-DEMAND', desc: 'Cinematic library of core modules, accessible across all devices.', img: 'vault' },
-              { title: 'Studio Labs', tag: 'IMMERSIVE', desc: 'Project-based sprints where theory meets the friction of real-world execution.', img: 'studio' }
+              { title: 'Online Classes', tag: 'LIVE SESSION', desc: 'Direct synchronization with industry titans in closed-door digital classrooms.', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80' },
+              { title: 'Knowledge Vault', tag: 'ON-DEMAND', desc: 'Cinematic library of core modules, accessible across all devices.', img: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80' },
+              { title: 'Simulation Labs', tag: 'IMMERSIVE', desc: 'Project-based sprints where theory meets the friction of real-world execution.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80' }
             ].map((item, i) => (
               <div key={i} className="group cursor-pointer">
-                <div className="aspect-[3/4] rounded-[40px] overflow-hidden relative mb-8">
-                  <img src={i === 0 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_12.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" : i === 1 ? "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" : "https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3"} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/90 via-botanical-950/20 to-transparent" />
+                <div className="aspect-[4/5] rounded-[32px] overflow-hidden relative mb-8 shadow-2xl">
+                  <img 
+                    src={item.img} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                    referrerPolicy="no-referrer" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/20 to-transparent" />
                   <div className="absolute top-8 left-8">
-                    <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">{item.tag}</span>
+                    <span className="bg-emerald-500 text-white px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest">{item.tag}</span>
                   </div>
                   <div className="absolute bottom-8 left-8 right-8">
-                    <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-tighter">{item.title}</h3>
-                    <p className="text-slate-300 text-sm font-medium leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity">{item.desc}</p>
+                    <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">{item.title}</h3>
+                    <p className="text-slate-400 text-sm font-medium leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </div>
@@ -144,68 +170,74 @@ export const Experience = () => {
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div>
-            <h2 className="text-5xl font-black tracking-tighter text-botanical-950 mb-12 uppercase">Guided by the <br /><span className="text-emerald-500 italic">New Guard.</span></h2>
+            <h2 className="text-6xl font-black tracking-tighter text-botanical-950 mb-12 uppercase leading-[0.9]">Guided by the <br /><span className="text-emerald-500 italic">New Guard.</span></h2>
             <div className="space-y-6">
               {[
-                { name: 'Kofi Mensah', role: 'Head of Sovereign Capital', quote: 'The feedback is tactical. We treat every project like a Series-A pitch to institutional investors.' },
-                { name: 'Amara Okafor', role: 'Strategic Operations', quote: 'We bridge the gap between institutional theory and the chaotic reality of continental commerce.' }
+                { name: 'Kofi Mensah', role: 'HEAD OF SOVEREIGN CAPITAL', quote: 'The feedback is tactical. We treat every project like a Series-A pitch to institutional investors.' },
+                { name: 'Amara Okafor', role: 'STRATEGIC OPERATIONS', quote: 'We bridge the gap between institutional theory and the chaotic reality of continental commerce.' }
               ].map((mentor, i) => (
-                <div key={i} className="bg-slate-50 p-8 rounded-3xl flex items-center space-x-6">
+                <div key={i} className="bg-slate-50 p-8 rounded-[32px] flex items-center space-x-6 border border-slate-100">
                   <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-200 shrink-0">
-                    <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_11.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt={mentor.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <img src={i === 0 ? "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" : "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"} alt={mentor.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </div>
                   <div>
-                    <h4 className="font-black text-botanical-950 uppercase tracking-tight">{mentor.name}</h4>
+                    <h4 className="text-xl font-black text-botanical-950 uppercase tracking-tight">{mentor.name}</h4>
                     <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">{mentor.role}</p>
-                    <p className="text-slate-500 text-xs font-medium italic">"{mentor.quote}"</p>
+                    <p className="text-slate-500 text-sm font-medium italic">"{mentor.quote}"</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="bg-botanical-950 p-12 rounded-[40px] text-white">
+          <div className="bg-botanical-950 p-12 rounded-[40px] text-white shadow-2xl">
             <h3 className="text-2xl font-black mb-12 uppercase tracking-tight">The Outcomes Portfolio</h3>
-            <div className="space-y-8">
+            <div className="space-y-10">
               {[
-                { label: 'Venture Success Rate', value: '82%' },
-                { label: 'Capital Raised (Avg)', value: '$1.2M' },
-                { label: 'Global Partner Placement', value: '94%' }
+                { label: 'VENTURE SUCCESS RATE', value: '82%' },
+                { label: 'CAPITAL RAISED (AVG)', value: '$1.2M' },
+                { label: 'GLOBAL PARTNER PLACEMENT', value: '94%' }
               ].map((stat, i) => (
                 <div key={i}>
-                  <div className="flex justify-between items-end mb-2">
+                  <div className="flex justify-between items-end mb-3">
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{stat.label}</span>
-                    <span className="text-xl font-black text-emerald-500">{stat.value}</span>
+                    <span className="text-2xl font-black text-emerald-500">{stat.value}</span>
                   </div>
-                  <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
                     <div className="h-full bg-emerald-500" style={{ width: stat.value.includes('%') ? stat.value : '85%' }} />
                   </div>
                 </div>
               ))}
             </div>
             <div className="mt-16 pt-12 border-t border-white/5">
-              <p className="text-slate-400 text-sm italic mb-6">
+              <p className="text-slate-400 text-lg font-medium italic mb-6 leading-relaxed">
                 "ABC didn't just give me a degree; they gave me the blueprint and the network to build a pan-African logistics empire."
               </p>
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Founding Scholar, '22</span>
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-px bg-emerald-500" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">FOUNDING SCHOLAR, '22</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-32 px-6 md:px-12 bg-slate-50 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-botanical-950 mb-12 uppercase leading-[0.9]">
+      <section className="py-32 px-6 md:px-12 bg-slate-50 text-center relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <h2 className="text-7xl md:text-[120px] font-black tracking-tighter text-botanical-950 mb-12 uppercase leading-[0.8]">
             Architect Your <br /> Legacy.
           </h2>
-          <p className="text-xl text-slate-500 font-medium mb-16">
+          <p className="text-xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto">
             Applications for the next cohort are now being reviewed. Secure your seat at the vanguard of African business.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-emerald-500 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/20">
+            <button 
+              onClick={() => onPageChange('application')}
+              className="bg-emerald-500 text-white px-16 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/40"
+            >
               Apply for Admission
             </button>
-            <button className="bg-white border border-slate-200 text-botanical-950 px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all">
+            <button className="bg-white border border-slate-200 text-botanical-950 px-16 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all">
               Download Prospectus
             </button>
           </div>

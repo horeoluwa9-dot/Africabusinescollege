@@ -11,9 +11,25 @@ import {
   Building2,
   Globe
 } from 'lucide-react';
+import { Page } from '../components/Layout';
 import { FAQS } from '../constants';
 
-const Hero = () => {
+interface AdmissionsProps {
+  onPageChange: (page: Page) => void;
+}
+
+const Hero = ({ onPageChange }: AdmissionsProps) => {
+  const handleDownloadProspectus = () => {
+    // Mock download
+    const link = document.createElement('a');
+    link.href = '#';
+    link.download = 'ABC_Prospectus_2025.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    alert('Prospectus download started.');
+  };
+
   return (
     <section className="pt-48 pb-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="max-w-4xl">
@@ -29,10 +45,16 @@ const Hero = () => {
           Join an elite cohort of sovereign leaders shaping the future of African commerce through excellence, research, and institutional prestige.
         </p>
         <div className="flex flex-col sm:flex-row gap-6">
-          <button className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all active:scale-95 shadow-xl shadow-emerald-500/20">
+          <button 
+            onClick={() => onPageChange('application')}
+            className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all active:scale-95 shadow-xl shadow-emerald-500/20"
+          >
             Begin Application
           </button>
-          <button className="bg-white text-botanical-950 border border-slate-200 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center space-x-3">
+          <button 
+            onClick={handleDownloadProspectus}
+            className="bg-white text-botanical-950 border border-slate-200 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center space-x-3"
+          >
             <span>Download Prospectus</span>
             <FileText className="w-4 h-4" />
           </button>
@@ -108,7 +130,7 @@ const SelectionJourney = () => {
               Our selection process is rigorous, designed to identify visionaries who possess both the intellect and the character to lead the continent.
             </p>
             <div className="aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-              <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_13.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Journey" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Journey" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
             </div>
           </div>
 
@@ -129,7 +151,7 @@ const SelectionJourney = () => {
   );
 };
 
-const Criteria = () => {
+const Criteria = ({ onPageChange }: AdmissionsProps) => {
   return (
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -168,7 +190,10 @@ const Criteria = () => {
                 </div>
               ))}
             </div>
-            <button className="w-full bg-emerald-500 text-white px-8 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl mt-12 hover:bg-emerald-600 transition-all">
+            <button 
+              onClick={() => onPageChange('application')}
+              className="w-full bg-emerald-500 text-white px-8 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl mt-12 hover:bg-emerald-600 transition-all"
+            >
               Secure Your Spot
             </button>
           </div>
@@ -270,11 +295,11 @@ const FAQSection = () => {
   );
 };
 
-const FinalCTA = () => {
+const FinalCTA = ({ onPageChange }: AdmissionsProps) => {
   return (
     <section className="py-32 bg-emerald-500 relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
-        <img src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" alt="Lead" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&q=80" alt="Lead" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
       </div>
       <div className="absolute inset-0 bg-emerald-500/80" />
       
@@ -284,7 +309,10 @@ const FinalCTA = () => {
           Your journey to sovereign business excellence begins with a single application. The cohort is waiting for its next pioneer.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <button className="bg-white text-emerald-600 px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-botanical-950 hover:text-white transition-all active:scale-95 shadow-2xl">
+          <button 
+            onClick={() => onPageChange('application')}
+            className="bg-white text-emerald-600 px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-botanical-950 hover:text-white transition-all active:scale-95 shadow-2xl"
+          >
             Apply for 2025 Cohort
           </button>
           <button className="bg-transparent border-2 border-white text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all active:scale-95">
@@ -296,16 +324,16 @@ const FinalCTA = () => {
   );
 };
 
-export const Admissions = () => {
+export const Admissions = ({ onPageChange }: AdmissionsProps) => {
   return (
     <>
-      <Hero />
+      <Hero onPageChange={onPageChange} />
       <TargetAudience />
       <SelectionJourney />
-      <Criteria />
+      <Criteria onPageChange={onPageChange} />
       <Tuition />
       <FAQSection />
-      <FinalCTA />
+      <FinalCTA onPageChange={onPageChange} />
     </>
   );
 };

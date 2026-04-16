@@ -6,7 +6,7 @@ import { Language } from '../translations';
 
 export type Page = 
   | 'home' | 'insights' | 'programs' | 'admissions' | 'experience' | 'about'
-  | 'faculty' | 'learning' | 'simulation-labs' | 'careers'
+  | 'faculty' | 'learning' | 'simulation-labs' | 'careers' | 'application'
   | 'entrepreneurship' | 'venture-building' | 'digital-business' | 'innovation-leadership'
   | 'community' | 'partnerships' | 'contact'
   | 'privacy' | 'terms' | 'accreditation'
@@ -127,12 +127,12 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
             className={`flex items-center space-x-3 cursor-pointer group shrink-0 ${isRTL ? 'space-x-reverse' : ''}`}
             onClick={() => onPageChange('home')}
           >
-            <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_0.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
-              alt="ABC Logo" 
-              className="h-10 w-auto object-contain"
-              referrerPolicy="no-referrer"
-            />
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-white font-black text-lg">A</span>
+              </div>
+              <span className="text-xl font-black tracking-tighter text-botanical-950 group-hover:text-emerald-500 transition-colors">ABC</span>
+            </div>
           </div>
           
           {/* CENTER: NAV LINKS */}
@@ -353,7 +353,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
                   { name: 'Digital Business', page: 'digital-business' },
                   { name: 'Innovation Leadership', page: 'innovation-leadership' }
                 ].map(item => (
-                  <li key={item.name}>
+                  <li key={item.name} className="whitespace-nowrap">
                     <button 
                       onClick={() => onPageChange(item.page as Page)}
                       className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 transition-colors"

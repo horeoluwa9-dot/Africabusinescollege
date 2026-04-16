@@ -9,8 +9,13 @@ import {
 import { PROGRAMS, LABS, STUDIO_TOOLS, SESSIONS } from '../constants';
 import { Program, Lab, StudioTool, Session } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { Page } from '../components/Layout';
 
-const Hero = () => {
+interface HomeProps {
+  onPageChange: (page: Page) => void;
+}
+
+const Hero = ({ onPageChange }: HomeProps) => {
   const { t } = useLanguage();
   return (
     <section className="relative bg-botanical-950 pt-48 pb-32 overflow-hidden">
@@ -34,10 +39,16 @@ const Hero = () => {
             {t('home.heroSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-6">
-            <button className="bg-emerald-500 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-xl shadow-emerald-500/20">
+            <button 
+              onClick={() => onPageChange('programs')}
+              className="bg-emerald-500 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-xl shadow-emerald-500/20"
+            >
               {t('home.explorePrograms')}
             </button>
-            <button className="border border-white/20 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all active:scale-95">
+            <button 
+              onClick={() => onPageChange('insights')}
+              className="border border-white/20 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all active:scale-95"
+            >
               {t('home.viewResearch')}
             </button>
           </div>
@@ -51,7 +62,7 @@ const Hero = () => {
         >
           <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 relative group">
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              src="https://images.unsplash.com/photo-1522071823991-b1ae5e6a3058?auto=format&fit=crop&w=800&q=80" 
               alt="Leadership" 
               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
               referrerPolicy="no-referrer"
@@ -97,7 +108,7 @@ const Stats = () => {
   );
 };
 
-const Programs = () => {
+const Programs = ({ onPageChange }: HomeProps) => {
   const [activeTab, setActiveTab] = useState('Executive');
   const tabs = ['Executive', 'Advanced', 'Beginner'];
 
@@ -126,7 +137,11 @@ const Programs = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {PROGRAMS.map(program => (
-            <div key={program.id} className="bg-white p-10 rounded-2xl border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all group cursor-pointer">
+            <div 
+              key={program.id} 
+              onClick={() => onPageChange('programs')}
+              className="bg-white p-10 rounded-2xl border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all group cursor-pointer"
+            >
               <div className="flex justify-between items-start mb-12">
                 <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center">
                   <Monitor className="w-6 h-6 text-emerald-500" />
@@ -147,14 +162,14 @@ const Programs = () => {
   );
 };
 
-const Ecosystem = () => {
+const Ecosystem = ({ onPageChange }: HomeProps) => {
   return (
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div className="relative">
           <div className="aspect-[4/3] bg-botanical-950 rounded-3xl p-12 flex items-center justify-center overflow-hidden group">
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_1.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              src="https://images.unsplash.com/photo-1551288049-bbda4833effb?auto=format&fit=crop&w=800&q=80" 
               alt="Ecosystem" 
               className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
               referrerPolicy="no-referrer"
@@ -179,7 +194,7 @@ const Ecosystem = () => {
             Our proprietary Business Instrument Studio merges physical seminar intensity with digital precision. Experience simulations that mirror the complexity of African market dynamics.
           </p>
           
-          <div className="space-y-8">
+          <div className="space-y-8 mb-12">
             {[
               { title: 'Live Case Analysis', desc: 'Real-time collaboration on active market challenges from partner institutions.' },
               { title: 'Cohort-Based Synergy', desc: 'Forge deep bonds with diverse professionals from across the continent.' }
@@ -195,13 +210,20 @@ const Ecosystem = () => {
               </div>
             ))}
           </div>
+
+          <button 
+            onClick={() => onPageChange('experience')}
+            className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all active:scale-95 shadow-xl shadow-botanical-950/10"
+          >
+            Explore Experience
+          </button>
         </div>
       </div>
     </section>
   );
 };
 
-const SimulationLabs = () => {
+const SimulationLabs = ({ onPageChange }: HomeProps) => {
   return (
     <section className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -212,9 +234,12 @@ const SimulationLabs = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Large Lab */}
-          <div className="lg:col-span-5 bg-botanical-950 rounded-3xl p-12 relative overflow-hidden group cursor-pointer min-h-[400px]">
+          <div 
+            onClick={() => onPageChange('simulation-labs')}
+            className="lg:col-span-5 bg-botanical-950 rounded-3xl p-12 relative overflow-hidden group cursor-pointer min-h-[400px]"
+          >
             <img 
-              src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_8.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" 
               alt="War Room" 
               className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000"
               referrerPolicy="no-referrer"
@@ -237,7 +262,11 @@ const SimulationLabs = () => {
           {/* Small Labs */}
           <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8">
             {LABS.filter(l => l.type === 'small').map(lab => (
-              <div key={lab.id} className="bg-surface-low p-10 rounded-3xl border border-slate-100 hover:border-emerald-500/30 transition-all group cursor-pointer">
+              <div 
+                key={lab.id} 
+                onClick={() => onPageChange('simulation-labs')}
+                className="bg-surface-low p-10 rounded-3xl border border-slate-100 hover:border-emerald-500/30 transition-all group cursor-pointer"
+              >
                 <div className="flex justify-between items-start mb-12">
                   <div className="w-10 h-10 bg-emerald-500/10 rounded-lg flex items-center justify-center">
                     <ArrowUpRight className="w-5 h-5 text-emerald-500" />
@@ -318,11 +347,20 @@ const Sessions = () => {
   );
 };
 
-const CTA = () => {
+const CTA = ({ onPageChange }: HomeProps) => {
+  const handleDownloadProspectus = () => {
+    const link = document.createElement('a');
+    link.href = '#';
+    link.download = 'ABC_Prospectus_2025.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section className="py-32 bg-botanical-950 relative overflow-hidden">
       <img 
-        src="https://storage.googleapis.com/firebasestorage.v0.appspot.com/o/antigravity-attachments%2F59913ed7-1325-4434-9bb0-792f9c375fd3%2Finput_file_10.png?alt=media&token=8679789b-877f-479c-889b-792f9c375fd3" 
+        src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80" 
         alt="CTA Background" 
         className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale"
         referrerPolicy="no-referrer"
@@ -351,10 +389,16 @@ const CTA = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-6">
-          <button className="bg-emerald-500 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-2xl shadow-emerald-500/20">
+          <button 
+            onClick={() => onPageChange('application')}
+            className="bg-emerald-500 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-2xl shadow-emerald-500/20"
+          >
             Start Application
           </button>
-          <button className="border border-white/20 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all active:scale-95">
+          <button 
+            onClick={handleDownloadProspectus}
+            className="border border-white/20 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all active:scale-95"
+          >
             Download Prospectus
           </button>
         </div>
@@ -363,17 +407,17 @@ const CTA = () => {
   );
 };
 
-export const Home = () => {
+export const Home = ({ onPageChange }: HomeProps) => {
   return (
     <>
-      <Hero />
+      <Hero onPageChange={onPageChange} />
       <Stats />
-      <Programs />
-      <Ecosystem />
-      <SimulationLabs />
+      <Programs onPageChange={onPageChange} />
+      <Ecosystem onPageChange={onPageChange} />
+      <SimulationLabs onPageChange={onPageChange} />
       <InstrumentStudio />
       <Sessions />
-      <CTA />
+      <CTA onPageChange={onPageChange} />
     </>
   );
 };
