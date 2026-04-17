@@ -13,29 +13,50 @@ import {
 } from 'lucide-react';
 import { Page } from '../components/Layout';
 import { FAQS } from '../constants';
+import { AnimatedBackground } from '../components/AnimatedBackground';
+import { useAuth } from '../contexts/AuthContext';
+import { downloadMockPdf } from '../lib/downloadPdf';
+import { AnimatePresence } from 'motion/react';
 
 interface AdmissionsProps {
   onPageChange: (page: Page) => void;
 }
 
 const Hero = ({ onPageChange }: AdmissionsProps) => {
+  const { isLoggedIn, hasImage } = useAuth();
+  const [downloading, setDownloading] = React.useState(false);
+
   const handleDownloadProspectus = () => {
-    // Mock download
-    const link = document.createElement('a');
-    link.href = '#';
-    link.download = 'ABC_Prospectus_2025.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    alert('Prospectus download started.');
+    if (isLoggedIn && hasImage) {
+      onPageChange('post-download');
+    } else {
+      setDownloading(true);
+      downloadMockPdf('ABC_Institutional_Prospectus');
+      setTimeout(() => setDownloading(false), 3000);
+    }
   };
 
   return (
-    <section className="pt-48 pb-32 px-6 md:px-12 max-w-7xl mx-auto">
+    <section className="pt-48 pb-32 px-6 md:px-12 max-w-7xl mx-auto relative">
+      <AnimatePresence>
+        {downloading && (
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
+          >
+            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
+              <CheckCircle2 className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest">Prospectus Downloaded Successfully</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="max-w-4xl">
         <div className="flex items-center space-x-4 mb-8">
           <div className="h-px w-12 bg-emerald-500" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">ENROLLING FOR 2025 COHORT</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">ENROLLING FOR 2026 COHORT</span>
         </div>
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12">
           Start Your Journey <br />
@@ -115,6 +136,7 @@ const SelectionJourney = () => {
 
   return (
     <section className="py-32 bg-botanical-950 overflow-hidden relative">
+      <AnimatedBackground intensity="low" className="opacity-20" />
       <div className="absolute inset-0 opacity-10">
         <div className="grid grid-cols-6 h-full border-x border-white/20">
           {[1, 2, 3, 4, 5].map(i => <div key={i} className="border-r border-white/20" />)}
@@ -177,9 +199,9 @@ const Criteria = ({ onPageChange }: AdmissionsProps) => {
             <h3 className="text-2xl font-black text-botanical-950 mb-8">Upcoming Cohort</h3>
             <div className="space-y-8">
               {[
-                { label: 'APPLICATION DEADLINE', date: 'November 15, 2024' },
-                { label: 'SCHOLARSHIP CUT-OFF', date: 'October 30, 2024' },
-                { label: 'PROGRAM START', date: 'January 20, 2025' }
+                { label: 'APPLICATION DEADLINE', date: 'November 15, 2026' },
+                { label: 'SCHOLARSHIP CUT-OFF', date: 'October 30, 2026' },
+                { label: 'PROGRAM START', date: 'January 20, 2026' }
               ].map(item => (
                 <div key={item.label}>
                   <div className="flex items-center space-x-2 mb-1">
@@ -313,7 +335,7 @@ const FinalCTA = ({ onPageChange }: AdmissionsProps) => {
             onClick={() => onPageChange('application')}
             className="bg-white text-emerald-600 px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-botanical-950 hover:text-white transition-all active:scale-95 shadow-2xl"
           >
-            Apply for 2025 Cohort
+            Apply for 2026 Cohort
           </button>
           <button className="bg-transparent border-2 border-white text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all active:scale-95">
             Book Discovery Call

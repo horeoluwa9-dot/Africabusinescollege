@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Users, Microscope, GraduationCap, Briefcase, ArrowRight, Filter, Search, Globe, Linkedin, Twitter } from 'lucide-react';
+import { Users, Microscope, GraduationCap, Briefcase, ArrowRight, Filter, Search, Globe, Linkedin, Twitter, CheckCircle2 } from 'lucide-react';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 
 export const Faculty = () => {
   return (
@@ -69,7 +70,7 @@ export const Faculty = () => {
                 <div className="flex justify-between items-end">
                   <div>
                     <h4 className="font-black text-botanical-950 uppercase tracking-tight">Dr. Kwame Mensah</h4>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Founding Dean & Investor</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Founding Academic Director & Investor</p>
                   </div>
                 </div>
               </div>
@@ -141,7 +142,7 @@ export const Faculty = () => {
               <p className="text-slate-500 font-medium">Filter by industry expertise and operational background. Our faculty members are selected for their track record of execution.</p>
             </div>
             <button className="p-4 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 transition-colors">
-              <Filter className="w-5 h-5 text-slate-400" />
+              <Search className="w-5 h-5 text-slate-400" />
             </button>
           </div>
 
@@ -175,8 +176,9 @@ export const Faculty = () => {
       </section>
 
       {/* Teaching Philosophy */}
-      <section className="py-32 px-6 md:px-12 bg-botanical-950 text-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-32 px-6 md:px-12 bg-botanical-950 text-white relative overflow-hidden">
+        <AnimatedBackground intensity="medium" className="opacity-30" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div>
               <h2 className="text-6xl font-black tracking-tighter mb-8 uppercase leading-[0.9]">Our Teaching <br /> Philosophy</h2>
@@ -233,9 +235,3 @@ export const Faculty = () => {
     </div>
   );
 };
-
-const CheckCircle2 = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-  </svg>
-);

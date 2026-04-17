@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Search, Filter, ArrowRight, Download, Mail, ArrowLeft, ArrowRight as ArrowRightIcon, Linkedin, Twitter } from 'lucide-react';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 
 import { Page } from '../components/Layout';
 
@@ -58,7 +59,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 </div>
                 <div>
                   <h4 className="text-white font-black uppercase tracking-tight text-sm">Dr. Elias Ndlovu</h4>
-                  <p className="text-emerald-500 text-[10px] font-black uppercase tracking-widest">Dean of Research</p>
+                  <p className="text-emerald-500 text-[10px] font-black uppercase tracking-widest">Academic Director of Research</p>
                 </div>
               </div>
             </div>
@@ -103,7 +104,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
               { 
                 cat: 'MARKETS', 
                 time: '15 MIN READ', 
-                title: 'The AfCFTA Playbook: Navigating Cross-Border Liquidity in 2025.', 
+                title: 'The AfCFTA Playbook: Navigating Cross-Border Liquidity in 2026.', 
                 desc: 'Analyzing the regulatory shifts enabling seamless capital flow across the continental free trade zone.',
                 author: 'KOFI MENSAH'
               },
@@ -117,7 +118,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             ].map((insight, i) => (
               <div key={i} className="group cursor-pointer">
                 <div className="aspect-video rounded-[32px] overflow-hidden mb-8 shadow-sm">
-                  <img src={i === 0 ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" : i === 1 ? "https://images.unsplash.com/photo-1551288049-bbda4833effb?auto=format&fit=crop&w=600&q=80" : "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80"} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src={i === 0 ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" : i === 1 ? "https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&w=600&q=80" : "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80"} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                 </div>
                 <div className="flex items-center space-x-4 mb-4">
                   <span className="text-emerald-500 text-[8px] font-black uppercase tracking-widest">{insight.cat}</span>
@@ -192,7 +193,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              { title: '2024 Africa Economic Outlook Report', desc: 'Comprehensive analysis of macroeconomic trends across 54 nations, focusing on debt sustainability and industrial growth.', color: 'bg-botanical-950' },
+              { title: '2026 Africa Economic Outlook Report', desc: 'Comprehensive analysis of macroeconomic trends across 54 nations, focusing on debt sustainability and industrial growth.', color: 'bg-botanical-950' },
               { title: 'The Digital Logistics Whitepaper', desc: 'Mapping the technological infrastructure required to fulfill the promise of the continental free trade area.', color: 'bg-emerald-900' }
             ].map((paper, i) => (
               <div key={i} className="bg-slate-50 p-12 rounded-[40px] flex items-center space-x-12 group cursor-pointer">
@@ -218,8 +219,9 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
       </section>
 
       {/* Leading Voices */}
-      <section className="py-32 px-6 md:px-12 bg-botanical-950 text-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-32 px-6 md:px-12 bg-botanical-950 text-white relative overflow-hidden">
+        <AnimatedBackground intensity="low" className="opacity-20" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex justify-between items-center mb-20">
             <h2 className="text-4xl font-black tracking-tighter uppercase">Leading Voices</h2>
             <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">EDITORIAL BOARD</span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Users, GraduationCap, Microscope, TrendingUp, MapPin, Calendar, ArrowRight, Share2, Mail, Zap } from 'lucide-react';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 
 export const Community = () => {
   return (
@@ -183,7 +184,7 @@ export const Community = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { date: 'DEC 12', title: 'ABC Annual Summit 2024', location: 'Lagos, Nigeria • Hybrid', img: 'https://images.unsplash.com/photo-1540575861501-7c00117f2404?auto=format&fit=crop&w=800&q=80' },
+              { date: 'DEC 12', title: 'ABC Annual Summit 2026', location: 'Lagos, Nigeria • Online', img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80' },
               { date: 'JAN 05', title: "Founders' Private Dinner", location: 'Nairobi, Kenya • Invite Only', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80' },
               { date: 'FEB 10', title: 'Regional Meetup: Joburg', location: 'Johannesburg, RSA • In-Person', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80' }
             ].map((event, i) => (
@@ -209,7 +210,7 @@ export const Community = () => {
 
       {/* Impact Section */}
       <section className="py-32 px-6 md:px-12 bg-botanical-950 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#00D98E_0%,transparent_70%)] opacity-5" />
+        <AnimatedBackground intensity="high" className="opacity-40" />
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="relative z-10">

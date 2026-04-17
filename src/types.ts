@@ -29,6 +29,7 @@ export interface Program {
   category: string;
   tag: string;
   excerpt: string;
+  image?: string;
 }
 
 export interface Lab {
@@ -55,11 +56,33 @@ export interface StudioTool {
   description: string;
 }
 
+export interface Course {
+  title: string;
+  description: string;
+  duration: string;
+}
+
 export interface ProgramDetail extends Program {
+  subtitle: string;
   duration: string;
   format: string;
   level: string;
   focus: string;
+  badge?: string;
+  overview: {
+    content: string;
+    bullets: string[];
+  };
+  gains: string[];
+  structure: Course[];
+  learningExperience: string[];
+  simulationExperience: {
+    content: string;
+    examples: string[];
+  };
+  tools: string[];
+  whoItIsFor: string[];
+  outcomes: string[];
 }
 
 export interface Deadline {

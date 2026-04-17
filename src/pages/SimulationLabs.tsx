@@ -3,7 +3,13 @@ import { motion } from 'motion/react';
 import { Play, BookOpen, Target, Zap, Globe, Landmark, Users, ArrowRight, Quote } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-export const SimulationLabs = () => {
+import { Page } from '../components/Layout';
+
+interface SimulationLabsProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
   const { t } = useLanguage();
   return (
     <div className="pt-24">
@@ -19,7 +25,7 @@ export const SimulationLabs = () => {
               <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Experimental Learning</span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8">
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               Learn Business by <br />
               <span className="text-emerald-500 italic">Making Real</span> <br />
               Decisions
@@ -28,11 +34,17 @@ export const SimulationLabs = () => {
               Step into a high-fidelity digital sandbox where the stakes are simulated but the consequences are felt. Test strategies, lead teams, and master market dynamics in our world-class simulation environments.
             </p>
             <div className="flex flex-col sm:flex-row gap-6">
-              <button className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all flex items-center justify-center space-x-3">
+              <button 
+                onClick={() => onPageChange('post-view')}
+                className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all flex items-center justify-center space-x-3"
+              >
                 <Play className="w-4 h-4 fill-current" />
                 <span>Launch A Simulation</span>
               </button>
-              <button className="bg-slate-100 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all">
+              <button 
+                onClick={() => onPageChange('learning')}
+                className="bg-slate-100 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all"
+              >
                 View Curriculum
               </button>
             </div>
@@ -44,14 +56,14 @@ export const SimulationLabs = () => {
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
+            <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl group">
               <img 
-                src="https://images.unsplash.com/photo-1551288049-bbda4833effb?auto=format&fit=crop&w=800&q=80" 
+                src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80" 
                 alt="Simulation Lab" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/60 via-transparent to-transparent" />
               
               {/* Floating UI Element */}
               <motion.div 
@@ -130,48 +142,63 @@ export const SimulationLabs = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Entrepreneurship */}
-            <div className="lg:col-span-2 bg-emerald-900 rounded-[40px] p-12 text-white relative overflow-hidden group">
+            {/* Entrepreneurship Simulation */}
+            <div 
+              onClick={() => onPageChange('post-view')}
+              className="lg:col-span-2 bg-emerald-900 rounded-[40px] p-12 text-white relative overflow-hidden group cursor-pointer"
+            >
               <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform">
                 <Zap className="w-48 h-48" />
               </div>
               <Zap className="w-12 h-12 mb-8 text-emerald-400" />
-              <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">Entrepreneurship</h3>
-              <p className="text-emerald-100/60 font-medium max-w-md">Founding and scaling from Day Zero in a competitive landscape.</p>
+              <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">Entrepreneurship Simulation</h3>
+              <p className="text-emerald-100/60 font-medium max-w-md">Build and scale a virtual startup from idea to market.</p>
             </div>
 
-            {/* Startup Fundraising */}
-            <div className="bg-slate-200 rounded-[40px] p-12 text-botanical-950 relative overflow-hidden group">
+            {/* Startup Fundraising Simulation */}
+            <div 
+              onClick={() => onPageChange('post-view')}
+              className="bg-slate-200 rounded-[40px] p-12 text-botanical-950 relative overflow-hidden group cursor-pointer"
+            >
               <div className="absolute top-8 right-8">
                 <BookOpen className="w-8 h-8 text-slate-400" />
               </div>
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Startup Fundraising</h3>
-              <p className="text-slate-500 font-medium mb-8">Master the art of the pitch and cap table management through live negotiations.</p>
+              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Startup Fundraising Simulation</h3>
+              <p className="text-slate-500 font-medium mb-8">Practice pitching to VCs with AI-powered feedback.</p>
               <div className="flex flex-wrap gap-2">
                 <span className="px-3 py-1 bg-white rounded-full text-[8px] font-black uppercase tracking-widest text-slate-400">Series A</span>
                 <span className="px-3 py-1 bg-white rounded-full text-[8px] font-black uppercase tracking-widest text-slate-400">Valuation Modeling</span>
               </div>
             </div>
 
-            {/* Market Expansion */}
-            <div className="bg-emerald-100 rounded-[40px] p-12 text-botanical-950">
+            {/* Market Expansion Simulation */}
+            <div 
+              onClick={() => onPageChange('post-view')}
+              className="bg-emerald-100 rounded-[40px] p-12 text-botanical-950 cursor-pointer hover:shadow-xl transition-all"
+            >
               <Globe className="w-12 h-12 mb-8 text-emerald-500" />
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Market Expansion</h3>
-              <p className="text-slate-500 font-medium">Global logistics and cultural adaptation strategies.</p>
+              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Market Expansion Simulation</h3>
+              <p className="text-slate-500 font-medium">Navigate regulatory and market dynamics across Africa.</p>
             </div>
 
-            {/* Economic Policy */}
-            <div className="bg-white border border-slate-100 rounded-[40px] p-12 text-botanical-950">
+            {/* Economic Policy Simulation */}
+            <div 
+              onClick={() => onPageChange('post-view')}
+              className="bg-white border border-slate-100 rounded-[40px] p-12 text-botanical-950 cursor-pointer hover:shadow-xl transition-all"
+            >
               <Landmark className="w-12 h-12 mb-8 text-emerald-500" />
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Economic Policy</h3>
-              <p className="text-slate-500 font-medium">Macro-indicators and regulatory impact simulations for future policy makers.</p>
+              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Economic Policy Simulation</h3>
+              <p className="text-slate-500 font-medium">Design business-friendly policies and understand impact.</p>
             </div>
 
-            {/* Leadership Decision */}
-            <div className="bg-botanical-950 rounded-[40px] p-12 text-white">
+            {/* Leadership Decision Lab */}
+            <div 
+              onClick={() => onPageChange('post-view')}
+              className="bg-botanical-950 rounded-[40px] p-12 text-white cursor-pointer hover:shadow-xl transition-all"
+            >
               <Users className="w-12 h-12 mb-8 text-emerald-500" />
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Leadership Decision</h3>
-              <p className="text-slate-400 font-medium">Crisis management and high-performance team dynamics in high-pressure scenarios.</p>
+              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Leadership Decision Lab</h3>
+              <p className="text-slate-400 font-medium">Navigate complex organizational dynamics under pressure.</p>
             </div>
           </div>
         </div>

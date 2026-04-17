@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   CheckCircle2, 
@@ -13,21 +13,43 @@ import {
   Loader2
 } from 'lucide-react';
 
+import { useAuth } from '../contexts/AuthContext';
+
 interface ApplicationProps {
   onComplete: () => void;
   onBack: () => void;
 }
 
 export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) => {
+  const { login } = useAuth();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState(() => {
+    const saved = localStorage.getItem('abc_application_data');
+    return saved ? JSON.parse(saved) : {
+      name: '',
+      email: '',
+      nationality: 'Nigeria',
+      background: '',
+      experience: '',
+      role: '',
+      goal: '',
+      selectedProgram: 'Entrepreneurship Program',
+      confirmAccurate: false,
+      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80'
+    };
+  });
+
+  useEffect(() => {
+    localStorage.setItem('abc_application_data', JSON.stringify(formData));
+  }, [formData]);
 
   const steps = [
-    { id: 1, title: 'Personal Info', icon: User },
-    { id: 2, title: 'Academic Record', icon: BookOpen },
-    { id: 3, title: 'Leadership Essay', icon: FileText },
-    { id: 4, title: 'Verification', icon: ShieldCheck },
+    { id: 1, title: 'Basic Info', sub: 'Let’s get started', text: 'Tell us a bit about you.', icon: User },
+    { id: 2, title: 'Background', sub: 'Your background', text: 'This helps us tailor your experience.', icon: BookOpen },
+    { id: 3, title: 'Intent', sub: 'What are you looking to build?', text: 'Keep it short — just a sentence or two.', icon: FileText },
+    { id: 4, title: 'Confirmation', sub: 'Almost done', text: 'Please confirm your details before submitting.', icon: ShieldCheck },
   ];
 
   const handleNext = () => {
@@ -41,14 +63,19 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
   };
 
   const handleSubmit = () => {
+    if (!formData.confirmAccurate) return;
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
+      login({
+        name: formData.name || 'Pioneer Scholar',
+        email: formData.email || 'scholar@abc.edu',
+        avatarUrl: formData.avatarUrl,
+        program: formData.selectedProgram || 'Entrepreneurship'
+      });
       setIsSubmitting(false);
       setIsSuccess(true);
-      setTimeout(() => {
-        onComplete();
-      }, 2000);
+      // Success screen will handle manual redirect
     }, 2000);
   };
 
@@ -60,14 +87,29 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
           animate={{ opacity: 1, scale: 1 }}
           className="text-center max-w-md"
         >
-          <div className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-500/20">
+          <div className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-3xl shadow-emerald-500/20">
             <CheckCircle2 className="w-12 h-12 text-white" />
           </div>
-          <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-4 uppercase">Application Submitted</h2>
-          <p className="text-slate-500 font-medium mb-8">
-            Your dossier has been received by the Admissions Council. Redirecting to your student dashboard...
+          <h2 className="text-6xl font-black text-botanical-950 tracking-tighter mb-4 uppercase leading-none">Application Received</h2>
+          <p className="text-slate-500 font-medium text-lg mb-12">
+            You’re eligible to continue enrollment.
           </p>
-          <Loader2 className="w-8 h-8 text-emerald-500 animate-spin mx-auto" />
+          
+          <div className="space-y-4">
+            <button 
+              onClick={onComplete}
+              className="w-full bg-emerald-500 text-white py-6 rounded-2xl text-[12px] font-black uppercase tracking-widest shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center justify-center space-x-3 group"
+            >
+              <span>Continue to Payment</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button 
+              onClick={() => window.location.hash = 'programs'} // Simulated direct nav
+              className="w-full text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors py-4"
+            >
+              Explore Programs
+            </button>
+          </div>
         </motion.div>
       </div>
     );
@@ -77,24 +119,27 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
     <div className="min-h-screen bg-slate-50 pt-32 pb-20 px-6">
       <div className="max-w-4xl mx-auto">
         {/* Progress Bar */}
-        <div className="mb-12">
-          <div className="flex justify-between items-center mb-4">
-            {steps.map((s) => (
+        <div className="mb-16">
+          <div className="flex justify-between items-center relative">
+            {steps.map((s, i) => (
               <div key={s.id} className="flex flex-col items-center relative z-10">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${
-                  step >= s.id ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-white text-slate-300 border border-slate-200'
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 border-2 ${
+                  step >= s.id ? 'bg-emerald-500 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-white text-slate-300 border-slate-200'
                 }`}>
-                  <s.icon className="w-5 h-5" />
+                  <span className="text-[10px] font-black tracking-tight">{s.id}</span>
                 </div>
-                <span className={`text-[8px] font-black uppercase tracking-widest mt-3 ${
+                <span className={`text-[8px] font-black uppercase tracking-widest mt-3 whitespace-nowrap ${
                   step >= s.id ? 'text-botanical-950' : 'text-slate-400'
-                }`}>{s.title}</span>
+                }`}>Step {s.id} of 4</span>
               </div>
             ))}
-            {/* Connector Lines */}
-            <div className="absolute top-[148px] left-1/2 -translate-x-1/2 w-[calc(100%-12rem)] h-px bg-slate-200 -z-0" />
+            
+            {/* Connector Base */}
+            <div className="absolute top-5 left-8 right-8 h-0.5 bg-slate-200 -z-0" />
+            
+            {/* Connector Active */}
             <motion.div 
-              className="absolute top-[148px] left-[calc(50%-18rem)] h-px bg-emerald-500 -z-0"
+              className="absolute top-5 left-8 h-0.5 bg-emerald-500 -z-0"
               initial={{ width: 0 }}
               animate={{ width: `${(step - 1) * 33.33}%` }}
               transition={{ duration: 0.5 }}
@@ -105,139 +150,258 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
         {/* Form Container */}
         <motion.div 
           key={step}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="bg-white rounded-[40px] p-12 shadow-sm border border-slate-100"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-[48px] p-12 md:p-16 shadow-2xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden"
         >
-          <div className="mb-10">
-            <h3 className="text-3xl font-black text-botanical-950 tracking-tighter uppercase mb-2">
-              {steps[step - 1].title}
+          <div className="mb-12">
+             <div className="flex items-center space-x-3 mb-4">
+              <div className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[8px] font-black uppercase tracking-widest leading-none">
+                {step === 1 ? 'Takes less than a minute' : 'Built for builders, not paperwork'}
+              </div>
+              <div className="v-line w-px h-3 bg-slate-200" />
+              <div className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                 {step === 1 ? 'No long forms, just clarity' : 'Step ' + step}
+              </div>
+            </div>
+            <h3 className="text-5xl font-black text-botanical-950 tracking-tighter uppercase mb-4 leading-none">
+              {steps[step -1].sub}.
             </h3>
-            <p className="text-slate-400 font-medium text-sm">Please provide accurate information for institutional review.</p>
+            <p className="text-slate-400 font-medium text-lg leading-relaxed">{steps[step - 1].text}</p>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-10">
+            <AnimatePresence mode="wait">
             {step === 1 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Full Legal Name</label>
-                  <input type="text" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" placeholder="As per passport" />
+              <motion.div 
+                key="step1"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="space-y-8"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Full Name</label>
+                    <input 
+                      type="text" 
+                      autoFocus
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-sm" 
+                      placeholder="Your full name" 
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Email Address</label>
+                    <input 
+                      type="email" 
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-sm" 
+                      placeholder="you@example.com" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-3 md:col-span-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Country</label>
+                    <select 
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-sm"
+                      value={formData.nationality}
+                      onChange={(e) => setFormData({ ...formData, nationality: e.target.value })}
+                    >
+                      <option>Nigeria</option>
+                      <option>Kenya</option>
+                      <option>South Africa</option>
+                      <option>Ghana</option>
+                      <option>Egypt</option>
+                      <option>Rwanda</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Email Address</label>
-                  <input type="email" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" placeholder="institutional@example.com" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Nationality</label>
-                  <select className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors">
-                    <option>Select Country</option>
-                    <option>Nigeria</option>
-                    <option>Kenya</option>
-                    <option>South Africa</option>
-                    <option>Ghana</option>
-                    <option>Egypt</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Current Role</label>
-                  <input type="text" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" placeholder="e.g. CEO, Founder, Director" />
-                </div>
-              </div>
+              </motion.div>
             )}
 
             {step === 2 && (
-              <div className="space-y-8">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Highest Academic Qualification</label>
-                  <input type="text" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" placeholder="e.g. MBA, MSc Computer Science" />
+              <motion.div 
+                key="step2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="space-y-10"
+              >
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">What best describes you?</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                    {['Student', 'Professional', 'Founder', 'Operator', 'Other'].map((type) => (
+                      <button
+                        key={type}
+                        onClick={() => setFormData({ ...formData, background: type })}
+                        className={`py-6 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${
+                          formData.background === type 
+                            ? 'bg-botanical-950 text-white border-botanical-950 shadow-lg' 
+                            : 'bg-white text-slate-500 border-slate-100 hover:border-emerald-500'
+                        }`}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Institution</label>
-                  <input type="text" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors" placeholder="University Name" />
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Years of experience</label>
+                    <select 
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-sm"
+                      value={formData.experience}
+                      onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                    >
+                      <option value="">Select Option</option>
+                      <option>0–1 years</option>
+                      <option>2–4 years</option>
+                      <option>5–9 years</option>
+                      <option>10+ years</option>
+                    </select>
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Current role or focus <span className="text-slate-300 font-bold">(Optional)</span></label>
+                    <input 
+                      type="text" 
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-sm" 
+                      placeholder="e.g. Marketing, Product, Finance" 
+                      value={formData.role}
+                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                    />
+                  </div>
                 </div>
-                <div className="p-8 border-2 border-dashed border-slate-200 rounded-3xl text-center hover:border-emerald-500 transition-colors cursor-pointer group">
-                  <Upload className="w-8 h-8 text-slate-300 mx-auto mb-4 group-hover:text-emerald-500 transition-colors" />
-                  <p className="text-xs font-black uppercase tracking-widest text-slate-400">Upload Academic Transcripts (PDF)</p>
-                </div>
-              </div>
+              </motion.div>
             )}
 
             {step === 3 && (
-              <div className="space-y-8">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Statement of Intent (Max 500 words)</label>
-                  <textarea className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 text-sm focus:outline-none focus:border-emerald-500 transition-colors h-64 resize-none" placeholder="How do you intend to catalyze continental transformation?" />
+              <motion.div 
+                key="step3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="space-y-8"
+              >
+                 <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Program Selection</label>
+                  <select 
+                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:bg-white transition-all shadow-sm"
+                    value={formData.selectedProgram}
+                    onChange={(e) => setFormData({ ...formData, selectedProgram: e.target.value })}
+                  >
+                    <option>Entrepreneurship Program</option>
+                    <option>Financial Markets & Venture Capital</option>
+                    <option>Sovereign Leadership</option>
+                    <option>Digital Economy & AI</option>
+                  </select>
                 </div>
-                <div className="flex items-center space-x-4 p-6 bg-emerald-50 rounded-2xl">
-                  <FileText className="w-6 h-6 text-emerald-500" />
-                  <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 leading-relaxed">
-                    Tip: Focus on quantifiable impact and your vision for sovereign business leadership.
-                  </p>
+
+                <div className="space-y-3">
+                  <div className="flex justify-between items-end mb-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Your goal</label>
+                    <span className={`text-[8px] font-black px-2 py-0.5 rounded ${formData.goal.length > 150 ? 'bg-red-50 text-red-500' : 'bg-slate-50 text-slate-400'}`}>
+                      {formData.goal.length}/150 max
+                    </span>
+                  </div>
+                  <textarea 
+                    className="w-full bg-slate-50 border border-slate-100 rounded-3xl px-8 py-8 text-sm font-medium focus:outline-none focus:border-emerald-500 focus:bg-white transition-all h-48 resize-none shadow-sm" 
+                    placeholder="e.g. Launch a startup, grow a business, move into strategy" 
+                    maxLength={150}
+                    value={formData.goal}
+                    onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
+                  />
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {step === 4 && (
-              <div className="space-y-8">
-                <div className="p-8 bg-slate-50 rounded-3xl border border-slate-100">
-                  <h4 className="text-lg font-black text-botanical-950 mb-4 uppercase tracking-tight">Declaration of Integrity</h4>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6">
-                    I hereby certify that all information provided in this dossier is accurate and represents my original work. I understand that institutional rigor is the foundation of ABC.
-                  </p>
-                  <label className="flex items-center space-x-3 cursor-pointer">
-                    <input type="checkbox" className="w-5 h-5 rounded border-slate-300 text-emerald-500 focus:ring-emerald-500" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950">I Agree to the Terms of Application</span>
-                  </label>
-                </div>
-                <div className="p-8 border border-slate-100 rounded-3xl flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <ShieldCheck className="w-8 h-8 text-emerald-500" />
+              <motion.div 
+                key="step4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="space-y-10"
+              >
+                <div className="bg-slate-50 rounded-[32px] p-8 border border-slate-100 space-y-6">
+                  <div className="grid grid-cols-2 gap-8">
                     <div>
-                      <h5 className="font-black text-botanical-950 text-sm">Identity Verification</h5>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Secure 256-bit Encryption</p>
+                      <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Full Name</h4>
+                      <p className="text-sm font-black text-botanical-950">{formData.name || '—'}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Email</h4>
+                      <p className="text-sm font-black text-botanical-950">{formData.email || '—'}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Background</h4>
+                      <p className="text-sm font-black text-botanical-950">{formData.background || '—'} / {formData.experience || '—'}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Program</h4>
+                      <p className="text-sm font-black text-botanical-950">{formData.selectedProgram}</p>
                     </div>
                   </div>
-                  <div className="text-emerald-500 font-black text-xs uppercase tracking-widest">Verified</div>
+                  <div className="pt-6 border-t border-slate-100">
+                    <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-2">Intent Summary</h4>
+                    <p className="text-xs font-medium text-slate-600 italic leading-relaxed">"{formData.goal || 'No goal specified'}"</p>
+                  </div>
                 </div>
-              </div>
+
+                <label className="flex items-center space-x-4 cursor-pointer group">
+                  <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
+                    formData.confirmAccurate ? 'bg-emerald-500 border-emerald-500' : 'border-slate-200 group-hover:border-emerald-500'
+                  }`}>
+                    {formData.confirmAccurate && <CheckCircle2 className="w-4 h-4 text-white" />}
+                  </div>
+                  <input 
+                    type="checkbox" 
+                    className="hidden"
+                    checked={formData.confirmAccurate}
+                    onChange={(e) => setFormData({ ...formData, confirmAccurate: e.target.checked })}
+                  />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-botanical-950 transition-colors">
+                    I confirm that the information provided is accurate and my own.
+                  </span>
+                </label>
+              </motion.div>
             )}
+            </AnimatePresence>
           </div>
 
           {/* Navigation Buttons */}
-          <div className="mt-12 flex justify-between items-center">
+          <div className="mt-16 flex justify-between items-center gap-6">
             <button 
               onClick={handleBack}
-              className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors"
+              className="flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors px-4 py-4"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>{step === 1 ? 'Cancel' : 'Back'}</span>
             </button>
             <button 
               onClick={handleNext}
-              disabled={isSubmitting}
-              className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all flex items-center space-x-3 disabled:opacity-50"
+              disabled={isSubmitting || (step === 4 && !formData.confirmAccurate)}
+              className={`bg-botanical-950 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-500 transition-all flex items-center space-x-4 shadow-xl active:scale-95 disabled:opacity-30 disabled:pointer-events-none ${
+                step === 4 ? 'bg-emerald-500 shadow-emerald-500/20' : 'bg-botanical-950 shadow-botanical-950/20'
+              }`}
             >
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Processing Dossier...</span>
+                  <span>Submitting...</span>
                 </>
               ) : (
                 <>
-                  <span>{step === 4 ? 'Submit Application' : 'Continue'}</span>
+                  <span>{step === 4 ? '👉 Submit Application' : '👉 Continue'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
           </div>
         </motion.div>
-
-        {/* Support Footer */}
-        <div className="mt-12 text-center">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-            Need assistance? <button className="text-emerald-500 hover:underline">Contact Admissions Support</button>
-          </p>
-        </div>
       </div>
     </div>
   );

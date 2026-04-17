@@ -32,14 +32,14 @@ export const Partnerships = () => {
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="aspect-[4/3] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
+            <div className="aspect-[4/3] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl group">
               <img 
-                src="https://images.unsplash.com/photo-1522071823991-b1ae5e6a3058?auto=format&fit=crop&w=800&q=80" 
+                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80" 
                 alt="Partnerships" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/60 via-transparent to-transparent" />
             </div>
           </motion.div>
         </div>

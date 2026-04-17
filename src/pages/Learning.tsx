@@ -1,57 +1,98 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Play, BookOpen, Zap, Users, Shield, TrendingUp, ArrowRight, CheckCircle2, Microscope } from 'lucide-react';
+import { AnimatedBackground } from '../components/AnimatedBackground';
 
 import { Page } from '../components/Layout';
+import { useAuth } from '../contexts/AuthContext';
+import { downloadMockPdf } from '../lib/downloadPdf';
+import { AnimatePresence } from 'motion/react';
 
 interface ExperienceProps {
   onPageChange: (page: Page) => void;
 }
 
 export const Learning = ({ onPageChange }: ExperienceProps) => {
+  const { isLoggedIn, hasImage } = useAuth();
+  const [downloading, setDownloading] = React.useState(false);
+
+  const handleDownloadProspectus = () => {
+    if (isLoggedIn && hasImage) {
+      onPageChange('post-download');
+    } else {
+      setDownloading(true);
+      downloadMockPdf('ABC_Learning_Brochure');
+      setTimeout(() => setDownloading(false), 3000);
+    }
+  };
+
   return (
-    <div className="pt-24">
-      {/* Hero Section */}
-      <section className="relative py-32 px-6 md:px-12 overflow-hidden bg-white">
-        <div className="absolute inset-0 z-0 opacity-10">
-          <img 
-            src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1920&q=80" 
-            alt="Online Learning" 
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
-        </div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+    <div className="pt-24 relative">
+      <AnimatePresence>
+        {downloading && (
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
+            exit={{ opacity: 0, y: 50 }}
+            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
           >
-            <div className="inline-flex items-center space-x-2 mb-8">
-              <div className="w-12 h-px bg-emerald-500" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">The ABC Learning Model</span>
+            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
+              <CheckCircle2 className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-7xl md:text-[120px] font-black tracking-tighter leading-[0.8] text-botanical-950 mb-12 uppercase">
+            <span className="text-[10px] font-black uppercase tracking-widest">Prospectus Downloaded Successfully</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* Hero Section */}
+      <section className="relative py-32 px-6 md:px-12 overflow-hidden bg-botanical-950">
+        <AnimatedBackground intensity="high" className="opacity-40" />
+        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center space-x-4 mb-8">
+              <div className="w-12 h-px bg-emerald-500" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">The ABC Learning Model</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-white mb-12 uppercase">
               Online Rigor, <br />
               <span className="text-emerald-500 italic">Real-World Impact.</span>
             </h1>
-            <p className="text-xl text-slate-500 leading-relaxed font-medium mb-12 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-400 leading-relaxed font-medium mb-12 max-w-2xl">
               We've re-engineered business education for the digital age. Our model combines high-fidelity online classes with immersive simulation labs and global peer networks.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6">
               <button 
                 onClick={() => onPageChange('programs')}
-                className="bg-botanical-950 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/20"
+                className="bg-emerald-500 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20"
               >
                 Explore Curriculum
               </button>
               <button 
                 onClick={() => onPageChange('simulation-labs')}
-                className="bg-white border border-slate-200 text-slate-600 px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all"
+                className="bg-white/10 border border-white/10 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/20 transition-all"
               >
                 Enter Simulation Labs
               </button>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="relative"
+          >
+            <div className="aspect-[4/5] rounded-[40px] overflow-hidden border border-white/10 relative group shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" 
+                alt="Online Learning" 
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/60 via-transparent to-transparent" />
             </div>
           </motion.div>
         </div>
@@ -89,7 +130,7 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
               { title: 'Knowledge Vault', tag: 'ON-DEMAND', desc: 'Cinematic library of core modules, accessible across all devices.', img: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80' },
               { title: 'Simulation Labs', tag: 'IMMERSIVE', desc: 'Project-based sprints where theory meets the friction of real-world execution.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80' }
             ].map((item, i) => (
-              <div key={i} className="group cursor-pointer">
+              <div key={i} className="group cursor-pointer" onClick={() => onPageChange('post-view')}>
                 <div className="aspect-[4/5] rounded-[32px] overflow-hidden relative mb-8 shadow-2xl">
                   <img 
                     src={item.img} 
@@ -113,8 +154,9 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
       </section>
 
       {/* The Simulation Lab Technical Section */}
-      <section className="py-32 px-6 md:px-12 bg-botanical-950 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+      <section className="py-32 px-6 md:px-12 bg-botanical-950 text-white relative overflow-hidden">
+        <AnimatedBackground intensity="medium" className="opacity-30" />
+        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div>
             <h2 className="text-6xl font-black tracking-tighter mb-12 uppercase leading-[0.9]">The Simulation Lab.</h2>
             <div className="space-y-12">
@@ -230,14 +272,17 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
           <p className="text-xl text-slate-500 font-medium mb-16 max-w-2xl mx-auto">
             Applications for the next cohort are now being reviewed. Secure your seat at the vanguard of African business.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button 
               onClick={() => onPageChange('application')}
               className="bg-emerald-500 text-white px-16 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/40"
             >
               Apply for Admission
             </button>
-            <button className="bg-white border border-slate-200 text-botanical-950 px-16 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all">
+            <button 
+              onClick={handleDownloadProspectus}
+              className="bg-white border border-slate-200 text-botanical-950 px-16 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all"
+            >
               Download Prospectus
             </button>
           </div>

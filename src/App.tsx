@@ -17,11 +17,18 @@ import { Community } from './pages/Community';
 import { Faculty } from './pages/Faculty';
 import { Contact } from './pages/Contact';
 import { Application } from './pages/Application';
+import { Checkout } from './pages/Checkout';
+import { Welcome } from './pages/Welcome';
+import { Experience } from './pages/Experience';
+import { ProgramDetail } from './pages/ProgramDetail';
+import { PostDownload } from './pages/PostDownload';
+import { PostView } from './pages/PostView';
 import { GenericPage } from './components/GenericPage';
 import { motion, AnimatePresence } from 'motion/react';
 import { StudentDashboard } from './pages/dashboards/StudentDashboard';
 import { FacultyDashboard } from './pages/dashboards/FacultyDashboard';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 export default function App() {
   const [activePage, setActivePage] = useState<Page>(() => {
@@ -30,6 +37,14 @@ export default function App() {
     if (path === '/dashboard/faculty') return 'dashboard-faculty';
     return 'home';
   });
+  const [selectedProgramId, setSelectedProgramId] = useState<string | null>(null);
+
+  const handlePageChange = (page: Page, programId?: string) => {
+    if (programId) {
+      setSelectedProgramId(programId);
+    }
+    setActivePage(page);
+  };
 
   // Handle URL changes (for dashboard links)
   useEffect(() => {
@@ -76,41 +91,45 @@ export default function App() {
           {(() => {
             switch (activePage) {
               case 'home':
-                return <Home onPageChange={setActivePage} />;
+                return <Home onPageChange={handlePageChange} />;
               case 'insights':
-                return <Insights onPageChange={setActivePage} />;
+                return <Insights onPageChange={handlePageChange} />;
               case 'programs':
-                return <Programs onPageChange={setActivePage} />;
+                return <Programs onPageChange={handlePageChange} />;
               case 'admissions':
-                return <Admissions onPageChange={setActivePage} />;
+                return <Admissions onPageChange={handlePageChange} />;
               case 'experience':
-                return <Learning onPageChange={setActivePage} />;
+                return <Experience onPageChange={handlePageChange} />;
               case 'about':
-                return <About onPageChange={setActivePage} />;
+                return <About onPageChange={handlePageChange} />;
               
               // Dashboards
               case 'dashboard-student':
-                return <StudentDashboard onPageChange={setActivePage} />;
+                return <StudentDashboard onPageChange={handlePageChange} />;
               case 'dashboard-faculty':
-                return <FacultyDashboard onPageChange={setActivePage} />;
+                return <FacultyDashboard onPageChange={handlePageChange} />;
               
               // Footer & Missing Pages
               case 'faculty':
-                return <Faculty onPageChange={setActivePage} />;
+                return <Faculty onPageChange={handlePageChange} />;
               case 'learning':
-                return <Learning onPageChange={setActivePage} />;
+                return <Learning onPageChange={handlePageChange} />;
               case 'simulation-labs':
-                return <SimulationLabs onPageChange={setActivePage} />;
+                return <SimulationLabs onPageChange={handlePageChange} />;
               case 'careers':
                 return <GenericPage title="Careers" description="Join the team architecting the future of African business education." onBack={() => setActivePage('home')} />;
               case 'community':
-                return <Community onPageChange={setActivePage} />;
+                return <Community onPageChange={handlePageChange} />;
               case 'partnerships':
-                return <Partnerships onPageChange={setActivePage} />;
+                return <Partnerships onPageChange={handlePageChange} />;
               case 'contact':
-                return <Contact onPageChange={setActivePage} />;
+                return <Contact onPageChange={handlePageChange} />;
               case 'application':
-                return <Application onComplete={() => setActivePage('dashboard-student')} onBack={() => setActivePage('admissions')} />;
+                return <Application onComplete={() => setActivePage('checkout')} onBack={() => setActivePage('admissions')} />;
+              case 'checkout':
+                return <Checkout onComplete={() => setActivePage('welcome')} onBack={() => setActivePage('application')} />;
+              case 'welcome':
+                return <Welcome onDashboard={() => setActivePage('dashboard-student')} onSimulation={() => setActivePage('dashboard-student')} />;
               case 'privacy':
                 return <GenericPage title="Privacy Policy" description="How we protect your data and maintain institutional integrity." onBack={() => setActivePage('home')} />;
               case 'terms':
@@ -132,8 +151,17 @@ export default function App() {
               case 'innovation-leadership':
                 return <GenericPage title="Innovation Leadership" description="Leading high-performance teams through digital transformation." onBack={() => setActivePage('programs')} />;
 
+              case 'program-detail':
+                return <ProgramDetail programId={selectedProgramId} onPageChange={handlePageChange} onBack={() => setActivePage('programs')} />;
+
+              case 'post-download':
+                return <PostDownload onPageChange={handlePageChange} />;
+              
+              case 'post-view':
+                return <PostView onPageChange={handlePageChange} />;
+
               default:
-                return <Home onPageChange={setActivePage} />;
+                return <Home onPageChange={handlePageChange} />;
             }
           })()}
         </motion.div>
@@ -141,22 +169,27 @@ export default function App() {
     );
   };
 
-  // Don't show layout on dashboard pages
+  // Don't show layout on dashboard, checkout, or welcome pages
   const isDashboard = activePage.startsWith('dashboard-');
+  const isMinimal = activePage === 'checkout' || activePage === 'welcome';
 
-  if (isDashboard) {
+  if (isDashboard || isMinimal) {
     return (
       <LanguageProvider>
-        {renderPage()}
+        <AuthProvider>
+          {renderPage()}
+        </AuthProvider>
       </LanguageProvider>
     );
   }
 
   return (
     <LanguageProvider>
-      <Layout activePage={activePage} onPageChange={setActivePage}>
-        {renderPage()}
-      </Layout>
+      <AuthProvider>
+        <Layout activePage={activePage} onPageChange={handlePageChange}>
+          {renderPage()}
+        </Layout>
+      </AuthProvider>
     </LanguageProvider>
   );
 }

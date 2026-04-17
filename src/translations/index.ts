@@ -36,6 +36,59 @@ export const translations: Record<Language, any> = {
       communityActivity: 'Community Activity',
       quickActions: 'Quick Actions',
       upcomingSessions: 'Upcoming Live Sessions'
+    },
+    checkout: {
+      title: 'Finalize Your Enrollment',
+      secureCheckout: 'Secure checkout by ABC Institutional Finance',
+      payInFull: 'Pay in Full',
+      installments: 'Installments (3x)',
+      secureYourSpot: 'Secure Your Spot',
+      programSummary: 'Program Summary',
+      whatYouGet: 'What You Get',
+      securityTrust: 'Institutional Grade Security & Compliance'
+    },
+    welcome: {
+      title: "You're In.",
+      subtitle: 'Welcome to Africa Business College. Your journey of sovereign leadership starts now.',
+      goToDashboard: 'Go to Dashboard',
+      startFirstSimulation: 'Start First Simulation',
+      nextSteps: 'Next Steps'
+    },
+    faculty: {
+      oversight: 'Institutional Oversight',
+      design: 'Educational Design',
+      monitor: 'Simulation Monitor',
+      registry: 'Scholar Registry',
+      research: 'Research & Assets',
+      calendar: 'Academic Calendar',
+      governance: 'Governance Ink',
+      preferences: 'Preferences',
+      overview: 'Academic Overview.',
+      metrics: {
+        curricula: 'Active Curricula',
+        scholars: 'Total Scholars',
+        engagement: 'Engagement Rate',
+        achievement: 'Avg Achievement'
+      },
+      pipeline: 'Submission Pipeline',
+      analytics: 'Simulation Analytics',
+      health: 'Institutional Health',
+      schedule: 'Governance Schedule'
+    },
+    student: {
+      os: 'Learning OS',
+      curriculum: 'Curriculum',
+      simulation: 'Simulation Lab',
+      tools: 'Tool Studio',
+      network: 'Cohort Network',
+      performance: 'Performance',
+      preferences: 'Preferences',
+      welcome: 'Welcome back',
+      focus: 'Primary Focus',
+      path: 'Curriculum Path',
+      analytics: 'Performance Analytics',
+      instruments: 'Business Instrument Studio',
+      community: 'Sovereign Network'
     }
   },
   FR: {

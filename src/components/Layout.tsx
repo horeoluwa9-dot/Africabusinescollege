@@ -3,11 +3,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Globe, Share2, Linkedin, Twitter, Youtube, Mail, CheckCircle2, Loader2, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Language } from '../translations';
+import { AnimatedBackground } from './AnimatedBackground';
+import { LoginModal } from './LoginModal';
 
 export type Page = 
   | 'home' | 'insights' | 'programs' | 'admissions' | 'experience' | 'about'
   | 'faculty' | 'learning' | 'simulation-labs' | 'careers' | 'application'
+  | 'checkout' | 'welcome'
   | 'entrepreneurship' | 'venture-building' | 'digital-business' | 'innovation-leadership'
+  | 'program-detail' | 'post-download' | 'post-view'
   | 'community' | 'partnerships' | 'contact'
   | 'privacy' | 'terms' | 'accreditation'
   | 'login-student' | 'login-faculty'
@@ -93,6 +97,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const navLinks = [
     { name: t('nav.about'), page: 'about' },
@@ -123,25 +128,36 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
       <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl py-3 border-b border-slate-100">
         <div className="max-w-[1600px] mx-auto px-6 flex justify-between items-center">
           {/* LEFT: LOGO */}
-          <div 
-            className={`flex items-center space-x-3 cursor-pointer group shrink-0 ${isRTL ? 'space-x-reverse' : ''}`}
+            <div className={`flex items-center space-x-3 cursor-pointer group shrink-0 ${isRTL ? 'space-x-reverse' : ''}`}
             onClick={() => onPageChange('home')}
           >
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-white font-black text-lg">A</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden relative">
+                {/* Custom SVG Logo matching the ABC brand */}
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+                  {/* Graduation Cap (Navy) */}
+                  <path d="M20 8L36 18L20 28L4 18L20 8Z" fill="#0a2540" />
+                  <path d="M10 21V28C10 28 15 32 20 32C25 32 30 28 30 28V21" stroke="#0a2540" strokeWidth="2.5" />
+                  {/* Arrow Accent (Gold/Amber) */}
+                  <path d="M32 12L36 8M36 8H31M36 8V13" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  {/* Foundation Line (Emerald) */}
+                  <path d="M4 36C12 32 28 32 36 36" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
+                </svg>
               </div>
-              <span className="text-xl font-black tracking-tighter text-botanical-950 group-hover:text-emerald-500 transition-colors">ABC</span>
+              <div className="flex flex-col">
+                <span className="text-xl font-black tracking-tighter text-botanical-950 group-hover:text-emerald-500 transition-colors leading-none">ABC</span>
+                <span className="text-[7px] font-black uppercase tracking-widest text-slate-400 leading-none mt-1">African Business College</span>
+              </div>
             </div>
           </div>
           
           {/* CENTER: NAV LINKS */}
-          <div className={`hidden xl:flex items-center space-x-0.5 ${isRTL ? 'space-x-reverse' : ''}`}>
+          <div className={`hidden xl:flex items-center justify-center flex-grow space-x-1 ${isRTL ? 'space-x-reverse' : ''}`}>
             {navLinks.map((item) => (
               <button 
                 key={item.page} 
                 onClick={() => onPageChange(item.page as Page)}
-                className={`px-3 py-2 text-[9px] font-black uppercase tracking-widest transition-all rounded-lg relative whitespace-nowrap ${
+                className={`px-4 py-2 text-[9px] font-black uppercase tracking-widest transition-all rounded-lg relative whitespace-nowrap ${
                   activePage === item.page
                     ? 'text-emerald-500 bg-emerald-50' 
                     : 'text-slate-500 hover:text-botanical-950 hover:bg-slate-50'
@@ -238,7 +254,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
                   >
                     <button
                       onClick={() => {
-                        onPageChange('dashboard-student');
+                        setIsLoginModalOpen(true);
                         setIsLoginOpen(false);
                       }}
                       className={`w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
@@ -271,9 +287,15 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
 
       <main className="pt-16">{children}</main>
 
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
+        onSuccess={() => onPageChange('dashboard-student')}
+      />
+
       <footer className="bg-botanical-950 relative overflow-hidden">
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_70%)] opacity-10" />
+        {/* Animated Background Overlay */}
+        <AnimatedBackground intensity="low" className="opacity-10" />
         
         {/* TOP CTA SECTION */}
         <div className="relative z-10 border-b border-white/5">
