@@ -18,9 +18,11 @@ import { useAuth } from '../contexts/AuthContext';
 interface ApplicationProps {
   onComplete: () => void;
   onBack: () => void;
+  onPageChange: (page: any) => void;
+  context?: { source: 'program' | 'simulation' | 'general'; id?: string };
 }
 
-export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) => {
+export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, onPageChange, context }) => {
   const { login } = useAuth();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,6 +81,16 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
     }, 2000);
   };
 
+  const getSecondaryCTA = () => {
+    if (context?.source === 'program') {
+      return `Explore ${formData.selectedProgram}`;
+    }
+    if (context?.source === 'simulation') {
+      return 'Explore Simulation Labs';
+    }
+    return 'Explore Programs';
+  };
+
   if (isSuccess) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white px-6">
@@ -104,10 +116,14 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button 
-              onClick={() => window.location.hash = 'programs'} // Simulated direct nav
+              onClick={() => {
+                if (context?.source === 'program') onPageChange('programs');
+                else if (context?.source === 'simulation') onPageChange('simulation-labs');
+                else onPageChange('programs');
+              }}
               className="w-full text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors py-4"
             >
-              Explore Programs
+              {getSecondaryCTA()}
             </button>
           </div>
         </motion.div>
@@ -160,8 +176,8 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
                 {step === 1 ? 'Takes less than a minute' : 'Built for builders, not paperwork'}
               </div>
               <div className="v-line w-px h-3 bg-slate-200" />
-              <div className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                 {step === 1 ? 'No long forms, just clarity' : 'Step ' + step}
+              <div className="text-[8px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">
+                 Step {step}
               </div>
             </div>
             <h3 className="text-5xl font-black text-botanical-950 tracking-tighter uppercase mb-4 leading-none">
@@ -395,7 +411,7 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack }) 
                 </>
               ) : (
                 <>
-                  <span>{step === 4 ? '👉 Submit Application' : '👉 Continue'}</span>
+                  <span>{step === 4 ? 'Submit Application' : 'Continue'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}

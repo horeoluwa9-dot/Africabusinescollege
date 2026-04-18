@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   CheckCircle2, 
   ShieldCheck, 
@@ -12,7 +12,11 @@ import {
   Award,
   Clock,
   ChevronDown,
-  Loader2
+  Loader2,
+  Building2,
+  Smartphone,
+  Repeat,
+  Wallet
 } from 'lucide-react';
 import { Page } from '../components/Layout';
 import { useAuth } from '../contexts/AuthContext';
@@ -23,10 +27,15 @@ interface CheckoutProps {
   onBack: () => void;
 }
 
+type PaymentMethod = 'card' | 'transfer' | 'bank' | 'ussd' | 'opay';
+type PaymentPlan = 'full' | 'installments';
+
 export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
   const { user } = useAuth();
   const { t } = useLanguage();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentPlan, setPaymentPlan] = useState<PaymentPlan>('full');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card');
 
   const handlePayment = () => {
     setIsProcessing(true);
@@ -36,13 +45,22 @@ export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
   };
 
   const programName = user?.program || 'Entrepreneurship Program';
-  const price = "₦450,000";
+  const totalPrice = 2500;
+  const installmentPrice = 950; // Total: 2850 (3 months)
+
+  const paymentMethods: { id: PaymentMethod; label: string; icon: any; description: string }[] = [
+    { id: 'card', label: 'Card', icon: CreditCard, description: 'Visa, Mastercard, Verve' },
+    { id: 'transfer', label: 'Transfer', icon: Repeat, description: 'Pay via Bank Transfer' },
+    { id: 'bank', label: 'Bank', icon: Building2, description: 'Direct Bank Debit' },
+    { id: 'ussd', label: 'USSD', icon: Smartphone, description: 'Dial code on your phone' },
+    { id: 'opay', label: 'OPay', icon: Wallet, description: 'Pay with OPay wallet' },
+  ];
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col pt-24 pb-12 px-6">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 flex-grow">
         
-        {/* LEFT SIDE: PROGRAM DETAILS */}
+        {/* LEFT SIDE: PROGRAM DETAILS & PAYMENT METHODS */}
         <div className="lg:col-span-7 space-y-12">
           <div>
             <div className="flex items-center space-x-3 mb-8 cursor-pointer group" onClick={onBack}>
@@ -51,60 +69,45 @@ export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
             </div>
             
             <h1 className="text-5xl font-black text-botanical-950 tracking-tighter uppercase mb-6 leading-none">
-              {t('checkout.title').split(' ').slice(0, 2).join(' ')} <span className="text-emerald-500">{t('checkout.title').split(' ').slice(2).join(' ')}.</span>
+              Enroll <span className="text-emerald-500">Securely.</span>
             </h1>
             <p className="text-slate-500 font-medium text-lg leading-relaxed max-w-xl">
               You've been accepted into the {programName}. Join your cohort and start building your legacy.
             </p>
           </div>
 
-          {/* SUMMARY CARD */}
-          <div className="bg-white rounded-[40px] p-10 border border-slate-100 shadow-sm overflow-hidden relative">
-            <div className="absolute top-0 right-0 p-10 opacity-[0.03]">
-              <Award className="w-48 h-48 text-botanical-950" />
-            </div>
-            
-            <div className="relative z-10">
-              <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">{t('checkout.programSummary')}</div>
-              <h3 className="text-3xl font-black text-botanical-950 mb-10 tracking-tight">{programName}</h3>
-              
-              <div className="grid grid-cols-2 gap-8 mb-12">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-slate-400" />
-                  </div>
-                  <div>
-                    <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Duration</div>
-                    <div className="text-sm font-black text-botanical-950">8–12 Weeks</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center">
-                    <Users className="w-5 h-5 text-slate-400" />
-                  </div>
-                  <div>
-                    <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Format</div>
-                    <div className="text-sm font-black text-botanical-950">Cohort-Based</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-50 pb-4">{t('checkout.whatYouGet')}</div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[
-                    { icon: Monitor, label: 'Full Program Access' },
-                    { icon: CheckCircle2, label: 'Simulation Labs' },
-                    { icon: ShieldCheck, label: 'Official Certification' },
-                    { icon: Users, label: 'Venture Network' },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center space-x-3 text-sm font-medium text-slate-600">
-                      <item.icon className="w-4 h-4 text-emerald-500" />
-                      <span>{item.label}</span>
+          {/* PAYMENT METHODS SELECTION */}
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-botanical-950">Select Payment Method</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {paymentMethods.map((method) => (
+                <button
+                  key={method.id}
+                  onClick={() => setPaymentMethod(method.id)}
+                  className={`flex items-center justify-between p-6 rounded-3xl border-2 transition-all text-left ${
+                    paymentMethod === method.id 
+                      ? 'border-emerald-500 bg-white shadow-xl shadow-emerald-500/5' 
+                      : 'border-slate-100 bg-white/50 hover:border-slate-200'
+                  }`}
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+                      paymentMethod === method.id ? 'bg-emerald-500 text-white' : 'bg-slate-50 text-slate-400'
+                    }`}>
+                      <method.icon className="w-6 h-6" />
                     </div>
-                  ))}
-                </div>
-              </div>
+                    <div>
+                      <div className="text-sm font-black text-botanical-950 leading-none mb-1">{method.label}</div>
+                      <div className="text-[10px] font-medium text-slate-400">{method.description}</div>
+                    </div>
+                  </div>
+                  {paymentMethod === method.id && (
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
+                      <CheckCircle2 className="w-4 h-4 text-white" />
+                    </div>
+                  )}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -138,32 +141,56 @@ export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
               <div className="flex justify-between items-start mb-12">
                 <div>
                   <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Total Investment</h4>
-                  <div className="text-6xl font-black text-botanical-950 tracking-tighter leading-none">{price}</div>
+                  <div className="text-6xl font-black text-botanical-950 tracking-tighter leading-none">
+                    ${paymentPlan === 'full' ? totalPrice.toLocaleString() : (installmentPrice * 3).toLocaleString()}
+                  </div>
                 </div>
                 <span className="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">Limited Cohort Seats</span>
               </div>
 
               <div className="space-y-6 mb-12">
-                <div className="bg-slate-50 p-6 rounded-2xl flex items-center justify-between group cursor-pointer border border-emerald-500">
+                {/* Full Payment */}
+                <div 
+                  onClick={() => setPaymentPlan('full')}
+                  className={`p-6 rounded-2xl flex items-center justify-between group cursor-pointer border-2 transition-all ${
+                    paymentPlan === 'full' ? 'border-emerald-500 bg-slate-50' : 'border-slate-100'
+                  }`}
+                >
                   <div className="flex items-center space-x-4">
-                    <div className="w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center">
-                      <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                      paymentPlan === 'full' ? 'border-emerald-500' : 'border-slate-200'
+                    }`}>
+                      {paymentPlan === 'full' && <div className="w-2 h-2 bg-emerald-500 rounded-full" />}
                     </div>
                     <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950">{t('checkout.payInFull')}</span>
-                      <p className="text-[8px] font-medium text-slate-400 capitalize">Most popular option</p>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950">Pay In Full</span>
+                      <p className="text-[8px] font-medium text-slate-400 capitalize">Save $350 compared to installments</p>
                     </div>
                   </div>
-                  <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                  <div className="text-sm font-black text-botanical-950">${totalPrice.toLocaleString()}</div>
                 </div>
                 
-                <div className="bg-white p-6 rounded-2xl flex items-center justify-between group cursor-pointer border border-slate-100 hover:border-emerald-500/30 transition-all">
-                  <div className="flex items-center space-x-4 opacity-50">
-                    <div className="w-5 h-5 rounded-full border-2 border-slate-200" />
+                {/* Installments */}
+                <div 
+                  onClick={() => setPaymentPlan('installments')}
+                  className={`p-6 rounded-2xl flex items-center justify-between group cursor-pointer border-2 transition-all ${
+                    paymentPlan === 'installments' ? 'border-emerald-500 bg-slate-50' : 'border-slate-100'
+                  }`}
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                      paymentPlan === 'installments' ? 'border-emerald-500' : 'border-slate-200'
+                    }`}>
+                      {paymentPlan === 'installments' && <div className="w-2 h-2 bg-emerald-500 rounded-full" />}
+                    </div>
                     <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950">{t('checkout.installments')}</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950">Installments</span>
                       <p className="text-[8px] font-medium text-slate-400">3x Monthly Payments</p>
                     </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-sm font-black text-botanical-950">${installmentPrice.toLocaleString()}/mo</div>
+                    <div className="text-[8px] font-medium text-slate-400">Across 3 months</div>
                   </div>
                 </div>
               </div>
@@ -186,7 +213,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
                 ) : (
                   <>
                     <Lock className="w-4 h-4" />
-                    <span>{t('checkout.secureYourSpot')}</span>
+                    <span>Secure Your Spot</span>
                   </>
                 )}
               </button>
@@ -194,11 +221,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
               <div className="space-y-4">
                 <div className="flex items-center justify-center space-x-2 text-[8px] font-black uppercase tracking-widest text-slate-400">
                   <ShieldCheck className="w-3 h-3 text-emerald-500" />
-                  <span>{t('checkout.secureCheckout')}</span>
-                </div>
-                <div className="flex items-center justify-center space-x-4">
-                  <button className="text-[8px] font-black uppercase tracking-widest text-slate-300 hover:text-botanical-950 transition-colors underline underline-offset-4">Refund Policy</button>
-                  <button className="text-[8px] font-black uppercase tracking-widest text-slate-300 hover:text-botanical-950 transition-colors underline underline-offset-4">Institutional Terms</button>
+                  <span>Secure Checkout powered by institution</span>
                 </div>
               </div>
             </div>

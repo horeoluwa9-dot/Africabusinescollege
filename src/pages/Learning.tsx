@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Play, BookOpen, Zap, Users, Shield, TrendingUp, ArrowRight, CheckCircle2, Microscope } from 'lucide-react';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { useLanguage } from '../contexts/LanguageContext';
 
 import { Page } from '../components/Layout';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,6 +14,7 @@ interface ExperienceProps {
 }
 
 export const Learning = ({ onPageChange }: ExperienceProps) => {
+  const { t } = useLanguage();
   const { isLoggedIn, hasImage } = useAuth();
   const [downloading, setDownloading] = React.useState(false);
 
@@ -116,19 +118,19 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
         </div>
       </section>
 
-      {/* Multi-Dimensional Architectures */}
+      {/* High-Performance Learning Systems */}
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="mb-24">
-            <h2 className="text-6xl font-black tracking-tighter text-botanical-950 uppercase mb-4">Multi-Dimensional <br /> Architectures.</h2>
-            <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">Synchronized for high-performance professionals.</p>
+            <h2 className="text-6xl font-black tracking-tighter text-botanical-950 uppercase mb-4">{t('learning.systemsTitle')}</h2>
+            <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">{t('learning.systemsDesc')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: 'Online Classes', tag: 'LIVE SESSION', desc: 'Direct synchronization with industry titans in closed-door digital classrooms.', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80' },
-              { title: 'Knowledge Vault', tag: 'ON-DEMAND', desc: 'Cinematic library of core modules, accessible across all devices.', img: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80' },
-              { title: 'Simulation Labs', tag: 'IMMERSIVE', desc: 'Project-based sprints where theory meets the friction of real-world execution.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80' }
+              { title: t('learning.classesTitle'), tag: 'LIVE SESSION', desc: t('learning.classesDesc'), img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80' },
+              { title: t('learning.libraryTitle'), tag: 'ON-DEMAND', desc: t('learning.libraryDesc'), img: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80' },
+              { title: t('learning.strategySessionsTitle'), tag: 'IMMERSIVE', desc: 'Project-based sprints where theory meets the friction of real-world execution.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80' }
             ].map((item, i) => (
               <div key={i} className="group cursor-pointer" onClick={() => onPageChange('post-view')}>
                 <div className="aspect-[4/5] rounded-[32px] overflow-hidden relative mb-8 shadow-2xl">
@@ -143,12 +145,65 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
                     <span className="bg-emerald-500 text-white px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest">{item.tag}</span>
                   </div>
                   <div className="absolute bottom-8 left-8 right-8">
-                    <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">{item.title}</h3>
+                    <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter leading-tight">{item.title}</h3>
                     <p className="text-slate-400 text-sm font-medium leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Concrete Outcomes Section */}
+      <section className="py-32 px-6 md:px-12 bg-slate-50">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* What You Leave With */}
+          <div className="bg-white p-12 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden group">
+            <h3 className="text-2xl font-black text-botanical-950 mb-8 uppercase tracking-tight">{t('learning.outcomesTitle')}</h3>
+            <div className="space-y-4">
+              {(t('learning.outcomes') as string[]).map((item, i) => (
+                <div key={i} className="flex items-center space-x-3 text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div className="absolute -bottom-8 -right-8 opacity-5 group-hover:scale-110 transition-transform duration-700">
+              <CheckCircle2 className="w-32 h-32 text-botanical-950" />
+            </div>
+          </div>
+
+          {/* Guided by Practitioners */}
+          <div className="bg-white p-12 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden group">
+            <h3 className="text-2xl font-black text-botanical-950 mb-8 uppercase tracking-tight">{t('learning.practitionersTitle')}</h3>
+            <div className="space-y-4">
+              {(t('learning.practitioners') as string[]).map((item, i) => (
+                <div key={i} className="flex items-center space-x-3 text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div className="absolute -bottom-8 -right-8 opacity-5 group-hover:scale-110 transition-transform duration-700">
+              <Users className="w-32 h-32 text-botanical-950" />
+            </div>
+          </div>
+
+          {/* Built Around Real Work */}
+          <div className="bg-white p-12 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden group">
+            <h3 className="text-2xl font-black text-botanical-950 mb-8 uppercase tracking-tight">{t('learning.realWorkTitle')}</h3>
+            <div className="space-y-4">
+              {(t('learning.realWork') as string[]).map((item, i) => (
+                <div key={i} className="flex items-center space-x-3 text-slate-600 font-medium">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div className="absolute -bottom-8 -right-8 opacity-5 group-hover:scale-110 transition-transform duration-700">
+              <Zap className="w-32 h-32 text-botanical-950" />
+            </div>
           </div>
         </div>
       </section>
@@ -161,9 +216,9 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
             <h2 className="text-6xl font-black tracking-tighter mb-12 uppercase leading-[0.9]">The Simulation Lab.</h2>
             <div className="space-y-12">
               {[
-                { icon: TrendingUp, title: 'Real-Time Market Friction', desc: 'Every engine simulates African market volatility, regulatory shifts, and competitive maneuvers.' },
-                { icon: Users, title: 'Collaborative War-Rooms', desc: 'Form strategic alliances or engage in tactical takeovers with fellow scholars in synchronized scenarios.' },
-                { icon: Shield, title: 'Low-Risk High-Fidelity', desc: 'Build your decision-making muscle memory before deploying capital in the real world.' }
+                { icon: TrendingUp, title: t('learning.dynamicSimTitle'), desc: t('learning.dynamicSimDesc') },
+                { icon: Users, title: t('learning.strategySessionsTitle'), desc: t('learning.strategySessionsDesc') },
+                { icon: Shield, title: t('learning.highFidelityTitle'), desc: t('learning.highFidelityDesc') }
               ].map((item, i) => (
                 <div key={i} className="flex items-start space-x-6">
                   <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0">

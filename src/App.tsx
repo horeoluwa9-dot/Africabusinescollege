@@ -12,6 +12,7 @@ import { Admissions } from './pages/Admissions';
 import { Learning } from './pages/Learning';
 import { About } from './pages/About';
 import { SimulationLabs } from './pages/SimulationLabs';
+import { SimulationDemo } from './pages/EntrepreneurshipSimulationDemo';
 import { Partnerships } from './pages/Partnerships';
 import { Community } from './pages/Community';
 import { Faculty } from './pages/Faculty';
@@ -38,11 +39,25 @@ export default function App() {
     return 'home';
   });
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(null);
+  const [entryContext, setEntryContext] = useState<{ source: 'program' | 'simulation' | 'general'; id?: string }>({ source: 'general' });
 
   const handlePageChange = (page: Page, programId?: string) => {
     if (programId) {
       setSelectedProgramId(programId);
+      // Track source if going to application or program detail
+      if (page === 'program-detail') {
+        setEntryContext({ source: 'program', id: programId });
+      }
     }
+
+    if (page === 'application' && entryContext.source === 'general') {
+      // If we're going to application and haven't set a source yet, it's general
+      // unless we just came from programs/simulation
+      if (activePage === 'simulation-labs') {
+        setEntryContext({ source: 'simulation' });
+      }
+    }
+
     setActivePage(page);
   };
 
@@ -116,6 +131,8 @@ export default function App() {
                 return <Learning onPageChange={handlePageChange} />;
               case 'simulation-labs':
                 return <SimulationLabs onPageChange={handlePageChange} />;
+              case 'simulation-demo':
+                return <SimulationDemo onApply={() => handlePageChange('application')} onContinueProgram={() => handlePageChange('programs')} />;
               case 'careers':
                 return <GenericPage title="Careers" description="Join the team architecting the future of African business education." onBack={() => setActivePage('home')} />;
               case 'community':
@@ -125,7 +142,12 @@ export default function App() {
               case 'contact':
                 return <Contact onPageChange={handlePageChange} />;
               case 'application':
-                return <Application onComplete={() => setActivePage('checkout')} onBack={() => setActivePage('admissions')} />;
+                return <Application 
+                  onComplete={() => setActivePage('checkout')} 
+                  onBack={() => setActivePage('admissions')}
+                  onPageChange={handlePageChange}
+                  context={entryContext}
+                />;
               case 'checkout':
                 return <Checkout onComplete={() => setActivePage('welcome')} onBack={() => setActivePage('application')} />;
               case 'welcome':

@@ -551,9 +551,12 @@ export const DEADLINES: Deadline[] = [
 ];
 
 export const FAQS: FAQ[] = [
-  { id: '1', question: 'Can I work while studying?', answer: 'Yes, our online and part-time programs are designed for working professionals.' },
-  { id: '2', question: 'Where are the residency weeks held?', answer: 'Residency weeks are held at our main campus and regional hubs across the continent.' },
-  { id: '3', question: 'Is there an application fee?', answer: 'There is a standard application fee of $100, which is waived for scholarship applicants.' }
+  { id: '1', question: 'Do I need prior experience?', answer: 'No. Our programs are designed for various levels, from beginners to executives. We look for ambition, curiosity, and commitment.' },
+  { id: '2', question: 'Is this fully online?', answer: 'Yes. ABC is a virtual-first institution. All programs are delivered online with live sessions, simulations, and cohort-based learning.' },
+  { id: '3', question: 'How long are programs?', answer: 'Programs range from 6 to 12 months, depending on the specific certificate or degree path chosen.' },
+  { id: '4', question: 'Can I work while studying?', answer: 'Yes. Our programs are designed for working professionals, with flexible schedules and cohort-based structure.' },
+  { id: '5', question: 'What happens after I apply?', answer: 'Your application is reviewed by our Admissions team. Successful candidates are invited for an interview before a final decision is delivered via the portal.' },
+  { id: '6', question: 'Is there an application fee?', answer: 'Yes, there is a standard application fee of $100, which supports our rigorous review process.' }
 ];
 
 export const FACULTY: Faculty[] = [

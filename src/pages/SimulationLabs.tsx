@@ -1,7 +1,8 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { Play, BookOpen, Target, Zap, Globe, Landmark, Users, ArrowRight, Quote } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Play, BookOpen, Target, Zap, Globe, Landmark, Users, ArrowRight, Quote, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 
 import { Page } from '../components/Layout';
 
@@ -11,6 +12,8 @@ interface SimulationLabsProps {
 
 export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
   const { t } = useLanguage();
+  const { isLoggedIn, hasApplied } = useAuth();
+
   return (
     <div className="pt-24">
       {/* Hero Section */}
@@ -33,21 +36,76 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
             <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-xl mb-12">
               Step into a high-fidelity digital sandbox where the stakes are simulated but the consequences are felt. Test strategies, lead teams, and master market dynamics in our world-class simulation environments.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6">
-              <button 
-                onClick={() => onPageChange('post-view')}
-                className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all flex items-center justify-center space-x-3"
-              >
-                <Play className="w-4 h-4 fill-current" />
-                <span>Launch A Simulation</span>
-              </button>
-              <button 
-                onClick={() => onPageChange('learning')}
-                className="bg-slate-100 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all"
-              >
-                View Curriculum
-              </button>
-            </div>
+
+            {(isLoggedIn || hasApplied) ? (
+              <div className="space-y-8">
+                <div className="flex items-center space-x-6">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950 flex items-center">
+                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2" />
+                    Continue Simulation
+                  </span>
+                  <button 
+                    onClick={() => onPageChange('dashboard-student')}
+                    className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-500 transition-colors"
+                  >
+                    View Progress
+                  </button>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <button 
+                    onClick={() => onPageChange('simulation-demo')}
+                    className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all flex items-center justify-center space-x-3 shadow-xl shadow-emerald-500/20"
+                  >
+                    <Play className="w-4 h-4 fill-current" />
+                    <span>Enter Simulation</span>
+                  </button>
+                  <button 
+                    onClick={() => {
+                      const envs = document.getElementById('environments');
+                      if (envs) envs.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-white border border-slate-200 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all active:scale-95"
+                  >
+                    Explore Environments
+                  </button>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <button 
+                    onClick={() => onPageChange('application')}
+                    className="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-botanical-950 border-b border-emerald-500 transition-all"
+                  >
+                    Unlock full access to all simulations → Apply for Full Access
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-8">
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <button 
+                    onClick={() => onPageChange('simulation-demo')}
+                    className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all flex items-center justify-center space-x-3"
+                  >
+                    <Play className="w-4 h-4 fill-current" />
+                    <span>Try Demo Simulation</span>
+                  </button>
+                  <button 
+                    onClick={() => {
+                      const envs = document.getElementById('environments');
+                      if (envs) envs.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-white border border-slate-200 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all active:scale-95"
+                  >
+                    Explore Environments
+                  </button>
+                </div>
+                <button 
+                  onClick={() => onPageChange('application')}
+                  className="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-botanical-950 border-b border-emerald-500 transition-all"
+                >
+                  Apply for Full Access
+                </button>
+              </div>
+            )}
           </motion.div>
 
           <motion.div
@@ -105,6 +163,24 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
               <p className="text-lg text-slate-500 leading-relaxed font-medium mb-12">
                 ABC's Simulation Labs provide proprietary, high-fidelity environments that mirror the complexity of global markets. We bridge the gap between theory and practice through intensive simulations in Entrepreneurship, Startup Fundraising, Market Expansion, Economic Policy, and Leadership Decision-making.
               </p>
+
+              <div className="bg-white p-10 rounded-3xl border border-slate-100 mb-12">
+                <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-6">Why Simulation-Based Learning Matters</h3>
+                <div className="space-y-4">
+                  {[
+                    'Learn by doing, not just studying',
+                    'Experience real consequences of decisions',
+                    'Build decision-making confidence',
+                    'Prepare for real-world complexity'
+                  ].map((benefit, i) => (
+                    <div key={i} className="flex items-center space-x-3 text-slate-600 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                      <span className="text-sm">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <span className="text-4xl font-black text-botanical-950 block mb-2">500+</span>
@@ -130,13 +206,13 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
                   <Target className="w-full h-full text-emerald-500" />
                 </div>
                 <div className="aspect-square rounded-3xl overflow-hidden shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1518186239751-2467ef4f5ca1?auto=format&fit=crop&w=400&q=80" alt="Sim 2" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80" alt="Sim 2" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="text-center mb-20">
+          <div id="environments" className="text-center mb-20">
             <h2 className="text-5xl font-black tracking-tighter text-botanical-950 mb-4 uppercase">Simulation Environments</h2>
             <p className="text-slate-500 font-medium">Five specialized arenas designed to test the limits of your professional intuition.</p>
           </div>
@@ -144,7 +220,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Entrepreneurship Simulation */}
             <div 
-              onClick={() => onPageChange('post-view')}
+              onClick={() => onPageChange('simulation-demo')}
               className="lg:col-span-2 bg-emerald-900 rounded-[40px] p-12 text-white relative overflow-hidden group cursor-pointer"
             >
               <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform">
@@ -157,7 +233,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
 
             {/* Startup Fundraising Simulation */}
             <div 
-              onClick={() => onPageChange('post-view')}
+              onClick={() => onPageChange('simulation-demo')}
               className="bg-slate-200 rounded-[40px] p-12 text-botanical-950 relative overflow-hidden group cursor-pointer"
             >
               <div className="absolute top-8 right-8">
@@ -173,7 +249,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
 
             {/* Market Expansion Simulation */}
             <div 
-              onClick={() => onPageChange('post-view')}
+              onClick={() => onPageChange('simulation-demo')}
               className="bg-emerald-100 rounded-[40px] p-12 text-botanical-950 cursor-pointer hover:shadow-xl transition-all"
             >
               <Globe className="w-12 h-12 mb-8 text-emerald-500" />
@@ -183,7 +259,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
 
             {/* Economic Policy Simulation */}
             <div 
-              onClick={() => onPageChange('post-view')}
+              onClick={() => onPageChange('simulation-demo')}
               className="bg-white border border-slate-100 rounded-[40px] p-12 text-botanical-950 cursor-pointer hover:shadow-xl transition-all"
             >
               <Landmark className="w-12 h-12 mb-8 text-emerald-500" />
@@ -193,7 +269,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
 
             {/* Leadership Decision Lab */}
             <div 
-              onClick={() => onPageChange('post-view')}
+              onClick={() => onPageChange('simulation-demo')}
               className="bg-botanical-950 rounded-[40px] p-12 text-white cursor-pointer hover:shadow-xl transition-all"
             >
               <Users className="w-12 h-12 mb-8 text-emerald-500" />

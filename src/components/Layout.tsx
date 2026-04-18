@@ -9,7 +9,7 @@ import { LoginModal } from './LoginModal';
 export type Page = 
   | 'home' | 'insights' | 'programs' | 'admissions' | 'experience' | 'about'
   | 'faculty' | 'learning' | 'simulation-labs' | 'careers' | 'application'
-  | 'checkout' | 'welcome'
+  | 'checkout' | 'welcome' | 'simulation-demo'
   | 'entrepreneurship' | 'venture-building' | 'digital-business' | 'innovation-leadership'
   | 'program-detail' | 'post-download' | 'post-view'
   | 'community' | 'partnerships' | 'contact'

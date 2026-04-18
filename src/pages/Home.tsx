@@ -558,67 +558,64 @@ const Ecosystem = ({ onPageChange }: HomeProps) => {
       </div>
     </section>
   );
-};
-
-const SimulationLabs = ({ onPageChange }: HomeProps) => {
+};const SimulationLabs = ({ onPageChange }: HomeProps) => {
+  const { t } = useLanguage();
   return (
-    <section className="py-32 bg-white">
+    <section className="py-32 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center max-w-2xl mx-auto mb-24">
-          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-6">Simulation Labs</h2>
-          <p className="text-slate-500 font-medium">Precision environments designed to stress-test leadership strategies without real-world risk.</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-12">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">The Laboratory</span>
+            </div>
+            <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-6 uppercase leading-tight">
+              {t('home.simLabsTitle')}
+            </h2>
+            <p className="text-slate-500 text-lg font-medium">
+              {t('home.simLabsSubtitle')}
+            </p>
+          </div>
+          <button 
+            onClick={() => onPageChange('simulation-labs')}
+            className="group flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-botanical-950 transition-colors"
+          >
+            <span>View All Labs</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Large Lab */}
-          <div 
-            onClick={() => onPageChange('simulation-labs')}
-            className="lg:col-span-5 bg-botanical-950 rounded-3xl p-12 relative overflow-hidden group cursor-pointer min-h-[400px]"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" 
-              alt="War Room" 
-              className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:opacity-20 transition-opacity">
-              <div className="w-32 h-32 border-4 border-emerald-500 rounded-full" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            { title: t('home.entrepreneurship'), desc: t('home.entrepreneurshipDesc'), id: 'entrepreneurship' },
+            { title: t('home.professionals'), desc: t('home.professionalsDesc'), id: 'professionals' },
+            { title: t('home.founders'), desc: t('home.foundersDesc'), id: 'founders' },
+            { title: t('home.executives'), desc: t('home.executivesDesc'), id: 'executives' }
+          ].map(item => (
+            <div 
+              key={item.title} 
+              onClick={() => onPageChange('simulation-labs')}
+              className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group cursor-pointer relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Zap className="w-24 h-24 text-emerald-500" />
+              </div>
+              <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                <ArrowUpRight className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-black text-botanical-950 mb-4 tracking-tight leading-tight uppercase">{item.title}</h3>
+              <p className="text-slate-500 text-xs font-medium leading-relaxed mb-10">{item.desc}</p>
+              <div className="flex items-center text-[8px] font-black uppercase tracking-widest text-emerald-500 group-hover:translate-x-2 transition-transform">
+                <span>Enter Lab</span>
+                <ArrowRight className="w-3 h-3 ml-2" />
+              </div>
             </div>
-            <div className="relative z-10 h-full flex flex-col justify-between">
-              <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-12">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              </div>
-              <div>
-                <h3 className="text-4xl font-black text-white mb-6 uppercase tracking-tighter leading-none">Entrepreneurship <br /> Simulation</h3>
-                <p className="text-slate-400 text-sm font-medium leading-relaxed mb-8">Build and scale a virtual startup from idea to market.</p>
-                <ArrowRight className="w-6 h-6 text-emerald-500 group-hover:translate-x-2 transition-transform" />
-              </div>
-            </div>
-          </div>
-
-          {/* Small Labs */}
-          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {LABS.filter(l => l.type === 'small').map(lab => (
-              <div 
-                key={lab.id} 
-                onClick={() => onPageChange('simulation-labs')}
-                className="bg-surface-low p-10 rounded-3xl border border-slate-100 hover:border-emerald-500/30 transition-all group cursor-pointer"
-              >
-                <div className="flex justify-between items-start mb-12">
-                  <div className="w-10 h-10 bg-emerald-500/10 rounded-lg flex items-center justify-center">
-                    <ArrowUpRight className="w-5 h-5 text-emerald-500" />
-                  </div>
-                </div>
-                <h4 className="text-xl font-black text-botanical-950 mb-4">{lab.title}</h4>
-                <p className="text-slate-500 text-sm font-medium leading-relaxed">{lab.description}</p>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>
   );
 };
+;
 
 const InstrumentStudio = ({ onPageChange }: HomeProps) => {
   return (

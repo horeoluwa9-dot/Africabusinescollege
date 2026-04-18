@@ -25,6 +25,7 @@ import { PROGRAMS } from '../constants';
 import { Page } from '../components/Layout';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
 
 interface ProgramDetailProps {
@@ -34,6 +35,7 @@ interface ProgramDetailProps {
 }
 
 export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetailProps) => {
+  const { t } = useLanguage();
   const { isLoggedIn, hasImage } = useAuth();
   const [downloading, setDownloading] = React.useState(false);
 
@@ -249,7 +251,7 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
                         <h4 className="text-2xl font-black text-botanical-950 uppercase tracking-tighter">{course.title}</h4>
                       </div>
                       <button 
-                        onClick={() => onPageChange('post-view')}
+                        onClick={() => onPageChange('simulation-demo')}
                         className="bg-white border border-slate-200 text-botanical-950 px-6 py-3 text-[8px] font-black uppercase tracking-widest rounded-lg hover:bg-emerald-500 hover:text-white transition-all"
                       >
                         View Course
@@ -323,11 +325,19 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
                 <div className="h-px w-12 bg-emerald-500" />
                 <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Who This Program Is For</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {program.whoItIsFor.map((item, i) => (
-                  <div key={i} className="flex items-center space-x-4 p-6 border border-slate-100 rounded-2xl">
-                    <Users className="w-5 h-5 text-slate-400" />
-                    <span className="text-sm font-black text-botanical-950 uppercase tracking-tight leading-tight">{item}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {[
+                  { title: t('home.entrepreneurship'), desc: t('home.entrepreneurshipDesc') },
+                  { title: t('home.professionals'), desc: t('home.professionalsDesc') },
+                  { title: t('home.founders'), desc: t('home.foundersDesc') },
+                  { title: t('home.executives'), desc: t('home.executivesDesc') }
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col p-8 border border-slate-100 rounded-[32px] bg-white hover:border-emerald-500/30 transition-all group">
+                    <div className="w-10 h-10 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <h4 className="text-lg font-black text-botanical-950 uppercase tracking-tight mb-2">{item.title}</h4>
+                    <p className="text-slate-500 text-sm font-medium leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>

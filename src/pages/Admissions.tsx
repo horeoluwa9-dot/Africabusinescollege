@@ -15,6 +15,7 @@ import { Page } from '../components/Layout';
 import { FAQS } from '../constants';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
 import { AnimatePresence } from 'motion/react';
 
@@ -86,10 +87,12 @@ const Hero = ({ onPageChange }: AdmissionsProps) => {
 };
 
 const TargetAudience = () => {
+  const { t } = useLanguage();
   const audiences = [
-    { icon: Rocket, title: 'Entrepreneurs', desc: 'Founders looking to scale continental ventures with institutional rigor and sustainable frameworks.' },
-    { icon: Building2, title: 'Corporate Leaders', desc: 'Executives aiming to master sovereign leadership and complex pan-African market navigation.' },
-    { icon: Globe, title: 'Public Servants', desc: 'Policy makers and administrators bridging the gap between business innovation and public excellence.' }
+    { icon: Rocket, title: t('home.entrepreneurship'), desc: t('home.entrepreneurshipDesc') },
+    { icon: Users, title: t('home.professionals'), desc: t('home.professionalsDesc') },
+    { icon: Building2, title: t('home.founders'), desc: t('home.foundersDesc') },
+    { icon: Globe, title: t('home.executives'), desc: t('home.executivesDesc') }
   ];
 
   return (
@@ -100,22 +103,19 @@ const TargetAudience = () => {
             <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">TARGET AUDIENCE</div>
             <h2 className="text-5xl font-black text-botanical-950 tracking-tighter">Who Should Apply</h2>
           </div>
-          <p className="text-slate-500 max-w-md font-medium">
-            We seek candidates who are not just looking for a degree, but a platform to catalyze continental transformation.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {audiences.map(item => (
-            <div key={item.title} className="bg-white p-12 rounded-3xl border border-slate-100 hover:shadow-2xl transition-all group cursor-pointer">
-              <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-emerald-500 group-hover:text-white transition-all">
-                <item.icon className="w-7 h-7" />
+            <div key={item.title} className="bg-white p-10 rounded-3xl border border-slate-100 hover:shadow-2xl transition-all group cursor-pointer relative overflow-hidden">
+              <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-8 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                <item.icon className="w-5 h-5" />
               </div>
-              <h3 className="text-2xl font-black text-botanical-950 mb-6">{item.title}</h3>
-              <p className="text-slate-500 text-sm font-medium leading-relaxed mb-10">{item.desc}</p>
-              <div className="flex items-center text-[10px] font-black uppercase tracking-widest text-emerald-500 group-hover:translate-x-2 transition-transform">
+              <h3 className="text-xl font-black text-botanical-950 mb-4 tracking-tight leading-tight uppercase">{item.title}</h3>
+              <p className="text-slate-500 text-xs font-medium leading-relaxed mb-8">{item.desc}</p>
+              <div className="flex items-center text-[8px] font-black uppercase tracking-widest text-emerald-500 group-hover:translate-x-2 transition-transform">
                 <span>Explore Path</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-3 h-3 ml-2" />
               </div>
             </div>
           ))}
@@ -126,12 +126,13 @@ const TargetAudience = () => {
 };
 
 const SelectionJourney = () => {
+  const { t } = useLanguage();
   const steps = [
-    { num: '01', title: 'Explore Programs', desc: 'Review our curriculum and attend a virtual discovery session to align your goals with our ethos.' },
-    { num: '02', title: 'Submit Application', desc: 'Complete the online dossier including academic transcripts, leadership essays, and references.' },
-    { num: '03', title: 'Rigorous Review', desc: 'Our Admissions Council evaluates your potential for impact within the sovereign business landscape.' },
-    { num: '04', title: 'Admissions Decision', desc: 'Successful candidates receive an invitation to join the college, delivered via the portal.' },
-    { num: '05', title: 'Enroll & Onboard', desc: 'Confirm your seat and begin the immersion into the ABC ecosystem of excellence.' }
+    { num: '01', title: t('admissions.step1Title'), desc: t('admissions.step1Desc') },
+    { num: '02', title: t('admissions.step2Title'), desc: t('admissions.step2Desc') },
+    { num: '03', title: t('admissions.step3Title'), desc: t('admissions.step3Desc') },
+    { num: '04', title: t('admissions.step4Title'), desc: t('admissions.step4Desc') },
+    { num: '05', title: t('admissions.step5Title'), desc: t('admissions.step5Desc') }
   ];
 
   return (
@@ -174,17 +175,17 @@ const SelectionJourney = () => {
 };
 
 const Criteria = ({ onPageChange }: AdmissionsProps) => {
+  const { t } = useLanguage();
   return (
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
         <div className="lg:col-span-8">
-          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-16">Admissions Criteria</h2>
+          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-16">{t('admissions.criteriaTitle')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {[
-              { title: 'Academic Excellence', desc: "Bachelor's degree from a recognized institution with a strong GPA or equivalent professional certifications." },
-              { title: 'Leadership Record', desc: 'Minimum 3-5 years of documented leadership or entrepreneurial experience with demonstrated impact.' },
-              { title: 'Visionary Intent', desc: 'A compelling personal statement outlining how you intend to contribute to Africa\'s sovereign growth.' },
-              { title: 'Language Proficiency', desc: 'High-level proficiency in English. Knowledge of a major regional African language is a significant advantage.' }
+              { title: t('admissions.criteria1Title'), desc: t('admissions.criteria1Desc') },
+              { title: t('admissions.criteria2Title'), desc: t('admissions.criteria2Desc') },
+              { title: 'Willingness to learn and execute', desc: 'A commitment to active participation and real-world implementation.' }
             ].map(item => (
               <div key={item.title}>
                 <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">{item.title}</h4>
@@ -192,6 +193,13 @@ const Criteria = ({ onPageChange }: AdmissionsProps) => {
               </div>
             ))}
           </div>
+          <button 
+            onClick={() => onPageChange('application')}
+            className="mt-16 inline-flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest text-emerald-500 border-b-2 border-emerald-500 pb-1 hover:text-botanical-950 hover:border-botanical-950 transition-all"
+          >
+            <span>{t('admissions.applyAnyway')}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
         <div className="lg:col-span-4">
@@ -296,20 +304,45 @@ const Tuition = () => {
 };
 
 const FAQSection = () => {
+  const [openId, setOpenId] = React.useState<string | null>(null);
+
   return (
     <section className="py-32 px-6 md:px-12 max-w-4xl mx-auto">
       <div className="text-center mb-20">
         <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">SUPPORT</div>
-        <h2 className="text-5xl font-black text-botanical-950 tracking-tighter">Frequently Asked Questions</h2>
+        <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-8">Frequently Asked Questions</h2>
+        <button className="text-[10px] font-black uppercase tracking-widest text-emerald-500 border-b border-emerald-500 pb-1 hover:text-botanical-950 hover:border-botanical-950 transition-all">
+          View All Admissions FAQs
+        </button>
       </div>
 
       <div className="space-y-4">
         {FAQS.map(faq => (
-          <div key={faq.id} className="bg-white border border-slate-100 rounded-2xl p-8 hover:border-emerald-500/30 transition-all group cursor-pointer">
+          <div 
+            key={faq.id} 
+            onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
+            className={`bg-white border rounded-2xl p-8 transition-all cursor-pointer ${
+              openId === faq.id ? 'border-emerald-500 shadow-xl' : 'border-slate-100 hover:border-emerald-500/30'
+            }`}
+          >
             <div className="flex justify-between items-center">
               <h4 className="text-lg font-black text-botanical-950">{faq.question}</h4>
-              <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-emerald-500 group-hover:rotate-90 transition-all" />
+              <ArrowRight className={`w-5 h-5 text-slate-300 transition-all ${openId === faq.id ? 'rotate-90 text-emerald-500' : ''}`} />
             </div>
+            <AnimatePresence>
+              {openId === faq.id && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="overflow-hidden"
+                >
+                  <p className="mt-6 text-slate-500 font-medium leading-relaxed pt-6 border-t border-slate-50">
+                    {faq.answer}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
