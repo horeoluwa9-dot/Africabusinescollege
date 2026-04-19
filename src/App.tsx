@@ -12,7 +12,7 @@ import { Admissions } from './pages/Admissions';
 import { Learning } from './pages/Learning';
 import { About } from './pages/About';
 import { SimulationLabs } from './pages/SimulationLabs';
-import { SimulationDemo } from './pages/EntrepreneurshipSimulationDemo';
+import { SimulationDemo } from './pages/SimulationDemo';
 import { Partnerships } from './pages/Partnerships';
 import { Community } from './pages/Community';
 import { Faculty } from './pages/Faculty';
@@ -22,8 +22,13 @@ import { Checkout } from './pages/Checkout';
 import { Welcome } from './pages/Welcome';
 import { Experience } from './pages/Experience';
 import { ProgramDetail } from './pages/ProgramDetail';
+import { NewsDetail } from './pages/NewsDetail';
+import { InsightDetail } from './pages/InsightDetail';
 import { PostDownload } from './pages/PostDownload';
 import { PostView } from './pages/PostView';
+import { Privacy } from './pages/Privacy';
+import { Terms } from './pages/Terms';
+import { Accreditation } from './pages/Accreditation';
 import { GenericPage } from './components/GenericPage';
 import { motion, AnimatePresence } from 'motion/react';
 import { StudentDashboard } from './pages/dashboards/StudentDashboard';
@@ -39,14 +44,25 @@ export default function App() {
     return 'home';
   });
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(null);
+  const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
+  const [selectedInsightId, setSelectedInsightId] = useState<string | null>(null);
+  const [selectedSimulationId, setSelectedSimulationId] = useState<string | null>(null);
   const [entryContext, setEntryContext] = useState<{ source: 'program' | 'simulation' | 'general'; id?: string }>({ source: 'general' });
 
-  const handlePageChange = (page: Page, programId?: string) => {
-    if (programId) {
-      setSelectedProgramId(programId);
-      // Track source if going to application or program detail
+  const handlePageChange = (page: Page, id?: string) => {
+    if (id) {
       if (page === 'program-detail') {
-        setEntryContext({ source: 'program', id: programId });
+        setSelectedProgramId(id);
+        setEntryContext({ source: 'program', id: id });
+      }
+      if (page === 'news-detail') {
+        setSelectedNewsId(id);
+      }
+      if (page === 'insight-detail') {
+        setSelectedInsightId(id);
+      }
+      if (page === 'simulation-demo') {
+        setSelectedSimulationId(id);
       }
     }
 
@@ -132,7 +148,11 @@ export default function App() {
               case 'simulation-labs':
                 return <SimulationLabs onPageChange={handlePageChange} />;
               case 'simulation-demo':
-                return <SimulationDemo onApply={() => handlePageChange('application')} onContinueProgram={() => handlePageChange('programs')} />;
+                return <SimulationDemo 
+                  simulationId={selectedSimulationId}
+                  onApply={() => handlePageChange('application')} 
+                  onContinueProgram={() => handlePageChange('programs')} 
+                />;
               case 'careers':
                 return <GenericPage title="Careers" description="Join the team architecting the future of African business education." onBack={() => setActivePage('home')} />;
               case 'community':
@@ -151,13 +171,13 @@ export default function App() {
               case 'checkout':
                 return <Checkout onComplete={() => setActivePage('welcome')} onBack={() => setActivePage('application')} />;
               case 'welcome':
-                return <Welcome onDashboard={() => setActivePage('dashboard-student')} onSimulation={() => setActivePage('dashboard-student')} />;
+                return <Welcome onDashboard={() => setActivePage('dashboard-student')} onSimulation={() => setActivePage('simulation-labs')} />;
               case 'privacy':
-                return <GenericPage title="Privacy Policy" description="How we protect your data and maintain institutional integrity." onBack={() => setActivePage('home')} />;
+                return <Privacy onPageChange={handlePageChange} />;
               case 'terms':
-                return <GenericPage title="Terms of Service" description="The legal framework governing your interaction with ABC." onBack={() => setActivePage('home')} />;
+                return <Terms onPageChange={handlePageChange} />;
               case 'accreditation':
-                return <GenericPage title="Accreditation" description="Our commitment to global standards and continental excellence." onBack={() => setActivePage('home')} />;
+                return <Accreditation onPageChange={handlePageChange} />;
               case 'login-student':
                 return <GenericPage title="Student Portal" description="Access your learning modules, labs, and cohort network." onBack={() => setActivePage('home')} />;
               case 'login-faculty':
@@ -181,6 +201,11 @@ export default function App() {
               
               case 'post-view':
                 return <PostView onPageChange={handlePageChange} />;
+
+              case 'insight-detail':
+                return <InsightDetail insightId={selectedInsightId || undefined} onPageChange={handlePageChange} />;
+              case 'news-detail':
+                return <NewsDetail newsId={selectedNewsId || undefined} onPageChange={handlePageChange} />;
 
               default:
                 return <Home onPageChange={handlePageChange} />;

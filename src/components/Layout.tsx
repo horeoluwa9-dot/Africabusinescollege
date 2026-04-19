@@ -15,12 +15,12 @@ export type Page =
   | 'community' | 'partnerships' | 'contact'
   | 'privacy' | 'terms' | 'accreditation'
   | 'login-student' | 'login-faculty'
-  | 'dashboard-student' | 'dashboard-faculty';
+  | 'dashboard-student' | 'dashboard-faculty' | 'news-detail' | 'insight-detail';
 
 interface LayoutProps {
   children: React.ReactNode;
   activePage: Page;
-  onPageChange: (page: Page) => void;
+  onPageChange: (page: Page, id?: string) => void;
 }
 
 const Newsletter = () => {
@@ -98,6 +98,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [loginSuccessPage, setLoginSuccessPage] = useState<Page>('dashboard-student');
 
   const navLinks = [
     { name: t('nav.about'), page: 'about' },
@@ -254,6 +255,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
                   >
                     <button
                       onClick={() => {
+                        setLoginSuccessPage('dashboard-student');
                         setIsLoginModalOpen(true);
                         setIsLoginOpen(false);
                       }}
@@ -263,7 +265,8 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
                     </button>
                     <button
                       onClick={() => {
-                        onPageChange('dashboard-faculty');
+                        setLoginSuccessPage('dashboard-faculty');
+                        setIsLoginModalOpen(true);
                         setIsLoginOpen(false);
                       }}
                       className={`w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
@@ -290,7 +293,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
       <LoginModal 
         isOpen={isLoginModalOpen} 
         onClose={() => setIsLoginModalOpen(false)} 
-        onSuccess={() => onPageChange('dashboard-student')}
+        onSuccess={() => onPageChange(loginSuccessPage)}
       />
 
       <footer className="bg-botanical-950 relative overflow-hidden">
@@ -420,7 +423,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
         <div className="relative z-10 border-t border-white/5 py-12">
           <div className={`max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">
-              © 2026 AFRICA BUSINESS COLLEGE
+              © 2026 AFRICA BUSINESS COLLEGE All Rights Reserved by <a href="https://cyclebreeze.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-500 hover:text-emerald-400 italic">Cyclebreeze</a>
             </p>
             <div className={`flex flex-wrap justify-center gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
               {[

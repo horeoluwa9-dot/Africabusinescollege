@@ -26,20 +26,20 @@ interface AboutProps {
 
 const AboutHero = () => {
   return (
-    <section className="pt-12 pb-32 bg-white px-6 md:px-12 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div className="order-1 lg:order-1">
+    <section className="pt-6 pb-32 bg-white px-6 md:px-12 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-7 order-1">
             <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-8">
               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">The Institution</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.9]">
+            <h1 className="text-5xl md:text-8xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
               Architecture of <br /> <span className="text-emerald-500 italic">Execution</span>
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed font-bold mb-8">
               ABC offers academic programs, executive programs, simulation-based learning, and custom cohort programs in business education that transform individuals, organisations, and business practices across Africa and beyond.
             </p>
             <p className="text-lg text-slate-500 leading-relaxed font-medium mb-12">
-              Our programs stand out because of their emphasis on practical execution, African market intelligence, and community-driven accountability. We are a virtual-first institution, purpose-built for the digital era, combining the rigor of a top business school with the agility and accessibility of a modern technology company.
+              Our programs stand out because of their emphasis on practical execution, African market intelligence, and community-driven accountability. 
             </p>
             <div className="flex items-center space-x-8">
               <div className="text-center">
@@ -58,14 +58,15 @@ const AboutHero = () => {
               </div>
             </div>
           </div>
-          <div className="order-2 lg:order-2 relative">
-            <div className="aspect-square rounded-[48px] overflow-hidden border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)]">
+          <div className="lg:col-span-5 order-2 relative flex items-center justify-center lg:justify-end">
+            <div className="w-full max-w-[400px] aspect-[3/4] lg:h-[60vh] lg:min-h-[500px] rounded-[48px] overflow-hidden border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative">
               <img 
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" 
                 alt="ABC Campus Life" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                 referrerPolicy="no-referrer"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/20 via-transparent to-transparent" />
             </div>
             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-emerald-500 rounded-full -z-10 blur-[100px] opacity-20" />
           </div>
@@ -474,7 +475,7 @@ const NewsSection = ({ onPageChange }: AboutProps) => {
           <p className="text-slate-500 font-medium">Learn more about ABC through stories, updates, and insights from our community.</p>
         </div>
         <button 
-          onClick={() => onPageChange('community')}
+          onClick={() => onPageChange('insights')}
           className="hidden md:flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest text-botanical-950 border-b-2 border-emerald-500 pb-1"
         >
           <span>View All News</span>
@@ -484,11 +485,11 @@ const NewsSection = ({ onPageChange }: AboutProps) => {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80', title: 'ABC Launches New Simulation Lab for Market Expansion' },
-          { image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80', title: 'Cohort 2026: The Rise of Pan-African Fintech Founders' },
-          { image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80', title: 'Professor Adesina on the Future of African Venture Capital' }
+          { id: 'simulation-lab', image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80', title: 'ABC Launches New Simulation Lab for Market Expansion' },
+          { id: 'fintech-founders', image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80', title: 'Cohort 2026: The Rise of Pan-African Fintech Founders' },
+          { id: 'adesina-vc', image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80', title: 'Professor Adesina on the Future of African Venture Capital' }
         ].map((news, i) => (
-          <div key={i} className="group cursor-pointer">
+          <div key={i} className="group cursor-pointer" onClick={() => onPageChange('news-detail', news.id)}>
             <div className="aspect-[16/10] rounded-3xl overflow-hidden mb-6 bg-slate-100">
               <img 
                 src={news.image}

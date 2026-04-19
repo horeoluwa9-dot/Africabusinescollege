@@ -4,6 +4,8 @@ import { Users, Microscope, GraduationCap, Briefcase, ArrowRight, Filter, Search
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { useLanguage } from '../contexts/LanguageContext';
 
+import { Page } from '../components/Layout';
+
 const FACULTY_MEMBERS = [
   { name: 'Marcus Thorne', role: 'Founder, Neobank Nigeria', tag: 'ENTREPRENEURS', sub: ['FINTECH', 'SCALING'], img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80' },
   { name: 'Zara El-Amin', role: 'Partner, Blue Ocean Capital', tag: 'INVESTORS', sub: ['M&A', 'GOVERNANCE'], img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80' },
@@ -13,7 +15,11 @@ const FACULTY_MEMBERS = [
   { name: 'Dr. Elena Vance', role: 'Board Advisor, Fintech Group', tag: 'POLICY LEADERS', sub: ['REGULATION', 'STRATEGY'], img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80' }
 ];
 
-export const Faculty = () => {
+interface FacultyProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const Faculty = ({ onPageChange }: FacultyProps) => {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -266,7 +272,10 @@ export const Faculty = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
             <h2 className="text-5xl font-black tracking-tighter text-botanical-950 uppercase leading-tight">Faculty Insights</h2>
-            <button className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:translate-x-2 transition-transform">
+            <button 
+              onClick={() => onPageChange('insights')}
+              className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:translate-x-2 transition-transform"
+            >
               <span>Explore all insights</span>
               <ArrowRight className="w-4 h-4" />
             </button>

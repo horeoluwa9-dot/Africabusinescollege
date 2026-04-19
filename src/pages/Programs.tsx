@@ -38,7 +38,7 @@ const Hero = ({ onPageChange }: ProgramsProps) => {
   };
 
   return (
-    <section className="relative min-h-[80vh] flex items-center pt-24 overflow-hidden bg-white">
+    <section className="relative min-h-[85vh] flex items-center pt-8 overflow-hidden bg-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_70%)] opacity-5" />
       
       <AnimatePresence>
@@ -58,18 +58,18 @@ const Hero = ({ onPageChange }: ProgramsProps) => {
       </AnimatePresence>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative z-10"
+            className="lg:col-span-7 relative z-10"
           >
             <div className="flex items-center space-x-4 mb-8">
               <div className="h-px w-12 bg-emerald-500" />
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">Built for Precision</span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] text-botanical-950 mb-8 uppercase">
               Explore Our <br />
               <span className="text-emerald-500 italic">Programs</span>
             </h1>
@@ -99,16 +99,16 @@ const Hero = ({ onPageChange }: ProgramsProps) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative"
+            className="lg:col-span-5 relative flex items-center justify-center lg:justify-end"
           >
-            <div className="aspect-[4/5] rounded-[40px] overflow-hidden border border-slate-100 shadow-2xl relative group">
+            <div className="w-full max-w-[400px] aspect-[3/4] lg:h-[60vh] lg:min-h-[500px] rounded-[48px] overflow-hidden border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative group">
               <img 
                 src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" 
                 alt="Campus" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/40 via-transparent to-transparent" />
             </div>
             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-emerald-500 rounded-full -z-10 blur-[100px] opacity-20" />
           </motion.div>

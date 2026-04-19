@@ -14,6 +14,7 @@ import {
   Microscope,
   TrendingUp,
   Zap,
+  Target,
   Play,
   CheckCircle2,
   Globe,
@@ -34,6 +35,7 @@ interface HomeProps {
 
 const HeroSlider = ({ onPageChange }: HomeProps) => {
   const { isLoggedIn, hasImage } = useAuth();
+  const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -50,47 +52,48 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
 
   const slides = [
     {
-      eyebrow: 'PROGRAMS',
-      headline: 'Explore Our Programs',
-      text: 'Architected for the next generation of African business leaders across entrepreneurship, finance, and innovation.',
-      cta1: 'View All Programs',
-      cta2: 'Download Brochure',
+      eyebrow: t('nav.programs'),
+      headline: t('home.hero.explore'),
+      text: t('home.hero.exploreDesc'),
+      cta1: t('home.hero.viewAll'),
+      cta2: t('home.hero.downloadBrochure'),
       image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
       target: 'programs' as Page
     },
     {
-      eyebrow: 'LEARNING EXPERIENCE',
-      headline: 'Learn by Doing, Not Just Studying',
-      text: 'Live classes, real-world assignments, and execution-focused frameworks built for African markets.',
-      cta1: 'Explore Learning',
-      cta2: 'View Curriculum',
+      eyebrow: t('home.hero.learningExp'),
+      headline: t('home.hero.learnByDoing'),
+      text: t('home.hero.learnByDoingDesc'),
+      cta1: t('home.hero.exploreLearning'),
+      cta2: t('home.hero.viewCurriculum'),
       image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
       target: 'learning' as Page
     },
     {
-      eyebrow: 'SIMULATION LABS',
-      headline: 'Make Decisions in Real Business Environments',
-      text: 'Test strategies across markets, funding, and leadership through high-stakes simulations.',
-      cta1: 'Launch Simulation',
-      cta2: 'View Labs',
+      eyebrow: t('nav.simulationLabs'),
+      headline: t('home.hero.decisionsRealEnv'),
+      text: t('home.hero.testStrategies'),
+      cta1: t('home.hero.launchSimulation'),
+      cta2: t('home.hero.viewLabs'),
       image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80',
-      target: 'simulation-labs' as Page
+      target: 'simulation-demo' as Page,
+      targetId: 'policy'
     },
     {
-      eyebrow: 'COMMUNITY',
-      headline: 'Join a Community of Builders',
-      text: 'Connect with founders, investors, and operators across 40+ African nations.',
-      cta1: 'Join Network',
-      cta2: 'View Alumni',
+      eyebrow: t('nav.community'),
+      headline: t('home.hero.joinNetwork'),
+      text: t('home.hero.joinNetworkDesc'),
+      cta1: t('home.hero.joinNetworkCta'),
+      cta2: t('home.hero.viewAlumni'),
       image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80',
       target: 'community' as Page
     },
     {
-      eyebrow: 'ADMISSIONS',
-      headline: 'Start Your Journey at ABC',
-      text: 'Apply to join a cohort of high-impact leaders shaping Africa’s future.',
-      cta1: 'Apply Now',
-      cta2: 'Admissions Guide',
+      eyebrow: t('nav.admissions'),
+      headline: t('home.hero.startJourney'),
+      text: t('home.hero.applyNow'),
+      cta1: t('home.hero.applyNowCta'),
+      cta2: t('home.hero.admissionsGuide'),
       image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1200&q=80',
       target: 'admissions' as Page
     }
@@ -112,7 +115,7 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
 
   return (
     <section 
-      className="relative bg-botanical-950 min-h-[90vh] flex items-center overflow-hidden pt-20"
+      className="relative bg-botanical-950 min-h-[90vh] flex items-center overflow-hidden pt-12"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -141,10 +144,10 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center py-20"
           >
             {/* Left Content */}
-            <div>
+            <div className="lg:col-span-7">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -157,7 +160,7 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
                 </span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-white mb-8 uppercase overflow-hidden">
+              <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.85] text-white mb-8 uppercase overflow-hidden">
                 {slides[currentSlide].headline.split(' ').map((word, i) => (
                   <span key={i} className="inline-block overflow-hidden mr-[0.2em] whitespace-nowrap">
                     <motion.span
@@ -192,13 +195,19 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
                 className="flex flex-col sm:flex-row gap-6"
               >
                 <button 
-                  onClick={() => onPageChange(slides[currentSlide].target)}
+                  onClick={() => onPageChange(slides[currentSlide].target, (slides[currentSlide] as any).targetId)}
                   className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-2xl shadow-emerald-500/20"
                 >
                   {slides[currentSlide].cta1}
                 </button>
                 <button 
-                  onClick={handleDownload}
+                  onClick={() => {
+                    if (currentSlide === 1) { // Learning slide
+                      onPageChange('program-detail', 'entrepreneurship');
+                    } else {
+                      handleDownload();
+                    }
+                  }}
                   className="border border-white/20 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all active:scale-95"
                 >
                   {slides[currentSlide].cta2}
@@ -208,16 +217,16 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
 
             {/* Right Image */}
             <motion.div
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ 
                 duration: 1.2, 
                 delay: 0.4,
                 ease: [0.22, 1, 0.36, 1]
               }}
-              className="relative"
+              className="lg:col-span-5 relative h-full flex items-center justify-center lg:justify-end"
             >
-              <div className="aspect-[4/3] rounded-[40px] overflow-hidden border border-white/10 relative group shadow-2xl">
+              <div className="w-full max-w-[400px] aspect-[3/4] lg:h-[60vh] lg:min-h-[500px] rounded-[40px] overflow-hidden border border-white/10 relative group shadow-2xl">
                 <motion.img 
                   key={`img-${currentSlide}`}
                   initial={{ scale: 1.2 }}
@@ -228,12 +237,11 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/60 via-transparent to-transparent" />
-                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/80 via-transparent to-transparent" />
               </div>
               
               {/* Glass Effect Accent */}
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-emerald-500/20 rounded-full blur-[120px] -z-10" />
             </motion.div>
           </motion.div>
         </AnimatePresence>
@@ -296,9 +304,9 @@ const Stats = () => {
 
 const Programs = ({ onPageChange }: HomeProps) => {
   const { isLoggedIn, hasImage } = useAuth();
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState('Executive');
   const [downloading, setDownloading] = useState(false);
-  const tabs = ['All', 'Executive', 'Advanced', 'Beginner'];
+  const tabs = ['Executive', 'Advanced', 'Beginner'];
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -410,14 +418,14 @@ const Programs = ({ onPageChange }: HomeProps) => {
 
                 {/* Bottom Section: CTAs */}
                 <div className="flex items-center justify-between mt-10">
-                  <button 
+                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
-                      onPageChange('program-detail', program.id);
+                      onPageChange('programs');
                     }}
-                    className="bg-botanical-950 text-white px-8 py-4 text-[9px] font-black uppercase tracking-widest rounded-xl group-hover:bg-emerald-500 transition-all"
+                    className="bg-botanical-950 text-white px-8 py-4 text-[9px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all"
                   >
-                    View Course
+                    View All
                   </button>
                   <button 
                     onClick={(e) => {
@@ -426,12 +434,23 @@ const Programs = ({ onPageChange }: HomeProps) => {
                     }}
                     className="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors"
                   >
-                    Preview
+                    Details
                   </button>
                 </div>
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* View All Button at bottom */}
+        <div className="mt-20 text-center">
+          <button 
+            onClick={() => onPageChange('programs')}
+            className="inline-flex items-center space-x-3 bg-botanical-950 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all active:scale-95 shadow-2xl shadow-botanical-950/20 group uppercase tracking-[0.2em]"
+          >
+            <span>View All Programs</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+          </button>
         </div>
       </div>
     </section>
@@ -558,15 +577,73 @@ const Ecosystem = ({ onPageChange }: HomeProps) => {
       </div>
     </section>
   );
-};const SimulationLabs = ({ onPageChange }: HomeProps) => {
+};
+
+import { SimulationCarousel } from '../components/SimulationCarousel';
+
+const SimulationLabs = ({ onPageChange }: HomeProps) => {
   const { t } = useLanguage();
+  
+  const simulationItems = [
+    { 
+      id: 'entrepreneurship', 
+      name: t('home.entrepreneurship'), 
+      desc: t('home.entrepreneurshipDesc'), 
+      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80",
+      icon: Zap,
+      status: 'Simulation Lab',
+      difficulty: 'Strategic intuition',
+      focus: ['Execution', 'African Markets', 'Venture Building']
+    },
+    { 
+      id: 'fundraising', 
+      name: t('home.professionals'), 
+      desc: t('home.professionalsDesc'), 
+      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80",
+      icon: Target,
+      status: 'Negotiation Suite',
+      difficulty: 'Term Sheets',
+      focus: ['Valuation', 'Investor Psychology', 'Deal Making']
+    },
+    { 
+      id: 'expansion', 
+      name: t('home.founders'), 
+      desc: t('home.foundersDesc'), 
+      image: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=80",
+      icon: Globe,
+      status: 'Continental Scale',
+      difficulty: 'Scaling Borders',
+      focus: ['Trade', 'Regulation', 'Localization']
+    },
+    { 
+      id: 'leadership', 
+      name: t('home.executives'), 
+      desc: t('home.executivesDesc'), 
+      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80",
+      icon: Users,
+      status: 'Organizational Core',
+      difficulty: 'Leadership',
+      focus: ['Culture', 'Power', 'Moats']
+    },
+    { 
+      id: 'policy', 
+      name: t('home.hero.decisionsRealEnv'), 
+      desc: t('home.testStrategies'), 
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+      icon: Beaker,
+      status: 'Sovereign Strategy',
+      difficulty: 'Expert',
+      focus: ['GDP Growth', 'Inflation', 'Fiscal Policy']
+    }
+  ];
+
   return (
     <section className="py-32 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-12">
           <div className="max-w-2xl">
             <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">The Laboratory</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">{t('home.theLaboratory')}</span>
             </div>
             <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-6 uppercase leading-tight">
               {t('home.simLabsTitle')}
@@ -579,45 +656,22 @@ const Ecosystem = ({ onPageChange }: HomeProps) => {
             onClick={() => onPageChange('simulation-labs')}
             className="group flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-botanical-950 transition-colors"
           >
-            <span>View All Labs</span>
+            <span>{t('home.viewAllLabs')}</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            { title: t('home.entrepreneurship'), desc: t('home.entrepreneurshipDesc'), id: 'entrepreneurship' },
-            { title: t('home.professionals'), desc: t('home.professionalsDesc'), id: 'professionals' },
-            { title: t('home.founders'), desc: t('home.foundersDesc'), id: 'founders' },
-            { title: t('home.executives'), desc: t('home.executivesDesc'), id: 'executives' }
-          ].map(item => (
-            <div 
-              key={item.title} 
-              onClick={() => onPageChange('simulation-labs')}
-              className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group cursor-pointer relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Zap className="w-24 h-24 text-emerald-500" />
-              </div>
-              <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-emerald-500 group-hover:text-white transition-all">
-                <ArrowUpRight className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-black text-botanical-950 mb-4 tracking-tight leading-tight uppercase">{item.title}</h3>
-              <p className="text-slate-500 text-xs font-medium leading-relaxed mb-10">{item.desc}</p>
-              <div className="flex items-center text-[8px] font-black uppercase tracking-widest text-emerald-500 group-hover:translate-x-2 transition-transform">
-                <span>Enter Lab</span>
-                <ArrowRight className="w-3 h-3 ml-2" />
-              </div>
-            </div>
-          ))}
-        </div>
+        <SimulationCarousel 
+          items={simulationItems} 
+          onSelect={(id) => onPageChange('simulation-demo', id)} 
+        />
       </div>
     </section>
   );
 };
-;
 
 const InstrumentStudio = ({ onPageChange }: HomeProps) => {
+  const { t } = useLanguage();
   return (
     <section className="bg-botanical-950 py-32 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_bottom_right,#00D98E_0%,transparent_70%)]" />
@@ -625,9 +679,9 @@ const InstrumentStudio = ({ onPageChange }: HomeProps) => {
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-24">
           <div className="max-w-2xl">
             <div className="inline-flex items-center space-x-2 bg-white/5 px-3 py-1 rounded-full mb-8 border border-white/10">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Business Instrument Studio</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">{t('home.businessInstrumentStudio')}</span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-black text-white tracking-tighter uppercase leading-tight">Use Real Business Tools</h2>
+            <h2 className="text-5xl md:text-6xl font-black text-white tracking-tighter uppercase leading-tight">{t('home.useRealTools')}</h2>
           </div>
         </div>
 
@@ -637,8 +691,8 @@ const InstrumentStudio = ({ onPageChange }: HomeProps) => {
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Zap className="w-24 h-24 text-emerald-500" />
               </div>
-              <h4 className="text-2xl font-black text-white mb-6 group-hover:text-emerald-500 transition-colors uppercase tracking-tight">{tool.title}</h4>
-              <p className="text-slate-400 font-medium leading-relaxed">{tool.description}</p>
+              <h4 className="text-2xl font-black text-white mb-6 group-hover:text-emerald-500 transition-colors uppercase tracking-tight">{t(`home.tools.${tool.key}`)}</h4>
+              <p className="text-slate-400 font-medium leading-relaxed">{t(`home.tools.${tool.key}Desc`)}</p>
             </div>
           ))}
         </div>
@@ -648,26 +702,27 @@ const InstrumentStudio = ({ onPageChange }: HomeProps) => {
 };
 
 const Testimonials = () => {
+  const { t } = useLanguage();
   const testimonials = [
     {
-      quote: "ABC gave me the precise frameworks to navigate cross-border payments in West Africa. My venture scaled from 2 markets to 5 during the MBA program.",
-      author: "David Okafor",
-      role: "Founder, Payswitch Africa",
-      program: "MBA Program",
+      quote: t('home.testimonials.quote1'),
+      author: t('home.testimonials.author1'),
+      role: t('home.testimonials.role1'),
+      program: t('home.testimonials.program1'),
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
     },
     {
-      quote: "The simulation labs were a game changer. Making high-stakes decisions in the lab before doing it in my real board room was invaluable.",
-      author: "Fatima Bello",
-      role: "Director of Ops, AgroGrow",
-      program: "Executive Leadership",
+      quote: t('home.testimonials.quote2'),
+      author: t('home.testimonials.author2'),
+      role: t('home.testimonials.role2'),
+      program: t('home.testimonials.program2'),
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
     },
     {
-      quote: "The faculty don't just teach, they've built businesses. That changes everything about how you learn.",
-      author: "Amara Osei",
-      role: "CEO, NovaPay",
-      program: "Entrepreneurship Accelerator",
+      quote: t('home.testimonials.quote3'),
+      author: t('home.testimonials.author3'),
+      role: t('home.testimonials.role3'),
+      program: t('home.testimonials.program3'),
       image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=200&q=80"
     }
   ];
@@ -677,9 +732,9 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-24">
           <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Student Success</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">{t('home.studentSuccess')}</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter uppercase leading-tight">What Our Students <br /> Are Building</h2>
+          <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter uppercase leading-tight">{t('home.whatStudentsBuilding')}</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -719,34 +774,35 @@ const Testimonials = () => {
 };
 
 const Sessions = ({ onPageChange }: HomeProps) => {
+  const { t } = useLanguage();
   return (
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
         <div className="lg:col-span-4">
-          <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-8">Scholarships for Impact</h2>
+          <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-8">{t('home.scholarshipsImpact')}</h2>
           <p className="text-slate-500 font-medium mb-12 leading-relaxed">
-            We are committed to ensuring that financial barriers do not impede the progress of Africa's most promising leaders.
+            {t('home.scholarshipText')}
           </p>
           <div className="bg-emerald-500/5 border border-emerald-500/10 p-10 rounded-2xl">
-            <h4 className="font-black text-botanical-950 mb-4">The Mandela Fellowship</h4>
-            <p className="text-sm text-slate-500 font-medium leading-relaxed mb-8">Full tuition coverage for civic leaders across the 54 African states.</p>
+            <h4 className="font-black text-botanical-950 mb-4">{t('home.mandelaFellowship')}</h4>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed mb-8">{t('home.mandelaFellowshipDesc')}</p>
             <button 
               onClick={() => onPageChange('admissions')}
               className="text-[10px] font-black uppercase tracking-widest text-emerald-500 border-b border-emerald-500/30 hover:border-emerald-500 transition-all pb-1"
             >
-              Apply for Funding
+              {t('home.applyFunding')}
             </button>
           </div>
         </div>
 
         <div className="lg:col-span-8">
           <div className="flex justify-between items-center mb-12 border-b border-slate-100 pb-6">
-            <h3 className="text-xl font-black text-botanical-950 tracking-tight">Upcoming Sessions</h3>
+            <h3 className="text-xl font-black text-botanical-950 tracking-tight">{t('home.upcomingSessions')}</h3>
             <button 
               onClick={() => onPageChange('insights')}
               className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors"
             >
-              View Calendar
+              {t('home.viewAllEvents')}
             </button>
           </div>
           <div className="space-y-6">

@@ -176,7 +176,7 @@ export const PROGRAMS: ProgramDetail[] = [
     tag: 'FEATURED',
     excerpt: 'An advanced program focused on deliberate venture creation and rapid scaling strategies for experienced founders.',
     duration: '12 Weeks',
-    format: 'Hybrid | On-Campus + Virtual',
+    format: '100% Online | Cohort-Based',
     level: 'Advanced / Founders',
     focus: 'Capital & Growth',
     badge: 'Includes Investor Demo Day',
@@ -320,7 +320,7 @@ export const PROGRAMS: ProgramDetail[] = [
     tag: 'EXEC-CERT',
     excerpt: 'A leadership program for executives navigating the intersection of technology, culture, and strategy.',
     duration: '10 Weeks',
-    format: 'Hybrid | On-Campus + Virtual',
+    format: '100% Online | Cohort-Based',
     level: 'Executive',
     focus: 'Strategy & Culture',
     badge: 'Includes Residential Week',
@@ -494,31 +494,37 @@ export const LABS: Lab[] = [
 export const STUDIO_TOOLS: StudioTool[] = [
   {
     id: '1',
+    key: 'finModeling',
     title: 'Financial Modeling',
     description: 'Build complex financial models with African market data.'
   },
   {
     id: '2',
+    key: 'marketAnalysis',
     title: 'Market Analysis',
     description: 'Real-time market intelligence and competitive mapping.'
   },
   {
     id: '3',
+    key: 'invEvaluation',
     title: 'Investment Evaluation',
     description: 'Assess opportunities with valuation frameworks.'
   },
   {
     id: '4',
+    key: 'startupVal',
     title: 'Startup Valuation',
     description: 'Real-time company valuation with scenario modeling.'
   },
   {
     id: '5',
+    key: 'strategyFrameworks',
     title: 'Strategy Frameworks',
     description: 'Structured strategic planning for African contexts.'
   },
   {
     id: '6',
+    key: 'businessPlanning',
     title: 'Business Planning',
     description: 'End-to-end business plan creation and validation.'
   }
@@ -539,7 +545,7 @@ export const SESSIONS: Session[] = [
     date: { day: '22', month: 'NOV' },
     title: 'Agribusiness Supply Chain Summit',
     description: 'Solving the last-mile delivery challenge for agricultural exports in the region.',
-    type: 'ON-CAMPUS CONF',
+    type: 'VIRTUAL CONF',
     location: 'EMBA HALL',
     attendees: '250 SEATS'
   }
@@ -555,8 +561,8 @@ export const FAQS: FAQ[] = [
   { id: '2', question: 'Is this fully online?', answer: 'Yes. ABC is a virtual-first institution. All programs are delivered online with live sessions, simulations, and cohort-based learning.' },
   { id: '3', question: 'How long are programs?', answer: 'Programs range from 6 to 12 months, depending on the specific certificate or degree path chosen.' },
   { id: '4', question: 'Can I work while studying?', answer: 'Yes. Our programs are designed for working professionals, with flexible schedules and cohort-based structure.' },
-  { id: '5', question: 'What happens after I apply?', answer: 'Your application is reviewed by our Admissions team. Successful candidates are invited for an interview before a final decision is delivered via the portal.' },
-  { id: '6', question: 'Is there an application fee?', answer: 'Yes, there is a standard application fee of $100, which supports our rigorous review process.' }
+  { id: '5', question: 'What happens after I apply?', answer: 'Your application is reviewed by our Admissions team. Successful candidates receive an admission decision via the portal.' },
+  { id: '6', question: 'Is there an application fee?', answer: 'No. ABC is committed to making education accessible to the best minds, regardless of financial barriers. There are no fees to apply.' }
 ];
 
 export const FACULTY: Faculty[] = [

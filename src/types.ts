@@ -52,6 +52,7 @@ export interface Session {
 
 export interface StudioTool {
   id: string;
+  key: string;
   title: string;
   description: string;
 }

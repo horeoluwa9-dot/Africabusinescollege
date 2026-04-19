@@ -10,7 +10,7 @@ import { downloadMockPdf } from '../lib/downloadPdf';
 import { AnimatePresence } from 'motion/react';
 
 interface ExperienceProps {
-  onPageChange: (page: Page) => void;
+  onPageChange: (page: Page, id?: string) => void;
 }
 
 export const Learning = ({ onPageChange }: ExperienceProps) => {
@@ -48,11 +48,12 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
       {/* Hero Section */}
       <section className="relative py-32 px-6 md:px-12 overflow-hidden bg-botanical-950">
         <AnimatedBackground intensity="high" className="opacity-40" />
-        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="lg:col-span-7"
           >
             <div className="inline-flex items-center space-x-4 mb-8">
               <div className="w-12 h-px bg-emerald-500" />
@@ -70,7 +71,7 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
                 onClick={() => onPageChange('programs')}
                 className="bg-emerald-500 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20"
               >
-                Explore Curriculum
+                View Curriculum
               </button>
               <button 
                 onClick={() => onPageChange('simulation-labs')}
@@ -85,9 +86,9 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative"
+            className="lg:col-span-5 relative flex items-center justify-center lg:justify-end"
           >
-            <div className="aspect-[4/5] rounded-[40px] overflow-hidden border border-white/10 relative group shadow-2xl">
+            <div className="w-full max-w-[400px] aspect-[3/4] lg:h-[60vh] lg:min-h-[500px] rounded-[40px] overflow-hidden border border-white/10 relative group shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" 
                 alt="Online Learning" 

@@ -14,7 +14,11 @@ import {
   CheckCircle2,
   PieChart,
   BarChart3,
-  DollarSign
+  DollarSign,
+  Globe,
+  Landmark,
+  PlayIcon,
+  ShieldCheckIcon
 } from 'lucide-react';
 
 interface Scenario {
@@ -28,65 +32,229 @@ interface Scenario {
   }[];
 }
 
-const SCENARIOS: Scenario[] = [
-  {
-    id: 1,
-    title: "Market Entry Strategy",
-    context: "Your startup, EcoPower Africa, has developed a low-cost solar irrigation pump. You have $50,000 in seed capital. Two neighboring markets show promise: Nigeria (high volume, high competition) and Ghana (steady growth, lower entry barriers).",
-    options: [
+interface SimulationConfig {
+  title: string;
+  subtitle: string;
+  description: string;
+  scenarios: Scenario[];
+  environments: { name: string; icon: any; desc: string; status: string }[];
+}
+
+const SIMULATIONS: Record<string, SimulationConfig> = {
+  'entrepreneurship': {
+    title: "Entrepreneurship",
+    subtitle: "Simulation Lab.",
+    description: "Step into the cockpit of a continental startup. This high-fidelity simulation tests your strategic intuition against real African market variables.",
+    environments: [
+      { name: 'Startup Mode', icon: Zap, desc: 'Zero to One expansion dynamics.', status: 'Active' },
+      { name: 'Growth Core', icon: TrendingUp, desc: 'Unit economics & Series A scaling.', status: 'Locked' },
+      { name: 'Crisis Lab', icon: AlertCircle, desc: 'Market crash & currency volatility.', status: 'Locked' },
+    ],
+    scenarios: [
       {
-        id: 'nigeria',
-        text: "Aggressive Nigeria Entry",
-        impact: {
-          metrics: { growth: +25, capital: -40, risk: +30 },
-          feedback: "Nigeria's scale is unmatched, but the operational complexity consumed 80% of your runway in 3 months. Growth is high, but risk is extreme."
-        }
+        id: 1,
+        title: "Market Entry Strategy",
+        context: "Your startup, EcoPower Africa, has developed a low-cost solar irrigation pump. You have $50,000 in seed capital. Two neighboring markets show promise: Nigeria (high volume, high competition) and Ghana (steady growth, lower entry barriers).",
+        options: [
+          {
+            id: 'nigeria',
+            text: "Aggressive Nigeria Entry",
+            impact: {
+              metrics: { growth: +25, capital: -40, risk: +30 },
+              feedback: "Nigeria's scale is unmatched, but the operational complexity consumed 80% of your runway in 3 months. Growth is high, but risk is extreme."
+            }
+          },
+          {
+            id: 'ghana',
+            text: "Lean Ghana Expansion",
+            impact: {
+              metrics: { growth: +12, capital: -15, risk: +10 },
+              feedback: "Strategic move. The lower cost of acquisition allowed you to preserve capital while proving the unit economics. You are now ready for a Series A pitch."
+            }
+          }
+        ]
       },
       {
-        id: 'ghana',
-        text: "Lean Ghana Expansion",
-        impact: {
-          metrics: { growth: +12, capital: -15, risk: +10 },
-          feedback: "Strategic move. The lower cost of acquisition allowed you to preserve capital while proving the unit economics. You are now ready for a Series A pitch."
-        }
+        id: 2,
+        title: "Co-Founder Conflict",
+        context: "Your CTO and co-founder wants to pivot the product to a B2B SaaS model, citing better margins. You believe the original B2C hardware mission remains the core opportunity. Tension is affecting team morale and engineering speed.",
+        options: [
+          {
+            id: 'pivot',
+            text: "Pivot to B2B SaaS",
+            impact: {
+              metrics: { growth: +15, team: -20, capital: +10 },
+              feedback: "The pivot improved margins and attracted interest from institutional investors, but your CTO's departure shortly after has left a critical technical gap."
+            }
+          },
+          {
+            id: 'hardware',
+            text: "Stay true to Hardware",
+            impact: {
+              metrics: { growth: +8, team: +15, capital: -20 },
+              feedback: "Sticking to the mission unified the core team. While growth is slower and R&D costs are higher, your moat as a physical product in the region is strengthening."
+            }
+          }
+        ]
       }
     ]
   },
-  {
-    id: 2,
-    title: "Co-Founder Conflict",
-    context: "Your CTO and co-founder wants to pivot the product to a B2B SaaS model, citing better margins. You believe the original B2C hardware mission remains the core opportunity. Tension is affecting team morale and engineering speed.",
-    options: [
+  'fundraising': {
+    title: "Fundraising",
+    subtitle: "VC War Room.",
+    description: "Master the art of the deal. Navigate the high-stakes world of venture capital in the African ecosystem.",
+    environments: [
+      { name: 'Seed Pitch', icon: Target, desc: 'Securing initial investor trust.', status: 'Active' },
+      { name: 'Due Diligence', icon: Activity, desc: 'Surviving deep audit pressure.', status: 'Locked' },
+      { name: 'Term Sheet', icon: Shield, desc: 'Negotiating equity & control.', status: 'Locked' },
+    ],
+    scenarios: [
       {
-        id: 'pivot',
-        text: "Pivot to B2B SaaS",
-        impact: {
-          metrics: { growth: +15, team: -20, capital: +10 },
-          feedback: "The pivot improved margins and attracted interest from institutional investors, but your CTO's departure shortly after has left a critical technical gap."
-        }
-      },
+        id: 1,
+        title: "The Valuation Gap",
+        context: "A prominent regional VC offers $1M at a $4M valuation. You were targeting a $6M valuation based on recent growth. You have 2 months of runway left.",
+        options: [
+          {
+            id: 'accept',
+            text: "Accept with Dilution",
+            impact: {
+              metrics: { growth: +10, capital: +80, risk: -20 },
+              feedback: "Capital secured. While dilution was higher than expected, the partnership with a top VC has unlocked significant strategic doors."
+            }
+          },
+          {
+            id: 'negotiate',
+            text: "Counter Offer",
+            impact: {
+              metrics: { growth: +0, capital: -10, risk: +40 },
+              feedback: "The VC walked away. Your runway is now critical, but your equity remains intact as you desperately search for a lead investor."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  'market-expansion': {
+    title: "Market Expansion",
+    subtitle: "Continental Bridge.",
+    description: "Scale your operations across 54 nations. Navigate regulatory hurdles, currency risks, and cultural nuances.",
+    environments: [
+      { name: 'Region Entry', icon: Globe, desc: 'First cross-border deployment.', status: 'Active' },
+      { name: 'Supply Chain', icon: Activity, desc: 'Managing pan-African logistics.', status: 'Locked' },
+      { name: 'Scale Ops', icon: Zap, desc: 'Centralizing regional HQs.', status: 'Locked' },
+    ],
+    scenarios: [
       {
-        id: 'hardware',
-        text: "Stay true to Hardware",
-        impact: {
-          metrics: { growth: +8, team: +15, capital: -20 },
-          feedback: "Sticking to the mission unified the core team. While growth is slower and R&D costs are higher, your moat as a physical product in the region is strengthening."
-        }
+        id: 1,
+        title: "Currency Volatility",
+        context: "The local currency in your new target market just devalued by 30%. Your operational costs are in USD, but your revenue is in local currency.",
+        options: [
+          {
+            id: 'hedge',
+            text: "Price Adjustment",
+            impact: {
+              metrics: { growth: -15, capital: +5, risk: -10 },
+              feedback: "Rising prices stabilized your margins but slowed adoption in the price-sensitive local market. Sustainability over speed."
+            }
+          },
+          {
+            id: 'absorb',
+            text: "Absorb the Loss",
+            impact: {
+              metrics: { growth: +20, capital: -35, risk: +15 },
+              feedback: "Market share exploded as competitors raised prices, but the burn rate is now unsustainable without a rapid capital injection."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  'leadership': {
+    title: "Leadership",
+    subtitle: "Decision Lab.",
+    description: "Navigate complex organizational dynamics. Lead through crises and architect high-performance cultures.",
+    environments: [
+      { name: 'Crisis Comm', icon: Users, desc: 'Leading through internal shifts.', status: 'Active' },
+      { name: 'Talent War', icon: Target, desc: 'Hiring & retaining top local talent.', status: 'Locked' },
+      { name: 'Scale Culture', icon: Globe, desc: 'Building identity at 500+ staff.', status: 'Locked' },
+    ],
+    scenarios: [
+      {
+        id: 1,
+        title: "Executive Misalignment",
+        context: "Your Head of Operations and Head of Sales are in an open conflict regarding the priority of customer support vs. rapid expansion.",
+        options: [
+          {
+            id: 'mediate',
+            text: "Facilitate Mediation",
+            impact: {
+              metrics: { team: +20, growth: -5, risk: -10 },
+              feedback: "Unity restored. The temporary slowdown in expansion was worth the alignment, though some aggressive growth targets were missed."
+            }
+          },
+          {
+            id: 'decide',
+            text: "Unilateral Decision",
+            impact: {
+              metrics: { team: -30, growth: +15, risk: +20 },
+              feedback: "Growth continued at pace, but the Ops leader has resigned, leaving a massive operational gap during your busiest season yet."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  'economic-policy': {
+    title: "Economic Policy",
+    subtitle: "Policy Architect.",
+    description: "Design business-friendly policies and understand impact. Balance social stability with economic growth in a simulated nation.",
+    environments: [
+      { name: 'Fiscal Design', icon: Landmark, desc: 'Designing SME tax frameworks.', status: 'Active' },
+      { name: 'Trade Reform', icon: Globe, desc: 'Implementing AFCFTA protocols.', status: 'Locked' },
+      { name: 'Digital Identity', icon: Shield, desc: 'State-wide digital ID rollouts.', status: 'Locked' },
+    ],
+    scenarios: [
+      {
+        id: 1,
+        title: "SME Tax Incentive",
+        context: "To stimulate the startup ecosystem, you are proposing a 5-year tax holiday for tech companies. Local labor unions are concerned about reduced public service funding.",
+        options: [
+          {
+            id: 'full',
+            text: "Full Tax Holiday",
+            impact: {
+              metrics: { growth: +40, capital: -20, risk: +15 },
+              feedback: "Investment poured in. 200 new startups launched, but social unrest is growing due to cuts in rural healthcare funding."
+            }
+          },
+          {
+            id: 'phased',
+            text: "Phased Rebate",
+            impact: {
+              metrics: { growth: +15, capital: -5, risk: -10 },
+              feedback: "Slower but stable growth. Startups are trickling in, and social stability remains high as the budget remains balanced."
+            }
+          }
+        ]
       }
     ]
   }
-];
+};
 
 interface SimulationDemoProps {
+  simulationId?: string | null;
   onApply: () => void;
   onContinueProgram: () => void;
 }
 
-export const SimulationDemo: React.FC<SimulationDemoProps> = ({ onApply, onContinueProgram }) => {
+export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, onApply, onContinueProgram }) => {
   const [phase, setPhase] = useState<'overview' | 'simulation' | 'locked'>('overview');
   const [currentScenarioIdx, setCurrentScenarioIdx] = useState(0);
   const [metrics, setMetrics] = useState({ growth: 50, capital: 100, risk: 20, team: 70 });
   const [result, setResult] = useState<{ feedback: string } | null>(null);
+
+  const config = SIMULATIONS[simulationId || 'entrepreneurship'] || SIMULATIONS['entrepreneurship'];
+  const SCENARIOS = config.scenarios;
 
   const startSimulation = () => setPhase('simulation');
 
@@ -129,20 +297,16 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ onApply, onConti
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">Preview Experience</span>
                 </div>
                 <h1 className="text-6xl md:text-8xl font-black text-botanical-950 tracking-tighter uppercase mb-6 leading-none">
-                  Entrepreneurship <br /> <span className="text-emerald-500 italic">Simulation Lab.</span>
+                  {config.title} <br /> <span className="text-emerald-500 italic">{config.subtitle}</span>
                 </h1>
                 <p className="text-xl text-slate-500 font-medium max-w-2xl leading-relaxed">
-                  Step into the cockpit of a continental startup. This high-fidelity simulation tests your strategic intuition against real African market variables.
+                  {config.description}
                 </p>
               </div>
 
               {/* Environments */}
               <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { name: 'Startup Mode', icon: Zap, desc: 'Zero to One expansion dynamics.', status: 'Active' },
-                  { name: 'Growth Core', icon: TrendingUp, desc: 'Unit economics & Series A scaling.', status: 'Locked' },
-                  { name: 'Crisis Lab', icon: AlertCircle, desc: 'Market crash & currency volatility.', status: 'Locked' },
-                ].map((env) => (
+                {config.environments.map((env) => (
                   <div 
                     key={env.name}
                     className={`p-8 rounded-[32px] border-2 transition-all ${
@@ -171,14 +335,14 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ onApply, onConti
                   onClick={startSimulation}
                   className="w-full bg-botanical-950 text-white py-6 rounded-[20px] text-[12px] font-black uppercase tracking-[0.2em] shadow-xl shadow-botanical-950/20 hover:bg-emerald-500 transition-all active:scale-95 flex items-center justify-center space-x-4"
                 >
-                  <PlayIcon className="w-4 h-4" />
+                  <PlayIconUI className="w-4 h-4" />
                   <span>Try Demo Simulation</span>
                 </button>
                 <button 
                   onClick={onApply}
                   className="w-full bg-white border-2 border-slate-100 text-botanical-950 py-6 rounded-[20px] text-[12px] font-black uppercase tracking-[0.2em] hover:border-emerald-500 transition-all active:scale-95 flex items-center justify-center space-x-4"
                 >
-                  <ShieldCheckIcon className="w-4 h-4" />
+                  <ShieldCheckIconUI className="w-4 h-4" />
                   <span>Apply for Full Access</span>
                 </button>
               </div>
@@ -201,7 +365,7 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ onApply, onConti
                   </div>
                   <div>
                     <h2 className="text-sm font-black text-botanical-950 uppercase tracking-tight">Active Simulation</h2>
-                    <p className="text-[10px] font-medium text-slate-400">Scenario {currentScenarioIdx + 1} of 2</p>
+                    <p className="text-[10px] font-medium text-slate-400">Scenario {currentScenarioIdx + 1} of {SCENARIOS.length}</p>
                   </div>
                 </div>
                 
@@ -254,7 +418,7 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ onApply, onConti
                             className="p-8 rounded-3xl border-2 border-slate-100 hover:border-emerald-400 hover:bg-emerald-50/10 text-left transition-all group"
                           >
                             <div className="flex justify-between items-center mb-4">
-                              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Decision {opt.id === 'nigeria' || opt.id === 'pivot' ? 'A' : 'B'}</span>
+                              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Decision</span>
                               <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                             </div>
                             <div className="text-lg font-black text-botanical-950 uppercase tracking-tight">{opt.text}</div>
@@ -386,13 +550,13 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ onApply, onConti
   );
 };
 
-const PlayIcon = ({ className }: { className?: string }) => (
+const PlayIconUI = ({ className }: { className?: string }) => (
   <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
     <path d="M8 5v14l11-7z" />
   </svg>
 );
 
-const ShieldCheckIcon = ({ className }: { className?: string }) => (
+const ShieldCheckIconUI = ({ className }: { className?: string }) => (
   <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
     <path d="M9 12l2 2 4-4" />

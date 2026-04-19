@@ -7,12 +7,67 @@ import { useAuth } from '../contexts/AuthContext';
 import { Page } from '../components/Layout';
 
 interface SimulationLabsProps {
-  onPageChange: (page: Page) => void;
+  onPageChange: (page: Page, id?: string) => void;
 }
 
-export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
+import { SimulationCarousel } from '../components/SimulationCarousel';
+
+export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id?: string) => void }) => {
   const { t } = useLanguage();
-  const { isLoggedIn, hasApplied } = useAuth();
+  const { isLoggedIn, isApplied, isPaid } = useAuth();
+
+  const simulationItems = [
+    { 
+      id: 'entrepreneurship', 
+      name: t('home.entrepreneurship'), 
+      desc: t('home.entrepreneurshipDesc'), 
+      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80",
+      icon: Zap,
+      status: 'Simulation Lab',
+      difficulty: 'Strategic intuition',
+      focus: ['Execution', 'African Markets', 'Venture Building']
+    },
+    { 
+      id: 'fundraising', 
+      name: t('home.professionals'), 
+      desc: t('home.professionalsDesc'), 
+      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80",
+      icon: Target,
+      status: 'Negotiation Suite',
+      difficulty: 'Term Sheets',
+      focus: ['Valuation', 'Investor Psychology', 'Deal Making']
+    },
+    { 
+      id: 'expansion', 
+      name: t('home.founders'), 
+      desc: t('home.foundersDesc'), 
+      image: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=80",
+      icon: Globe,
+      status: 'Continental Scale',
+      difficulty: 'Scaling Borders',
+      focus: ['Trade', 'Regulation', 'Localization']
+    },
+    { 
+      id: 'leadership', 
+      name: t('home.executives'), 
+      desc: t('home.executivesDesc'), 
+      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80",
+      icon: Users,
+      status: 'Organizational Core',
+      difficulty: 'Leadership',
+      focus: ['Culture', 'Power', 'Moats']
+    },
+    { 
+      id: 'policy', 
+      name: t('home.hero.decisionsRealEnv'), 
+      desc: t('home.testStrategies'), 
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+      icon: Landmark,
+      status: 'Sovereign Strategy',
+      difficulty: 'Expert',
+      focus: ['GDP Growth', 'Inflation', 'Fiscal Policy']
+    }
+  ];
 
   return (
     <div className="pt-24">
@@ -26,18 +81,47 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
           >
             <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
               <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Experimental Learning</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Sovereign Business Laboratory</span>
             </div>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
-              Learn Business by <br />
-              <span className="text-emerald-500 italic">Making Real</span> <br />
-              Decisions
+              {isPaid ? "Your Strategic" : "Learn Business by"} <br />
+              <span className="text-emerald-500 italic">{isPaid ? "Command Center" : "Making Real"}</span> <br />
+              {isPaid ? "is Active" : "Decisions"}
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-xl mb-12">
-              Step into a high-fidelity digital sandbox where the stakes are simulated but the consequences are felt. Test strategies, lead teams, and master market dynamics in our world-class simulation environments.
+              {isPaid 
+                ? "Experience the full depth of ABC's simulation engine. Navigate Series B expansions, policy shocks, and institutional growth with unrestricted access to all proprietary environments."
+                : "Step into a high-fidelity digital sandbox where the stakes are simulated but the consequences are felt. Test strategies, lead teams, and master market dynamics in our world-class simulation environments."}
             </p>
 
-            {(isLoggedIn || hasApplied) ? (
+            {isPaid ? (
+              <div className="space-y-8">
+                <div className="flex items-center space-x-6">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950 flex items-center">
+                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2" />
+                    Full Institutional Access
+                  </span>
+                  <button 
+                    onClick={() => onPageChange('dashboard-student')}
+                    className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-500 transition-colors"
+                  >
+                    Return to Dashboard
+                  </button>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <button 
+                    onClick={() => {
+                      const envs = document.getElementById('environments');
+                      if (envs) envs.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all flex items-center justify-center space-x-3 shadow-xl shadow-emerald-500/20"
+                  >
+                    <Play className="w-4 h-4 fill-current" />
+                    <span>Enter Simulation Environments</span>
+                  </button>
+                </div>
+              </div>
+            ) : (isLoggedIn || isApplied) ? (
               <div className="space-y-8">
                 <div className="flex items-center space-x-6">
                   <span className="text-[10px] font-black uppercase tracking-widest text-botanical-950 flex items-center">
@@ -57,7 +141,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
                     className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all flex items-center justify-center space-x-3 shadow-xl shadow-emerald-500/20"
                   >
                     <Play className="w-4 h-4 fill-current" />
-                    <span>Enter Simulation</span>
+                    <span>Enter Demo Simulation</span>
                   </button>
                   <button 
                     onClick={() => {
@@ -74,7 +158,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
                     onClick={() => onPageChange('application')}
                     className="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-botanical-950 border-b border-emerald-500 transition-all"
                   >
-                    Unlock full access to all simulations → Apply for Full Access
+                    Apply for Full Access
                   </button>
                 </div>
               </div>
@@ -108,6 +192,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
             )}
           </motion.div>
 
+          {/* ... Hero Image remains ... */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -217,66 +302,7 @@ export const SimulationLabs = ({ onPageChange }: SimulationLabsProps) => {
             <p className="text-slate-500 font-medium">Five specialized arenas designed to test the limits of your professional intuition.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Entrepreneurship Simulation */}
-            <div 
-              onClick={() => onPageChange('simulation-demo')}
-              className="lg:col-span-2 bg-emerald-900 rounded-[40px] p-12 text-white relative overflow-hidden group cursor-pointer"
-            >
-              <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform">
-                <Zap className="w-48 h-48" />
-              </div>
-              <Zap className="w-12 h-12 mb-8 text-emerald-400" />
-              <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">Entrepreneurship Simulation</h3>
-              <p className="text-emerald-100/60 font-medium max-w-md">Build and scale a virtual startup from idea to market.</p>
-            </div>
-
-            {/* Startup Fundraising Simulation */}
-            <div 
-              onClick={() => onPageChange('simulation-demo')}
-              className="bg-slate-200 rounded-[40px] p-12 text-botanical-950 relative overflow-hidden group cursor-pointer"
-            >
-              <div className="absolute top-8 right-8">
-                <BookOpen className="w-8 h-8 text-slate-400" />
-              </div>
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Startup Fundraising Simulation</h3>
-              <p className="text-slate-500 font-medium mb-8">Practice pitching to VCs with AI-powered feedback.</p>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 bg-white rounded-full text-[8px] font-black uppercase tracking-widest text-slate-400">Series A</span>
-                <span className="px-3 py-1 bg-white rounded-full text-[8px] font-black uppercase tracking-widest text-slate-400">Valuation Modeling</span>
-              </div>
-            </div>
-
-            {/* Market Expansion Simulation */}
-            <div 
-              onClick={() => onPageChange('simulation-demo')}
-              className="bg-emerald-100 rounded-[40px] p-12 text-botanical-950 cursor-pointer hover:shadow-xl transition-all"
-            >
-              <Globe className="w-12 h-12 mb-8 text-emerald-500" />
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Market Expansion Simulation</h3>
-              <p className="text-slate-500 font-medium">Navigate regulatory and market dynamics across Africa.</p>
-            </div>
-
-            {/* Economic Policy Simulation */}
-            <div 
-              onClick={() => onPageChange('simulation-demo')}
-              className="bg-white border border-slate-100 rounded-[40px] p-12 text-botanical-950 cursor-pointer hover:shadow-xl transition-all"
-            >
-              <Landmark className="w-12 h-12 mb-8 text-emerald-500" />
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Economic Policy Simulation</h3>
-              <p className="text-slate-500 font-medium">Design business-friendly policies and understand impact.</p>
-            </div>
-
-            {/* Leadership Decision Lab */}
-            <div 
-              onClick={() => onPageChange('simulation-demo')}
-              className="bg-botanical-950 rounded-[40px] p-12 text-white cursor-pointer hover:shadow-xl transition-all"
-            >
-              <Users className="w-12 h-12 mb-8 text-emerald-500" />
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter">Leadership Decision Lab</h3>
-              <p className="text-slate-400 font-medium">Navigate complex organizational dynamics under pressure.</p>
-            </div>
-          </div>
+          <SimulationCarousel items={simulationItems} onSelect={(id) => onPageChange('simulation-demo', id)} />
         </div>
       </section>
 

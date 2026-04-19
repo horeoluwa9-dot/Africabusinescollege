@@ -31,7 +31,7 @@ type PaymentMethod = 'card' | 'transfer' | 'bank' | 'ussd' | 'opay';
 type PaymentPlan = 'full' | 'installments';
 
 export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
-  const { user } = useAuth();
+  const { user, setPaid } = useAuth();
   const { t } = useLanguage();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentPlan, setPaymentPlan] = useState<PaymentPlan>('full');
@@ -40,6 +40,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ onComplete, onBack }) => {
   const handlePayment = () => {
     setIsProcessing(true);
     setTimeout(() => {
+      setPaid(true);
       onComplete();
     }, 2500);
   };

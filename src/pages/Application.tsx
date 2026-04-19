@@ -23,7 +23,7 @@ interface ApplicationProps {
 }
 
 export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, onPageChange, context }) => {
-  const { login } = useAuth();
+  const { login, setApplied } = useAuth();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -74,7 +74,8 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, on
         email: formData.email || 'scholar@abc.edu',
         avatarUrl: formData.avatarUrl,
         program: formData.selectedProgram || 'Entrepreneurship'
-      });
+      } as any);
+      setApplied(true);
       setIsSubmitting(false);
       setIsSuccess(true);
       // Success screen will handle manual redirect

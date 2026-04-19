@@ -6,7 +6,7 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 import { Page } from '../components/Layout';
 
 interface InsightsProps {
-  onPageChange: (page: Page) => void;
+  onPageChange: (page: Page, id?: string) => void;
 }
 
 export const Insights = ({ onPageChange }: InsightsProps) => {
@@ -26,9 +26,6 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
               </h1>
             </div>
             <div className="lg:col-span-5 lg:pt-12">
-              <p className="text-xl text-slate-500 leading-relaxed font-medium">
-                The authoritative journal for African sovereign leadership. Critical research and operational playbooks for the continent's next economic decade.
-              </p>
             </div>
           </div>
 
@@ -36,7 +33,8 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-16 relative rounded-[40px] overflow-hidden aspect-[21/9] min-h-[400px] group cursor-pointer"
+            onClick={() => onPageChange('insight-detail', 'sovereign-alpha')}
+            className="mt-16 relative rounded-[40px] overflow-hidden aspect-[16/7] min-h-[400px] group cursor-pointer shadow-2xl"
           >
             <img 
               src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" 
@@ -95,6 +93,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {[
               { 
+                id: 'urban-legacies',
                 cat: 'GOVERNANCE', 
                 time: '8 MIN READ', 
                 title: 'Restructuring Urban Legacies: The Rise of Pan-African Smart Cities.', 
@@ -102,6 +101,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 author: 'AMARA OKAFOR'
               },
               { 
+                id: 'afcfta-playbook',
                 cat: 'MARKETS', 
                 time: '15 MIN READ', 
                 title: 'The AfCFTA Playbook: Navigating Cross-Border Liquidity in 2026.', 
@@ -109,6 +109,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 author: 'KOFI MENSAH'
               },
               { 
+                id: 'sovereign-leadership',
                 cat: 'STRATEGY', 
                 time: '12 MIN READ', 
                 title: 'Sovereign Leadership: Beyond the Quarterly Earnings Cycle.', 
@@ -116,9 +117,13 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 author: 'FATIMA DIOP'
               }
             ].map((insight, i) => (
-              <div key={i} className="group cursor-pointer">
+              <div 
+                key={i} 
+                onClick={() => onPageChange('insight-detail', insight.id)}
+                className="group cursor-pointer"
+              >
                 <div className="aspect-video rounded-[32px] overflow-hidden mb-8 shadow-sm">
-                  <img src={i === 0 ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" : i === 1 ? "https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&w=600&q=80" : "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80"} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src={i === 0 ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" : i === 1 ? "https://images.unsplash.com/photo-1526304640581-d334cdbdf4f2?auto=format&fit=crop&w=600&q=80" : "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80"} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                 </div>
                 <div className="flex items-center space-x-4 mb-4">
                   <span className="text-emerald-500 text-[8px] font-black uppercase tracking-widest">{insight.cat}</span>
@@ -161,14 +166,18 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { part: 'PART 1 OF 3 • MINING', title: 'Mining the Future: Strategic Minerals and African Agency.', desc: 'An exhaustive investigation into the global race for lithium and cobalt, and the policy frameworks ensuring local value retention.' },
-              { part: 'PART 2 OF 4 • AGRITECH', title: "Agritech Revolution: Securing the Continent's Food Supply.", desc: 'Examining the intersection of satellite imaging, micro-finance, and small-scale farming in East Africa.' },
-              { part: 'PART 3 OF 6 • CAPITAL', title: 'Venture Capital Maturity: From Hype to High-Yield.', desc: 'A data-driven look at exit strategies and IPO readiness for African unicorns in the next 36 months.' }
+              { id: 'mining-future', part: 'PART 1 OF 3 • MINING', title: 'Mining the Future: Strategic Minerals and African Agency.', desc: 'An exhaustive investigation into the global race for lithium and cobalt, and the policy frameworks ensuring local value retention.' },
+              { id: 'agritech-revolution', part: 'PART 2 OF 4 • AGRITECH', title: "Agritech Revolution: Securing the Continent's Food Supply.", desc: 'Examining the intersection of satellite imaging, micro-finance, and small-scale farming in East Africa.' },
+              { id: 'vc-maturity', part: 'PART 3 OF 6 • CAPITAL', title: 'Venture Capital Maturity: From Hype to High-Yield.', desc: 'A data-driven look at exit strategies and IPO readiness for African unicorns in the next 36 months.' }
             ].map((dive, i) => (
-              <div key={i} className="bg-white p-12 rounded-[40px] shadow-sm border border-slate-100 flex flex-col justify-between group cursor-pointer">
+              <div 
+                key={i} 
+                onClick={() => onPageChange('insight-detail', dive.id)}
+                className="bg-white p-12 rounded-[40px] shadow-sm border border-slate-100 flex flex-col justify-between group cursor-pointer hover:border-emerald-500/30 transition-all"
+              >
                 <div>
                   <span className="text-emerald-500 text-[8px] font-black uppercase tracking-widest mb-6 block">{dive.part}</span>
-                  <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tighter leading-tight mb-6">
+                  <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tighter leading-tight mb-6 group-hover:text-emerald-500 transition-colors">
                     {dive.title}
                   </h3>
                   <p className="text-slate-500 text-sm font-medium leading-relaxed mb-12">
@@ -193,10 +202,14 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              { title: '2026 Africa Economic Outlook Report', desc: 'Comprehensive analysis of macroeconomic trends across 54 nations, focusing on debt sustainability and industrial growth.', color: 'bg-botanical-950' },
-              { title: 'The Digital Logistics Whitepaper', desc: 'Mapping the technological infrastructure required to fulfill the promise of the continental free trade area.', color: 'bg-emerald-900' }
+              { id: 'outlook-report', title: '2026 Africa Economic Outlook Report', desc: 'Comprehensive analysis of macroeconomic trends across 54 nations, focusing on debt sustainability and industrial growth.', color: 'bg-botanical-950' },
+              { id: 'logistics-whitepaper', title: 'The Digital Logistics Whitepaper', desc: 'Mapping the technological infrastructure required to fulfill the promise of the continental free trade area.', color: 'bg-emerald-900' }
             ].map((paper, i) => (
-              <div key={i} className="bg-slate-50 p-12 rounded-[40px] flex items-center space-x-12 group cursor-pointer">
+              <div 
+                key={i} 
+                onClick={() => onPageChange('post-download')}
+                className="bg-slate-50 p-12 rounded-[40px] flex items-center space-x-12 group cursor-pointer hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm hover:shadow-xl"
+              >
                 <div className={`${paper.color} w-32 h-44 rounded-lg shadow-2xl shrink-0 flex flex-col justify-end p-4 relative overflow-hidden`}>
                   <div className="absolute top-0 right-0 p-2 opacity-10">
                     <Download className="w-12 h-12 text-white" />
@@ -205,7 +218,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                   <span className="text-[6px] font-black text-white uppercase tracking-widest leading-tight">Institutional Report</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-botanical-950 uppercase tracking-tight mb-4">{paper.title}</h3>
+                  <h3 className="text-xl font-black text-botanical-950 uppercase tracking-tight mb-4 group-hover:text-emerald-500 transition-colors">{paper.title}</h3>
                   <p className="text-slate-500 text-xs font-medium leading-relaxed mb-6">{paper.desc}</p>
                   <button className="flex items-center space-x-2 text-[8px] font-black uppercase tracking-widest text-emerald-600">
                     <Download className="w-3 h-3" />
