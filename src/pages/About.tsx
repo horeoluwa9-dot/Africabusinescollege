@@ -15,7 +15,8 @@ import {
   Layers,
   Award,
   ChevronRight,
-  MapPin
+  MapPin,
+  Cpu
 } from 'lucide-react';
 import { Page } from '../components/Layout';
 import { AnimatedBackground } from '../components/AnimatedBackground';
@@ -266,10 +267,11 @@ const ProgramDiscovery = ({ onPageChange }: AboutProps) => {
           {programs.map((program, i) => (
             <motion.div 
               key={program.id}
+              onClick={() => onPageChange('program-detail', program.id === '1' ? 'entrepreneurship' : program.id === '2' ? 'venture-building' : program.id === '4' ? 'digital-business' : 'innovation-leadership')}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="group bg-white rounded-[32px] overflow-hidden border border-slate-100 hover:border-emerald-500/30 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
+              className="cursor-pointer group bg-white rounded-[32px] overflow-hidden border border-slate-100 hover:border-emerald-500/30 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
             >
               <div className="aspect-[16/10] overflow-hidden relative">
                 <img 
@@ -446,8 +448,12 @@ const ABCAdvantage = () => {
 
 const Recognitions = () => {
   const partners = [
-    'African Union', 'Pan-African VC Alliance', 'Google for Startups Africa', 
-    'African Development Bank', 'GNAM Affiliate', 'Tech Council Africa'
+    { name: 'African Union', icon: Globe2 },
+    { name: 'Pan-African VC Alliance', icon: TrendingUp },
+    { name: 'Google for Startups Africa', icon: Zap },
+    { name: 'African Development Bank', icon: Shield },
+    { name: 'GNAM Affiliate', icon: Award },
+    { name: 'Tech Council Africa', icon: Cpu }
   ];
 
   return (
@@ -456,9 +462,12 @@ const Recognitions = () => {
         <div className="text-center mb-12">
           <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Recognitions & Partnerships</span>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-12 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12 sm:gap-x-16 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
           {partners.map(p => (
-            <span key={p} className="text-xl font-bold tracking-tight text-botanical-950 whitespace-nowrap">{p}</span>
+            <div key={p.name} className="flex items-center space-x-3 text-botanical-950">
+              <p.icon className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-500" />
+              <span className="text-sm sm:text-xl font-bold tracking-tight whitespace-nowrap">{p.name}</span>
+            </div>
           ))}
         </div>
       </div>

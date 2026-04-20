@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Users, GraduationCap, Microscope, TrendingUp, MapPin, Calendar, ArrowRight, Share2, Mail, Zap } from 'lucide-react';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 
-export const Community = () => {
+export const Community = ({ onPageChange }: { onPageChange: (page: any) => void }) => {
   return (
     <div className="pt-24">
       {/* Hero Section */}
@@ -26,10 +26,10 @@ export const Community = () => {
               Beyond the classroom, ABC is a lifelong ecosystem. Connect with visionary founders, active investors, and the leaders shaping the African frontier.
             </p>
             <div className="flex flex-col sm:flex-row gap-6">
-              <button className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all">
+              <button onClick={() => onPageChange('join-network')} className="bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all">
                 Join the Network
               </button>
-              <button className="bg-slate-100 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all">
+              <button onClick={() => onPageChange('alumni')} className="bg-slate-100 text-slate-600 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-200 transition-all">
                 View Alumni Outcomes
               </button>
             </div>
@@ -176,7 +176,7 @@ export const Community = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-16">
             <h2 className="text-5xl font-black tracking-tighter text-botanical-950 uppercase">Upcoming Gatherings</h2>
-            <button className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:translate-x-2 transition-transform">
+            <button onClick={() => onPageChange('events')} className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:translate-x-2 transition-transform">
               <span>All Events</span>
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -198,7 +198,7 @@ export const Community = () => {
                 <div className="p-10">
                   <h3 className="text-xl font-black text-botanical-950 mb-4 uppercase tracking-tight">{event.title}</h3>
                   <p className="text-slate-400 text-xs font-medium mb-8 uppercase tracking-widest">{event.location}</p>
-                  <button className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-500 transition-colors">
+                  <button onClick={() => onPageChange('events')} className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-500 transition-colors">
                     {i === 1 ? 'Request Invite' : i === 2 ? 'RSVP' : 'Register Now'}
                   </button>
                 </div>
@@ -220,7 +220,7 @@ export const Community = () => {
               <p className="text-xl text-slate-400 leading-relaxed font-medium mb-12 max-w-xl">
                 ABC Alumni have collectively raised over $450M in seed funding and generated 10,000+ jobs across the continent.
               </p>
-              <button className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/20">
+              <button onClick={() => onPageChange('alumni')} className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/20">
                 Explore the Report
               </button>
             </div>

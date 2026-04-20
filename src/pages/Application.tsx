@@ -23,7 +23,7 @@ interface ApplicationProps {
 }
 
 export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, onPageChange, context }) => {
-  const { login, setApplied } = useAuth();
+  const { login, setApplied, isApplied } = useAuth();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -92,6 +92,41 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, on
     return 'Explore Programs';
   };
 
+  if (isApplied) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white px-6">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center max-w-md"
+        >
+          <div className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-3xl shadow-emerald-500/20">
+            <CheckCircle2 className="w-12 h-12 text-white" />
+          </div>
+          <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-4 uppercase leading-none">Application Already Submitted</h2>
+          <p className="text-slate-500 font-medium text-lg mb-4">
+            You have already applied and are eligible to access the programs.
+          </p>
+          <div className="space-y-4 mt-8">
+            <button 
+              onClick={() => onPageChange('dashboard-student')}
+              className="w-full bg-emerald-500 text-white py-6 rounded-2xl text-[12px] font-black uppercase tracking-widest shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center justify-center space-x-3 group"
+            >
+              <span>Go to Dashboard</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button 
+              onClick={() => onPageChange('programs')}
+              className="w-full text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors py-4"
+            >
+              Explore Programs
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
   if (isSuccess) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white px-6">
@@ -104,9 +139,12 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, on
             <CheckCircle2 className="w-12 h-12 text-white" />
           </div>
           <h2 className="text-6xl font-black text-botanical-950 tracking-tighter mb-4 uppercase leading-none">Application Received</h2>
-          <p className="text-slate-500 font-medium text-lg mb-12">
+          <p className="text-slate-500 font-medium text-lg mb-4">
             You’re eligible to continue enrollment.
           </p>
+          <div className="bg-emerald-50 text-emerald-600 rounded-xl p-4 mb-12 text-sm font-medium border border-emerald-100">
+            A confirmation email has been securely sent to your inbox.
+          </div>
           
           <div className="space-y-4">
             <button 
@@ -118,13 +156,13 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, on
             </button>
             <button 
               onClick={() => {
-                if (context?.source === 'program') onPageChange('programs');
+                if (context?.source === 'program') onPageChange('full-course');
                 else if (context?.source === 'simulation') onPageChange('simulation-labs');
                 else onPageChange('programs');
               }}
               className="w-full text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors py-4"
             >
-              {getSecondaryCTA()}
+              Access Program Next Steps
             </button>
           </div>
         </motion.div>

@@ -304,9 +304,9 @@ const Stats = () => {
 
 const Programs = ({ onPageChange }: HomeProps) => {
   const { isLoggedIn, hasImage } = useAuth();
-  const [activeTab, setActiveTab] = useState('Executive');
+  const [activeTab, setActiveTab] = useState('Advanced');
   const [downloading, setDownloading] = useState(false);
-  const tabs = ['Executive', 'Advanced', 'Beginner'];
+  const tabs = ['Advanced', 'Executive', 'Beginner'];
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -664,6 +664,7 @@ const SimulationLabs = ({ onPageChange }: HomeProps) => {
         <SimulationCarousel 
           items={simulationItems} 
           onSelect={(id) => onPageChange('simulation-demo', id)} 
+          onExplore={(id) => onPageChange('simulation-details', id)}
         />
       </div>
     </section>

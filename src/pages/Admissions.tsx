@@ -127,10 +127,10 @@ const TargetAudience = () => {
 const SelectionJourney = () => {
   const { t } = useLanguage();
   const steps = [
-    { num: '01', title: 'Explore Programs', desc: 'Review our curriculum and attend a virtual discovery session to align your goals with our ethos.' },
-    { num: '02', title: 'Submit Application', desc: 'Complete the online dossier including academic transcripts, leadership essays, and references.' },
-    { num: '03', title: 'Rigorous Review', desc: 'Our Admissions Council evaluates your potential for impact within the sovereign business landscape.' },
-    { num: '04', title: 'Admissions Decision', desc: 'Successful candidates receive an invitation to join the next institutional cohort.' },
+    { num: '01', title: 'Explore Programs', desc: 'Review our curriculum and choose the program that fits your goals' },
+    { num: '02', title: 'Submit Application', desc: 'Complete a simple online application.' },
+    { num: '03', title: 'Rigorous Review', desc: 'Our Admissions team evaluates your potential for impact' },
+    { num: '04', title: 'Admissions Decision', desc: 'Successful candidates receive an invitation to join the college.' },
     { num: '05', title: 'Enroll & Onboard', desc: 'Confirm your seat and begin the immersion into the ABC ecosystem of excellence.' }
   ];
 

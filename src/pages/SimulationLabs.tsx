@@ -302,7 +302,11 @@ export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id
             <p className="text-slate-500 font-medium">Five specialized arenas designed to test the limits of your professional intuition.</p>
           </div>
 
-          <SimulationCarousel items={simulationItems} onSelect={(id) => onPageChange('simulation-demo', id)} />
+          <SimulationCarousel 
+            items={simulationItems} 
+            onSelect={(id) => onPageChange('simulation-demo', id)} 
+            onExplore={(id) => onPageChange('simulation-details', id)}
+          />
         </div>
       </section>
 

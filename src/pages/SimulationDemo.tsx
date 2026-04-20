@@ -28,9 +28,10 @@ interface SimulationDemoProps {
   simulationId?: string | null;
   onApply: () => void;
   onContinueProgram: () => void;
+  onExit: () => void;
 }
 
-export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, onApply, onContinueProgram }) => {
+export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, onApply, onContinueProgram, onExit }) => {
   const { isPaid } = useAuth();
   const config = SIMULATIONS[simulationId || 'entrepreneurship'] || SIMULATIONS['entrepreneurship'];
   
@@ -40,6 +41,8 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
   const [round, setRound] = useState(1);
   const [outcome, setOutcome] = useState<{ feedback: string; optionText: string } | null>(null);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
+
+  const heroImage = config.heroImage || 'https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&w=1200&q=80';
 
   // Initialize metrics from config
   const initialMetrics = config.metrics.reduce((acc, m) => {
@@ -120,14 +123,18 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
   };
 
   return (
-    <div className="min-h-screen bg-botanical-950 pt-20 overflow-hidden font-sans selection:bg-emerald-500/30">
-      <div className="h-[calc(100vh-80px)] w-full max-w-[1600px] mx-auto flex flex-col">
+    <div className="min-h-[100dvh] bg-botanical-950 flex flex-col overflow-hidden font-sans selection:bg-emerald-500/30">
+      <div className="h-full w-full max-w-[1600px] mx-auto flex flex-col flex-grow">
         
-        {/* TOP NAV BAR */}
-        <div className="h-16 border-b border-white/5 flex items-center justify-between px-8 bg-botanical-950/50 backdrop-blur-md shrink-0">
-          <div className="flex items-center space-x-6">
+        {/* TOP NAV BAR - Fixed at top, height 16 (4rem = 64px) */}
+        <div className="h-16 border-b border-white/5 flex items-center justify-between px-4 sm:px-8 bg-botanical-950/50 backdrop-blur-md shrink-0 z-50">
+          <div className="flex items-center space-x-4 sm:space-x-6">
             <button 
-              onClick={() => setPhase('overview')}
+              onClick={() => {
+                if (phase === 'stage-selection' || phase === 'locked') setPhase('overview');
+                else if (phase === 'simulation') setPhase('stage-selection');
+                else onExit();
+              }}
               className="text-slate-400 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -141,7 +148,7 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
           </div>
 
           {phase === 'simulation' && (
-            <div className="flex items-center space-x-12">
+            <div className="hidden lg:flex items-center space-x-12">
               <div className="flex flex-col items-center">
                 <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1">Current Round</span>
                 <span className="text-sm font-black text-white">Round {round}</span>
@@ -163,10 +170,10 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
           )}
 
           <button 
-            onClick={() => window.location.href = '/dashboard/student'}
-            className="text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-widest border border-white/10 px-4 py-2 rounded-lg transition-all"
+            onClick={onExit}
+            className="text-[8px] sm:text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-widest border border-white/10 px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all"
           >
-            Exit to Dashboard
+            Exit Simulation
           </button>
         </div>
 
@@ -180,24 +187,34 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.02 }}
-                className="h-full flex items-center justify-center p-12"
+                className="h-full overflow-y-auto flex items-center justify-center p-6 sm:p-12 relative"
               >
-                <div className="max-w-4xl text-center">
-                  <div className="flex items-center justify-center space-x-4 mb-8">
-                    <div className="h-px w-12 bg-emerald-500" />
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={heroImage} 
+                    alt={config.title}
+                    className="w-full h-full object-cover opacity-20 grayscale mix-blend-overlay"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/80 to-botanical-950/40" />
+                </div>
+
+                <div className="max-w-4xl text-center relative z-10 py-12">
+                  <div className="flex items-center justify-center space-x-4 mb-4 sm:mb-8">
+                    <div className="h-px w-8 sm:w-12 bg-emerald-500" />
                     <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">{isPaid ? 'Full Experience' : 'Preview Experience'}</span>
                   </div>
-                  <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase mb-8 leading-none">
-                    {config.title} <br /> <span className="text-emerald-500 italic">{config.subtitle}</span>
+                  <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter uppercase mb-6 sm:mb-8 leading-none">
+                    {config.title} <br className="hidden sm:block" /> <span className="text-emerald-500 italic">{config.subtitle}</span>
                   </h1>
-                  <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-12">
+                  <p className="text-lg sm:text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-10 sm:mb-12">
                     {config.description}
                   </p>
                   
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full">
                     <button 
                       onClick={() => setPhase('stage-selection')}
-                      className="group bg-emerald-500 text-white px-12 py-6 rounded-[24px] text-sm font-black uppercase tracking-[0.2em] shadow-2xl shadow-emerald-500/20 hover:bg-emerald-400 transition-all active:scale-95 flex items-center space-x-4"
+                      className="group w-full sm:w-auto bg-emerald-500 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl sm:rounded-[24px] text-xs sm:text-sm font-black uppercase tracking-[0.2em] shadow-2xl shadow-emerald-500/20 hover:bg-emerald-400 transition-all active:scale-95 flex items-center justify-center space-x-4"
                     >
                       <Play className="w-4 h-4 fill-current group-hover:scale-110 transition-transform" />
                       <span>{isPaid ? 'Enter Simulation Labs' : 'Try Demo Simulation'}</span>
@@ -205,7 +222,7 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                     {!isPaid && (
                       <button 
                         onClick={onApply}
-                        className="bg-white/5 border border-white/10 text-white px-12 py-6 rounded-[24px] text-sm font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all flex items-center space-x-4"
+                        className="w-full sm:w-auto bg-white/5 border border-white/10 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl sm:rounded-[24px] text-xs sm:text-sm font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all flex items-center justify-center space-x-4"
                       >
                         <Shield className="w-4 h-4" />
                         <span>Apply for Full Access</span>
@@ -223,11 +240,21 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="h-full flex flex-col items-center justify-center p-12"
+                className="h-full overflow-y-auto flex flex-col items-center p-6 lg:p-12 relative"
               >
-                <div className="max-w-7xl w-full">
-                  <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-4">Choose Your Simulation Business Stage</h2>
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={heroImage} 
+                    alt={config.title}
+                    className="w-full h-full object-cover opacity-10 grayscale mix-blend-overlay"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/90 to-botanical-950/80" />
+                </div>
+
+                <div className="max-w-7xl w-full relative z-10 py-12 flex-grow flex flex-col justify-center">
+                  <div className="text-center mb-8 lg:mb-16">
+                    <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-4">Choose Your Simulation Business Stage</h2>
                     <p className="text-slate-400 font-medium tracking-wide">Each stage presents a different business challenge in the {config.title} ecosystem.</p>
                   </div>
 
@@ -255,8 +282,17 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                 exit={{ opacity: 0 }}
                 className="h-full flex overflow-hidden relative"
               >
+                {/* Background Image for simulation */}
+                <div className="absolute inset-0 z-0 opacity-10 mix-blend-overlay max-h-full">
+                  <img 
+                    src={currentEnv?.image || heroImage} 
+                    alt={currentScenario.title}
+                    className="w-full h-full object-cover grayscale blur-sm"
+                  />
+                </div>
+
                 {/* LEFT: SCENARIO PANEL */}
-                <div className="w-[400px] border-r border-white/5 p-10 bg-botanical-950/30 overflow-y-auto hidden xl:block">
+                <div className="w-[400px] border-r border-white/5 p-10 bg-botanical-950/80 backdrop-blur-sm overflow-y-auto hidden xl:block relative z-10">
                   <div className="flex items-center space-x-3 mb-8">
                     <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
                       <BarChart3 className="w-4 h-4 text-emerald-500" />
@@ -266,7 +302,7 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
 
                   <div className="aspect-[4/3] rounded-3xl overflow-hidden mb-8 relative border border-white/10 group">
                     <img 
-                      src={SIMULATIONS.entrepreneurship.heroImage} 
+                      src={currentEnv?.image || heroImage} 
                       className="w-full h-full object-cover grayscale opacity-40 group-hover:scale-105 transition-transform duration-1000" 
                       referrerPolicy="no-referrer"
                     />
@@ -474,7 +510,7 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                 key="locked"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="h-full flex items-center justify-center p-12 relative overflow-hidden"
+                className="h-full overflow-y-auto flex items-center justify-center p-6 sm:p-12 relative"
               >
                 <div className="absolute inset-0 z-0 grayscale blur-[120px] opacity-10 pointer-events-none scale-125">
                    <div className="grid grid-cols-12 gap-8 p-12 h-full">
@@ -483,19 +519,19 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                    </div>
                 </div>
 
-                <div className="relative z-10 text-center max-w-2xl px-12">
+                <div className="relative z-10 text-center max-w-2xl px-6 sm:px-12 py-12">
                   <motion.div 
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-3xl shadow-emerald-500/20"
+                    className="w-20 h-20 sm:w-24 sm:h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 sm:mb-10 shadow-3xl shadow-emerald-500/20"
                   >
-                    {isPaid ? <CheckCircle2 className="w-10 h-10 text-white" /> : <Lock className="w-10 h-10 text-white" />}
+                    {isPaid ? <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-white" /> : <Lock className="w-8 h-8 sm:w-10 sm:h-10 text-white" />}
                   </motion.div>
                   
-                  <h2 className="text-6xl md:text-7xl font-black text-white tracking-tighter uppercase mb-6 leading-none italic">
+                  <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-6 leading-none italic">
                     {isPaid ? "Simulation" : "Continue the"} <br /> <span className="text-emerald-500">{isPaid ? "Mastered." : "Simulation."}</span>
                   </h2>
-                  <p className="text-xl text-slate-400 font-medium mb-12 max-w-lg mx-auto leading-relaxed">
+                  <p className="text-lg sm:text-xl text-slate-400 font-medium mb-10 sm:mb-12 max-w-lg mx-auto leading-relaxed">
                     {isPaid 
                       ? "You have successfully navigated this tactical environment. Your institutional performance report is now available in your professional portal."
                       : "Master higher-stakes scenarios, sovereign scale-ups, and boardroom dynamics by joining Africa Business College."}
@@ -505,14 +541,14 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                     {isPaid ? (
                       <>
                         <button 
-                          onClick={() => window.location.href = '/dashboard/student'}
-                          className="bg-emerald-500 text-white py-6 rounded-[20px] text-[12px] font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 transition-all active:scale-95"
+                          onClick={onExit}
+                          className="bg-emerald-500 text-white py-5 sm:py-6 rounded-2xl sm:rounded-[20px] text-[10px] sm:text-[12px] font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 transition-all active:scale-95"
                         >
-                          Return to Dashboard
+                          Return to Labs
                         </button>
                         <button 
                           onClick={() => setPhase('stage-selection')}
-                          className="bg-white/5 border border-white/10 text-white py-6 rounded-[20px] text-[12px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
+                          className="bg-white/5 border border-white/10 text-white py-5 sm:py-6 rounded-2xl sm:rounded-[20px] text-[10px] sm:text-[12px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
                         >
                           Stage Selection
                         </button>
@@ -521,15 +557,15 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                       <>
                         <button 
                           onClick={onApply}
-                          className="bg-emerald-500 text-white py-6 rounded-[20px] text-[12px] font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 transition-all active:scale-95"
+                          className="bg-emerald-500 text-white py-5 sm:py-6 rounded-2xl sm:rounded-[20px] text-[10px] sm:text-[12px] font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-500/20 hover:bg-emerald-400 transition-all active:scale-95"
                         >
                           Apply Now
                         </button>
                         <button 
-                          onClick={onContinueProgram}
-                          className="bg-white/5 border border-white/10 text-white py-6 rounded-[20px] text-[12px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
+                          onClick={onExit}
+                          className="bg-white/5 border border-white/10 text-white py-5 sm:py-6 rounded-2xl sm:rounded-[20px] text-[10px] sm:text-[12px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all"
                         >
-                          Continue with Program
+                          Exit Simulation
                         </button>
                       </>
                     )}

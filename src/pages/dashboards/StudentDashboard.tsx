@@ -221,7 +221,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                         <span className="text-xs font-medium text-slate-500">45 mins remaining</span>
                       </div>
                     </div>
-                    <button className="bg-botanical-950 text-white px-10 py-6 rounded-2xl text-[12px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all flex items-center space-x-4 shadow-2xl shadow-botanical-950/20 active:scale-95">
+                    <button onClick={() => onPageChange('full-course')} className="bg-botanical-950 text-white px-10 py-6 rounded-2xl text-[12px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all flex items-center space-x-4 shadow-2xl shadow-botanical-950/20 active:scale-95">
                       <span>Continue Program</span>
                       <ArrowRight className="w-5 h-5" />
                     </button>
@@ -251,7 +251,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                             <h5 className="text-lg font-black text-botanical-950">{module.title}</h5>
                           </div>
                         </div>
-                        <button className="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:bg-emerald-50 px-4 py-2 rounded-lg transition-all" onClick={() => setActiveView('curriculum')}>
+                        <button className="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:bg-emerald-50 px-4 py-2 rounded-lg transition-all" onClick={() => onPageChange('full-course')}>
                           {module.status === 'complete' ? 'Review' : 'Continue'}
                         </button>
                       </div>

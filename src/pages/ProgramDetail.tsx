@@ -36,17 +36,15 @@ interface ProgramDetailProps {
 
 export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetailProps) => {
   const { t } = useLanguage();
-  const { isLoggedIn, hasImage } = useAuth();
+  const { isLoggedIn, hasImage, isApplied } = useAuth();
   const [downloading, setDownloading] = React.useState(false);
 
   const handleDownloadProspectus = () => {
-    if (isLoggedIn && hasImage) {
-      onPageChange('post-download');
-    } else {
-      setDownloading(true);
-      downloadMockPdf(program.title + ' Prospectus');
-      setTimeout(() => setDownloading(false), 3000);
-    }
+    setDownloading(true);
+    downloadMockPdf(program.title + ' Prospectus');
+    setTimeout(() => {
+      setDownloading(false);
+    }, 3000);
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -367,13 +365,13 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
           {/* SIDEBAR: STICKY ON DESKTOP */}
           <div className="lg:col-span-4">
             <div className="sticky top-32">
-              <div className="bg-botanical-950 p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
+              <div className="bg-botanical-950 p-6 md:p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-10">
                   <Shield className="w-24 h-24 text-emerald-500" />
                 </div>
                 
                 <h3 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-2 relative z-10">PROGRAM</h3>
-                <h2 className="text-3xl font-black text-white uppercase tracking-tighter mb-12 relative z-10 leading-none">
+                <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter mb-12 relative z-10 leading-relaxed max-w-[85%] break-words hyphens-auto">
                   {program.title}
                 </h2>
                 
@@ -405,12 +403,21 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
                   </div>
                 </div>
 
-                <button 
-                  onClick={() => onPageChange('application')}
-                  className="w-full bg-emerald-500 text-white py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-xl shadow-emerald-500/20 mb-6"
-                >
-                  Apply Now
-                </button>
+                {isLoggedIn && isApplied ? (
+                  <button 
+                    onClick={() => onPageChange('dashboard-student')}
+                    className="w-full bg-emerald-500 text-white py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-xl shadow-emerald-500/20 mb-6"
+                  >
+                    Go to Portal
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => onPageChange('application')}
+                    className="w-full bg-emerald-500 text-white py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-xl shadow-emerald-500/20 mb-6"
+                  >
+                    Apply Now
+                  </button>
+                )}
                 
                 <button 
                   onClick={handleDownloadProspectus}
@@ -435,12 +442,21 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
             Join a cohort of builders and start executing your ideas. The next economic transformation begins with your first decision.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button 
-              onClick={() => onPageChange('application')}
-              className="bg-emerald-500 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all active:scale-95 shadow-2xl shadow-emerald-500/40"
-            >
-              Apply Now
-            </button>
+            {isLoggedIn && isApplied ? (
+              <button 
+                onClick={() => onPageChange('dashboard-student')}
+                className="bg-emerald-500 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all active:scale-95 shadow-2xl shadow-emerald-500/40"
+              >
+                Go to Portal
+              </button>
+            ) : (
+              <button 
+                onClick={() => onPageChange('application')}
+                className="bg-emerald-500 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all active:scale-95 shadow-2xl shadow-emerald-500/40"
+              >
+                Apply Now
+              </button>
+            )}
             <button 
               onClick={() => onPageChange('programs')}
               className="bg-white border border-slate-200 text-botanical-950 px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all active:scale-95"

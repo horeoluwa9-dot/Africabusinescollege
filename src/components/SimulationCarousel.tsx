@@ -16,11 +16,12 @@ interface Environment {
 interface SimulationCarouselProps {
   items: Environment[];
   onSelect: (id: string) => void;
+  onExplore?: (id: string) => void;
   title?: string;
   subtitle?: string;
 }
 
-export const SimulationCarousel = ({ items, onSelect, title, subtitle }: SimulationCarouselProps) => {
+export const SimulationCarousel = ({ items, onSelect, onExplore, title, subtitle }: SimulationCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = items[activeIndex];
 
@@ -96,7 +97,10 @@ export const SimulationCarousel = ({ items, onSelect, title, subtitle }: Simulat
                         <Play className="w-4 h-4 fill-current" />
                         <span>Start Simulation</span>
                       </button>
-                      <button className="bg-white/5 border border-white/10 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-white/10 transition-all flex items-center justify-center space-x-2">
+                      <button 
+                        onClick={() => onExplore ? onExplore(activeItem.id) : null}
+                        className="bg-white/5 border border-white/10 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-white/10 transition-all flex items-center justify-center space-x-2"
+                      >
                         <span>Explore Details</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>

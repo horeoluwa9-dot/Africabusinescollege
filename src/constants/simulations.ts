@@ -33,7 +33,7 @@ export const SIMULATIONS: Record<string, SimulationConfig> = {
         desc: 'Build and launch a business from scratch.',
         image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80',
         focus: ['Idea validation', 'Pricing', 'Customer acquisition'],
-        difficulty: 'Beginner → Intermediate',
+        difficulty: 'Beginner',
         status: 'Active',
         scenarios: [
           {
@@ -215,23 +215,72 @@ export const SIMULATIONS: Record<string, SimulationConfig> = {
         desc: 'Scale an existing business and manage growth challenges.',
         image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
         focus: ['Marketing strategy', 'Operations', 'Expansion'],
-        difficulty: 'Intermediate',
-        status: 'Locked',
+        difficulty: 'Advanced',
+        status: 'Active',
         scenarios: [
           {
             id: 1,
             title: "Marketing Expansion",
             context: "You have dominated your initial niche. Now you must scale across the region.",
+            challenge: "Choose the right channel for high-volume growth.",
             options: [
               {
                 id: '1a',
                 text: "Multi-Channel Digital Blitz",
-                impact: { metrics: { growth: +25, cash: -40 }, feedback: "Visibility is at peak.", nextScenarioId: 2 }
+                explanation: "Heavy ad spend on social media and search.",
+                risk: 'high',
+                impact: { metrics: { growth: +25, cash: -40, satisfaction: -5 }, feedback: "Visibility is at peak, but customer acquisition cost is hurting your cash reserves.", nextScenarioId: 2 }
               },
               {
                 id: '1b',
                 text: "Community-Led Growth",
-                impact: { metrics: { growth: +10, satisfaction: +30 }, feedback: "Strong loyalty but slower top-line.", nextScenarioId: 2 }
+                explanation: "Rely on word-of-mouth and organic communities.",
+                risk: 'low',
+                impact: { metrics: { growth: +10, satisfaction: +30, cash: -10 }, feedback: "Strong loyalty but slower top-line growth. You avoided a cash burn.", nextScenarioId: 2 }
+              }
+            ]
+          },
+          {
+            id: 2,
+            title: "Hiring Team",
+            context: "Your founders are burning out. You need a middle management layer.",
+            challenge: "Build out the executive team.",
+            options: [
+              {
+                id: '2a',
+                text: "Hire Experienced Expat Execs",
+                explanation: "Bring in talent from established global firms.",
+                risk: 'medium',
+                impact: { metrics: { growth: +15, cash: -30, satisfaction: -10 }, feedback: "Fast execution, but severe culture clash with the local team.", nextScenarioId: 3 }
+              },
+              {
+                id: '2b',
+                text: "Promote Promising Junior Staff",
+                explanation: "Train from within.",
+                risk: 'medium',
+                impact: { metrics: { growth: -5, satisfaction: +20, cash: -5 }, feedback: "Loyalty is high, but operations are temporarily slowing down due to lack of experience.", nextScenarioId: 3 }
+              }
+            ]
+          },
+          {
+            id: 3,
+            title: "Operational Bottleneck",
+            context: "Orders are failing because the logistics team cannot handle the load.",
+            challenge: "Fix the crumbling infrastructure.",
+            options: [
+              {
+                id: '3a',
+                text: "Outsource to Third-Party",
+                explanation: "Hand logistics over to a specialized agency.",
+                risk: 'low',
+                impact: { metrics: { satisfaction: +20, cash: -20 }, feedback: "Operations stabilized immediately, though at a premium cost.", nextScenarioId: 100 }
+              },
+              {
+                id: '3b',
+                text: "Build In-House Tech Solution",
+                explanation: "Develop proprietary routing software.",
+                risk: 'high',
+                impact: { metrics: { satisfaction: -15, growth: +20, cash: -30 }, feedback: "Painful migration, but you now own a massively scalable asset.", nextScenarioId: 100 }
               }
             ]
           }
@@ -245,22 +294,71 @@ export const SIMULATIONS: Record<string, SimulationConfig> = {
         image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
         focus: ['Cash flow', 'Customer churn', 'Strategic pivots'],
         difficulty: 'Advanced',
-        status: 'Locked',
+        status: 'Active',
         scenarios: [
           {
             id: 1,
             title: "Revenue Drop",
             context: "A sudden regulatory change has halved your transaction volume overnight.",
+            challenge: "Stop the bleeding before runway hits zero.",
             options: [
               {
                 id: '1a',
                 text: "Immediate Operational Rightsizing",
-                impact: { metrics: { cash: +30, morale: -40 }, feedback: "Hard decisions saved the treasury.", nextScenarioId: 2 }
+                explanation: "Lay off 30% of staff to preserve cash.",
+                risk: 'low',
+                impact: { metrics: { cash: +30, satisfaction: -40, growth: -20 }, feedback: "Hard decisions saved the treasury, but morale is destroyed.", nextScenarioId: 2 }
               },
               {
                 id: '1b',
-                text: "Leverage Debt and Push Product Pivot",
-                impact: { metrics: { risk: +40, cash: +20 }, feedback: "High stakes gamble.", nextScenarioId: 2 }
+                text: "Leverage Debt and Wait It Out",
+                explanation: "Take a high-interest bridge loan.",
+                risk: 'high',
+                impact: { metrics: { cash: +20, growth: -5 }, feedback: "You bought time, but the interest payments will suffocate you fast.", nextScenarioId: 2 }
+              }
+            ]
+          },
+          {
+            id: 2,
+            title: "Customer Churn",
+            context: "Competitors are offering aggressive discounts to steal your remaining users.",
+            challenge: "Defend your market share.",
+            options: [
+              {
+                id: '2a',
+                text: "Match Competitor Pricing",
+                explanation: "Race to the bottom to keep users.",
+                risk: 'high',
+                impact: { metrics: { satisfaction: +20, cash: -30, growth: +5 }, feedback: "Users stayed, but your margins are completely ruined.", nextScenarioId: 3 }
+              },
+              {
+                id: '2b',
+                text: "Focus on High-LTV Enterprise Clients",
+                explanation: "Let the retail users go and pivot to B2B.",
+                risk: 'medium',
+                impact: { metrics: { satisfaction: -20, cash: +10, growth: -10 }, feedback: "You lost thousands of users, but secured three highly profitable contracts.", nextScenarioId: 3 }
+              }
+            ]
+          },
+          {
+            id: 3,
+            title: "Pivot Decision",
+            context: "The original business model is officially dead. You have 3 months of runway.",
+            challenge: "Make the final call.",
+            options: [
+              {
+                id: '3a',
+                text: "Sell the Tech Assets",
+                explanation: "Acqui-hire to a larger player.",
+                risk: 'low',
+                impact: { metrics: { cash: +50, growth: 0, satisfaction: -10 }, feedback: "You secured a soft landing. The business didn't survive, but the team did.", nextScenarioId: 100 }
+              },
+              {
+                id: '3b',
+                text: "Hard Pivot to New Market",
+                explanation: "Use remaining cash to launch a completely different product.",
+                risk: 'high',
+                impact: { metrics: { cash: -20, growth: +40, satisfaction: +10 }, feedback: "A massive gamble that is showing early signs of extreme traction. You lived to fight another day.", nextScenarioId: 100 }
               }
             ]
           }
@@ -281,7 +379,7 @@ export const SIMULATIONS: Record<string, SimulationConfig> = {
       { label: 'Relationship', key: 'relationship', icon: Users, initial: 60 },
     ],
     environments: [
-      { id: 'seed', name: 'Seed Round', icon: Zap, desc: 'Equity negotiation with angels.', focus: ['Valuation', 'Equity'], difficulty: 'Intermediate', status: 'Active', scenarios: [] },
+      { id: 'seed', name: 'Seed Round', icon: Zap, desc: 'Equity negotiation with angels.', focus: ['Valuation', 'Equity'], difficulty: 'Advanced', status: 'Active', scenarios: [] },
       { id: 'series-a', name: 'Series A', icon: TrendingUp, desc: 'Institutional VC dynamics.', focus: ['Due Diligence', 'Governance'], difficulty: 'Advanced', status: 'Locked', scenarios: [] },
     ]
   },
@@ -298,7 +396,7 @@ export const SIMULATIONS: Record<string, SimulationConfig> = {
       { label: 'Speed', key: 'speed', icon: Target, initial: 50 },
     ],
     environments: [
-      { id: 'regional', name: 'Region Entry', icon: Globe, desc: 'Selecting the primary node.', focus: ['Market Fit', 'Ops'], difficulty: 'Intermediate', status: 'Active', scenarios: [] },
+      { id: 'regional', name: 'Region Entry', icon: Globe, desc: 'Selecting the primary node.', focus: ['Market Fit', 'Ops'], difficulty: 'Advanced', status: 'Active', scenarios: [] },
     ]
   },
   leadership: {

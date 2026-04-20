@@ -21,6 +21,8 @@ import { Application } from './pages/Application';
 import { Checkout } from './pages/Checkout';
 import { Welcome } from './pages/Welcome';
 import { Experience } from './pages/Experience';
+import { Careers } from './pages/Careers';
+import { Scholarship } from './pages/Scholarship';
 import { ProgramDetail } from './pages/ProgramDetail';
 import { NewsDetail } from './pages/NewsDetail';
 import { InsightDetail } from './pages/InsightDetail';
@@ -30,14 +32,17 @@ import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
 import { Accreditation } from './pages/Accreditation';
 import { GenericPage } from './components/GenericPage';
+import { JoinNetwork, AlumniOutcomes, EventsPage } from './pages/CommunityPages';
 import { motion, AnimatePresence } from 'motion/react';
 import { StudentDashboard } from './pages/dashboards/StudentDashboard';
 import { FacultyDashboard } from './pages/dashboards/FacultyDashboard';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
+import { SimulationDetails } from './pages/SimulationDetails';
+import { FullCourseViewer } from './pages/FullCourseViewer';
 
 export default function App() {
-  const [activePage, setActivePage] = useState<Page>(() => {
+  const [activePage, setActivePage] = useState<Page | 'full-course'>(() => {
     const path = window.location.pathname;
     if (path === '/dashboard/student') return 'dashboard-student';
     if (path === '/dashboard/faculty') return 'dashboard-faculty';
@@ -152,9 +157,20 @@ export default function App() {
                   simulationId={selectedSimulationId}
                   onApply={() => handlePageChange('application')} 
                   onContinueProgram={() => handlePageChange('programs')} 
+                  onExit={() => handlePageChange('simulation-labs')}
                 />;
               case 'careers':
-                return <GenericPage title="Careers" description="Join the team architecting the future of African business education." onBack={() => setActivePage('home')} />;
+                return <Careers onPageChange={handlePageChange} />;
+              case 'scholarship':
+                return <Scholarship onPageChange={handlePageChange} />;
+              case 'events':
+                return <EventsPage onPageChange={handlePageChange} onBack={() => setActivePage('community')} />;
+              case 'alumni':
+                return <AlumniOutcomes onPageChange={handlePageChange} onBack={() => setActivePage('community')} />;
+              case 'join-network':
+                return <JoinNetwork onPageChange={handlePageChange} onBack={() => setActivePage('community')} />;
+              case 'simulation-details':
+                return <SimulationDetails onBack={() => setActivePage('simulation-labs')} onPageChange={handlePageChange} />;
               case 'community':
                 return <Community onPageChange={handlePageChange} />;
               case 'partnerships':
@@ -195,6 +211,9 @@ export default function App() {
 
               case 'program-detail':
                 return <ProgramDetail programId={selectedProgramId} onPageChange={handlePageChange} onBack={() => setActivePage('programs')} />;
+                
+              case 'full-course':
+                return <FullCourseViewer programId={selectedProgramId} onBack={() => setActivePage('dashboard-student')} />;
 
               case 'post-download':
                 return <PostDownload onPageChange={handlePageChange} />;
@@ -216,9 +235,9 @@ export default function App() {
     );
   };
 
-  // Don't show layout on dashboard, checkout, or welcome pages
+  // Don't show layout on dashboard, checkout, welcome, or simulation-demo pages
   const isDashboard = activePage.startsWith('dashboard-');
-  const isMinimal = activePage === 'checkout' || activePage === 'welcome';
+  const isMinimal = activePage === 'checkout' || activePage === 'welcome' || activePage === 'simulation-demo' || activePage === 'full-course';
 
   if (isDashboard || isMinimal) {
     return (
