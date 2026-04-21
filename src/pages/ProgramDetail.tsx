@@ -27,6 +27,7 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
+import { useToast } from '../contexts/ToastContext';
 
 interface ProgramDetailProps {
   programId: string | null;
@@ -37,18 +38,16 @@ interface ProgramDetailProps {
 export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetailProps) => {
   const { t } = useLanguage();
   const { isLoggedIn, hasImage, isApplied } = useAuth();
-  const [downloading, setDownloading] = React.useState(false);
-
-  const handleDownloadProspectus = () => {
-    setDownloading(true);
-    downloadMockPdf(program.title + ' Prospectus');
-    setTimeout(() => {
-      setDownloading(false);
-    }, 3000);
-  };
+  const { showToast } = useToast();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const program = PROGRAMS.find(p => p.id === programId);
+
+  const handleDownloadProspectus = () => {
+    if (!program) return;
+    downloadMockPdf(program.title + ' Prospectus');
+    showToast('Prospectus Downloaded Successfully');
+  };
 
   if (!program) {
     return (
@@ -94,24 +93,6 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
 
   return (
     <div className="bg-white min-h-screen" ref={containerRef}>
-      <motion.div className="relative">
-        <AnimatePresence>
-          {downloading && (
-            <motion.div 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
-            >
-              <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                <CheckCircle2 className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-widest">Prospectus Downloaded Successfully</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-
       {/* SECTION 1: HERO */}
       <section className="relative pt-32 pb-20 px-6 md:px-12 bg-botanical-950 overflow-hidden min-h-[60vh] flex flex-col justify-center">
         {/* Background Image Layer */}

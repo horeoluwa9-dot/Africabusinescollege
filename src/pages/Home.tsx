@@ -117,22 +117,6 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <AnimatePresence>
-        {downloading && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-white text-botanical-950 px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-slate-200"
-          >
-            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">Brochure Downloaded Successfully</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <AnimatedBackground intensity="high" className="opacity-40" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
