@@ -27,9 +27,9 @@ export const Privacy: React.FC<PrivacyProps> = ({ onPageChange }) => {
 
           <div className="prose prose-slate prose-lg max-w-none">
             <section className="mb-12">
-              <h2 className="text-2xl font-black text-botanical-950 uppercase tracking-tight mb-6">1. Commitment to Data Sovereignty</h2>
+              <h2 className="text-2xl font-black text-botanical-950 uppercase tracking-tight mb-6">1. Commitment to Data Executionty</h2>
               <p className="text-slate-600 leading-relaxed font-medium">
-                At Africa Business College (ABC), we treat your data with the same institutional rigor we apply to our curriculum. We believe in data sovereignty—the principle that your professional and personal data belongs to you. Our systems are designed to protect your intellectual property and personal information against unauthorized access.
+                At Africa Business College (ABC), we treat your data with the same institutional rigor we apply to our curriculum. We believe in data executionty—the principle that your professional and personal data belongs to you. Our systems are designed to protect your intellectual property and personal information against unauthorized access.
               </p>
             </section>
 

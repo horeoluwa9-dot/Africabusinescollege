@@ -5,7 +5,7 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 
 import { SectionLabel } from '../components/SectionLabel';
 
-export const Community = ({ onPageChange }: { onPageChange: (page: any) => void }) => {
+export const Community = ({ onPageChange }: { onPageChange: (page: any, id?: string) => void }) => {
   return (
     <div className="pt-24">
       {/* Hero Section */}
@@ -184,22 +184,26 @@ export const Community = ({ onPageChange }: { onPageChange: (page: any) => void 
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { date: 'DEC 12', title: 'ABC Annual Summit 2026', location: 'Lagos, Nigeria • Online', img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80' },
-              { date: 'JAN 05', title: "Founders' Private Dinner", location: 'Nairobi, Kenya • Invite Only', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80' },
-              { date: 'FEB 10', title: 'Regional Meetup: Joburg', location: 'Johannesburg, RSA • In-Person', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80' }
+              { id: 'annual-summit-2026', date: 'DEC 12', title: 'ABC Annual Summit 2026', location: 'Lagos, Nigeria • Online', img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80', btn: 'Register Now' },
+              { id: 'founders-dinner', date: 'JAN 05', title: "Founders' Private Dinner", location: 'Nairobi, Kenya • Invite Only', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80', btn: 'Request Invite' },
+              { id: 'regional-joburg', date: 'FEB 10', title: 'Regional Meetup: Joburg', location: 'Johannesburg, RSA • In-Person', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80', btn: 'RSVP' }
             ].map((event, i) => (
-              <div key={i} className="bg-white rounded-[40px] overflow-hidden border border-slate-100 group">
-                <div className="aspect-video relative overflow-hidden">
-                  <img src={event.img} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
-                  <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-botanical-950">
-                    {event.date}
+              <div key={i} className="bg-white rounded-[40px] overflow-hidden border border-slate-100 group flex flex-col justify-between">
+                <div className="cursor-pointer" onClick={() => onPageChange('event-detail', event.id)}>
+                  <div className="aspect-video relative overflow-hidden">
+                    <img src={event.img} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                    <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-botanical-950 shadow-sm border border-white/20">
+                      {event.date}
+                    </div>
+                  </div>
+                  <div className="p-10 pb-6">
+                    <h3 className="text-xl font-black text-botanical-950 mb-4 uppercase tracking-tight group-hover:text-emerald-500 transition-colors">{event.title}</h3>
+                    <p className="text-slate-400 text-xs font-medium uppercase tracking-widest">{event.location}</p>
                   </div>
                 </div>
-                <div className="p-10">
-                  <h3 className="text-xl font-black text-botanical-950 mb-4 uppercase tracking-tight">{event.title}</h3>
-                  <p className="text-slate-400 text-xs font-medium mb-8 uppercase tracking-widest">{event.location}</p>
-                  <button onClick={() => onPageChange('events')} className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-500 transition-colors">
-                    {i === 1 ? 'Request Invite' : i === 2 ? 'RSVP' : 'Register Now'}
+                <div className="px-10 pb-10 mt-auto pt-4 border-t border-slate-50">
+                  <button onClick={() => onPageChange('event-detail', event.id)} className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-500 transition-colors inline-flex items-center">
+                    {event.btn} <ArrowRight className="w-3 h-3 ml-2" />
                   </button>
                 </div>
               </div>

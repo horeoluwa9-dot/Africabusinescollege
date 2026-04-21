@@ -48,7 +48,7 @@ const NEWS_ARTICLES = {
     image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80',
     content: `
       In a keynote session last week, Professor James Adesina shared his outlook for the next decade of African venture capital. 
-      He argues that "Sovereign Alpha"—the ability of local institutional capital to drive returns—will be the defining metric 
+      He argues that "Execution Alpha"—the ability of local institutional capital to drive returns—will be the defining metric 
       for the continent's success.
 
       "We've relied on foreign direct investment for too long," Adesina noted. "The future belongs to the funds that understand 

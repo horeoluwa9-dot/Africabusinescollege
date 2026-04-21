@@ -33,6 +33,7 @@ import { Page } from '../../components/Layout';
 import { useAuth } from '../../contexts/AuthContext';
 import { SimulationCarousel } from '../../components/SimulationCarousel';
 import { ArrowUpRight } from 'lucide-react';
+import { useToast } from '../../contexts/ToastContext';
 
 interface DashboardProps {
   onPageChange: (page: Page, id?: string) => void;
@@ -41,6 +42,7 @@ interface DashboardProps {
 export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
   const { t, isRTL } = useLanguage();
   const { user, logout, isLoggedIn, isPaid } = useAuth();
+  const { showToast } = useToast();
   const [activeView, setActiveView] = React.useState('os');
 
   useEffect(() => {
@@ -55,13 +57,12 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
   };
 
   const sidebarItems = [
-    { id: 'os', icon: LayoutDashboard, label: t('student.os') },
-    { id: 'curriculum', icon: Play, label: t('student.curriculum') },
-    { id: 'simulation', icon: Monitor, label: t('student.simulation') },
-    { id: 'tools', icon: Wrench, label: t('student.tools') },
-    { id: 'network', icon: Users, label: t('student.network') },
-    { id: 'performance', icon: BarChart3, label: t('student.performance') },
-    { id: 'preferences', icon: Settings, label: t('student.preferences') },
+    { id: 'os', icon: LayoutDashboard, label: 'Learning OS' },
+    { id: 'curriculum', icon: Play, label: 'Curriculum' },
+    { id: 'simulation', icon: Monitor, label: 'Simulations' },
+    { id: 'network', icon: Users, label: 'Community' },
+    { id: 'performance', icon: BarChart3, label: 'Performance' },
+    { id: 'preferences', icon: Settings, label: 'Settings' },
   ];
 
   const modules = [
@@ -167,17 +168,17 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <button className="p-2.5 bg-white border border-slate-100 rounded-xl shadow-sm text-slate-400 hover:text-botanical-950 transition-all">
+                <button onClick={() => showToast('No new notifications')} className="p-2.5 bg-white border border-slate-100 rounded-xl shadow-sm text-slate-400 hover:text-botanical-950 transition-all">
                   <Bell className="w-5 h-5" />
                 </button>
-                <button className="bg-emerald-500 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 hover:scale-105 transition-all">
+                <button onClick={() => showToast('Events panel opening...')} className="bg-emerald-500 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 hover:scale-105 transition-all">
                   Register for Cohort Event
                 </button>
               </div>
             </div>
 
             {/* SECTION 2: CURRENT STATUS / COHORT NOTIFICATION */}
-            <div className="bg-botanical-950 rounded-[32px] p-8 text-white relative overflow-hidden mb-12 group cursor-pointer transition-all hover:bg-botanical-900">
+            <div className="bg-botanical-950 rounded-[32px] p-8 text-white relative overflow-hidden mb-12 group cursor-pointer transition-all hover:bg-botanical-900" onClick={() => showToast('Opening session details...')}>
                <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform duration-700">
                 <Zap className="w-48 h-48" />
               </div>
@@ -190,9 +191,9 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                     <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Next Cohort Session</span>
                   </div>
                   <h3 className="text-3xl font-black tracking-tight leading-none">Cohort starts in 3 days.</h3>
-                  <p className="text-slate-400 text-sm font-medium">Topic: Advanced Unit Economics & Sovereign Market Entry</p>
+                  <p className="text-slate-400 text-sm font-medium">Topic: Advanced Unit Economics & Execution Market Entry</p>
                 </div>
-                <button className="bg-white text-botanical-950 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center space-x-3 hover:bg-emerald-500 hover:text-white transition-all">
+                <button onClick={(e) => { e.stopPropagation(); showToast('Added to schedule'); }} className="bg-white text-botanical-950 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center space-x-3 hover:bg-emerald-500 hover:text-white transition-all">
                   <span>Add to Schedule</span>
                   <Plus className="w-4 h-4" />
                 </button>
@@ -331,7 +332,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                       <p className="text-sm text-slate-500">Progress: {module.progress}%</p>
                     </div>
                   </div>
-                  <button className="bg-botanical-950 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500">
+                  <button onClick={() => showToast('Connecting to interactive module...')} className="bg-botanical-950 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500">
                     Enter Module
                   </button>
                 </div>
@@ -394,7 +395,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                 <div className="bg-slate-50 p-6 rounded-3xl flex-grow overflow-y-auto space-y-4">
                    {[
                      { user: 'Amara K.', msg: 'Incredible insights in the growth simulator today.', time: '10:42 AM' },
-                     { user: 'Sovereign Faculty', msg: 'Reminder: Live session begins in 1 hour.', time: '11:00 AM' },
+                     { user: 'Execution Faculty', msg: 'Reminder: Live session begins in 1 hour.', time: '11:00 AM' },
                      { user: 'Jean-Luc M.', msg: 'Has anyone cracked the pricing model for Francophone markets?', time: '11:15 AM' }
                    ].map((chat, i) => (
                      <div key={i} className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 max-w-[80%]">
@@ -408,7 +409,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                 </div>
                 <div className="flex space-x-4">
                    <input className="flex-grow bg-white border border-slate-100 rounded-2xl px-6 py-4 text-sm focus:border-emerald-500 focus:outline-none shadow-sm" placeholder="Message your cohort..." />
-                   <button className="bg-botanical-950 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/20">Send</button>
+                   <button onClick={() => showToast('Message sent to cohort')} className="bg-botanical-950 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/20">Send</button>
                 </div>
               </div>
               <div className="col-span-4 bg-white border border-slate-100 rounded-[40px] p-10">
@@ -454,7 +455,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                <div className="relative z-10 max-w-xl">
                   <h3 className="text-3xl font-black uppercase tracking-tight mb-6 leading-tight">Advanced Strategic Readiness</h3>
                   <p className="text-slate-400 text-lg font-medium leading-relaxed mb-8">Your simulation performance indicates high adaptability in crisis management but moderate risk exposure in portfolio scaling. Focus on Unit 4 (Risk Mitigation) to optimize your profile.</p>
-                  <button className="bg-emerald-500 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-emerald-500/20">Download Full Record</button>
+                  <button onClick={() => showToast('Downloading secure dossier...')} className="bg-emerald-500 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-emerald-500/20">Download Full Record</button>
                </div>
             </div>
           </section>

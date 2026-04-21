@@ -12,11 +12,11 @@ export type Page =
   | 'faculty' | 'learning' | 'simulation-labs' | 'careers' | 'application'
   | 'checkout' | 'welcome' | 'simulation-demo' | 'full-course'
   | 'entrepreneurship' | 'venture-building' | 'digital-business' | 'innovation-leadership'
-  | 'program-detail' | 'post-download' | 'post-view'
+  | 'program-detail' | 'post-view'
   | 'community' | 'partnerships' | 'contact'
   | 'privacy' | 'terms' | 'accreditation'
   | 'login-student' | 'login-faculty'
-  | 'dashboard-student' | 'dashboard-faculty' | 'news-detail' | 'insight-detail'
+  | 'dashboard-student' | 'dashboard-faculty' | 'news-detail' | 'insight-detail' | 'event-detail'
   | 'scholarship' | 'events' | 'join-network' | 'alumni' | 'simulation-details'
   | 'who-should-apply' | 'inquire-details' | 'inquire-pricing' | 'financial-aid'
   | 'admissions-faq' | 'view-curriculum';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Play, BookOpen, Zap, Users, Shield, TrendingUp, ArrowRight, CheckCircle2, Microscope } from 'lucide-react';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -7,9 +7,9 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Page } from '../components/Layout';
 import { useAuth } from '../contexts/AuthContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
-import { AnimatePresence } from 'motion/react';
 
 import { SectionLabel } from '../components/SectionLabel';
+import { useToast } from '../contexts/ToastContext';
 
 interface ExperienceProps {
   onPageChange: (page: Page, id?: string) => void;
@@ -18,35 +18,15 @@ interface ExperienceProps {
 export const Learning = ({ onPageChange }: ExperienceProps) => {
   const { t } = useLanguage();
   const { isLoggedIn, hasImage } = useAuth();
-  const [downloading, setDownloading] = React.useState(false);
+  const { showToast } = useToast();
 
   const handleDownloadProspectus = () => {
-    if (isLoggedIn && hasImage) {
-      onPageChange('post-download');
-    } else {
-      setDownloading(true);
-      downloadMockPdf('ABC_Learning_Brochure');
-      setTimeout(() => setDownloading(false), 3000);
-    }
+    downloadMockPdf('ABC_Learning_Brochure');
+    showToast('Brochure Downloaded Successfully');
   };
 
   return (
     <div className="pt-24 relative">
-      <AnimatePresence>
-        {downloading && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
-          >
-            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">Prospectus Downloaded Successfully</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
       {/* Hero Section */}
       <section className="relative py-32 px-6 md:px-12 overflow-hidden bg-botanical-950">
         <AnimatedBackground intensity="high" className="opacity-40" />
@@ -107,7 +87,7 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
             { id: '01', title: 'Learn', desc: 'Engage in high-fidelity online classes led by industry practitioners and global thought leaders.' },
             { id: '02', title: 'Apply', desc: 'Deploy frameworks immediately on real-world scenarios within our managed learning clusters.' },
             { id: '03', title: 'Simulate', desc: 'Stress-test your strategies in high-stakes digital twin environments and simulation labs.' },
-            { id: '04', title: 'Build', desc: 'Synthesize your learnings into enterprise-grade assets and sovereign ventures.' }
+            { id: '04', title: 'Build', desc: 'Synthesize your learnings into enterprise-grade assets and execution ventures.' }
           ].map((step, i) => (
             <div key={i} className="bg-white p-10 rounded-[40px] shadow-sm border border-slate-100 group hover:border-emerald-500 transition-colors">
               <span className="text-emerald-500 font-black text-sm mb-6 block">{step.id}</span>

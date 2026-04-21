@@ -534,7 +534,7 @@ export const SimulationDemo: React.FC<SimulationDemoProps> = ({ simulationId, on
                   <p className="text-lg sm:text-xl text-slate-400 font-medium mb-10 sm:mb-12 max-w-lg mx-auto leading-relaxed">
                     {isPaid 
                       ? "You have successfully navigated this tactical environment. Your institutional performance report is now available in your professional portal."
-                      : "Master higher-stakes scenarios, sovereign scale-ups, and boardroom dynamics by joining Africa Business College."}
+                      : "Master higher-stakes scenarios, execution scale-ups, and boardroom dynamics by joining Africa Business College."}
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

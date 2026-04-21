@@ -418,7 +418,7 @@ export const SIMULATIONS: Record<string, SimulationConfig> = {
   policy: {
     id: 'policy',
     title: 'Economic Policy',
-    subtitle: 'Sovereign Strategy.',
+    subtitle: 'Execution Strategy.',
     description: 'Design business-friendly policies and understand impact. Balance fiscal discipline with pro-growth incentives within realistic African economic models.',
     heroImage: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80',
     metrics: [

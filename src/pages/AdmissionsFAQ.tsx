@@ -20,7 +20,7 @@ const AdmissionsFAQ: React.FC<AdmissionsFAQProps> = ({ onPageChange }) => {
       id: '1',
       category: 'Application Process',
       question: "What is the application deadline for the 2026 cohort?",
-      answer: "The final deadline for the 2026 Sovereign MBA Cohort is December 1, 2026. However, we operate on a rolling admissions basis and recommend applying early as spots often fill before the final deadline."
+      answer: "The final deadline for the 2026 Execution MBA Cohort is December 1, 2026. However, we operate on a rolling admissions basis and recommend applying early as spots often fill before the final deadline."
     },
     {
       id: '2',
@@ -43,8 +43,8 @@ const AdmissionsFAQ: React.FC<AdmissionsFAQProps> = ({ onPageChange }) => {
     {
       id: '5',
       category: 'Application Process',
-      question: "What documents are required for the application?",
-      answer: "You will need a digital copy of your official transcripts, two professional references, a personal statement (vision for impact), and a portfolio or CV highlighting your work or venture."
+      question: "Are any documents required for the application?",
+      answer: "No, there are no documents required to apply."
     }
   ];
 

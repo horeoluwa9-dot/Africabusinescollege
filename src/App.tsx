@@ -26,7 +26,6 @@ import { Scholarship } from './pages/Scholarship';
 import { ProgramDetail } from './pages/ProgramDetail';
 import { NewsDetail } from './pages/NewsDetail';
 import { InsightDetail } from './pages/InsightDetail';
-import { PostDownload } from './pages/PostDownload';
 import { PostView } from './pages/PostView';
 import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
@@ -46,6 +45,7 @@ import InquirePricing from './pages/InquirePricing';
 import FinancialAidPortal from './pages/FinancialAidPortal';
 import AdmissionsFAQ from './pages/AdmissionsFAQ';
 import CurriculumPage from './pages/CurriculumPage';
+import { EventDetail } from './pages/EventDetail';
 
 export default function App() {
   const [activePage, setActivePage] = useState<Page | 'full-course'>(() => {
@@ -58,6 +58,7 @@ export default function App() {
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
   const [selectedInsightId, setSelectedInsightId] = useState<string | null>(null);
   const [selectedSimulationId, setSelectedSimulationId] = useState<string | null>(null);
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [entryContext, setEntryContext] = useState<{ source: 'program' | 'simulation' | 'general'; id?: string }>({ source: 'general' });
 
   const handlePageChange = (page: Page, id?: string) => {
@@ -74,6 +75,9 @@ export default function App() {
       }
       if (page === 'simulation-demo') {
         setSelectedSimulationId(id);
+      }
+      if (page === 'event-detail') {
+        setSelectedEventId(id);
       }
     }
 
@@ -221,12 +225,11 @@ export default function App() {
               case 'full-course':
                 return <FullCourseViewer programId={selectedProgramId} onBack={() => setActivePage('dashboard-student')} />;
 
-              case 'post-download':
-                return <PostDownload onPageChange={handlePageChange} />;
-              
               case 'post-view':
                 return <PostView onPageChange={handlePageChange} />;
 
+              case 'event-detail':
+                return <EventDetail eventId={selectedEventId || undefined} onPageChange={handlePageChange} />;
               case 'insight-detail':
                 return <InsightDetail insightId={selectedInsightId || undefined} onPageChange={handlePageChange} />;
               case 'news-detail':

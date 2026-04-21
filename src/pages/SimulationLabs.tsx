@@ -65,7 +65,7 @@ export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id
       desc: t('home.testStrategies'), 
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
       icon: Landmark,
-      status: 'Sovereign Strategy',
+      status: 'Execution Strategy',
       difficulty: 'Expert',
       focus: ['GDP Growth', 'Inflation', 'Fiscal Policy']
     }
@@ -81,7 +81,7 @@ export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <SectionLabel className="mb-6">Sovereign Business Laboratory</SectionLabel>
+            <SectionLabel className="mb-6">Execution Business Laboratory</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               {isPaid ? "Your Strategic" : "Learn Business by"} <br />
               <span className="text-emerald-500 italic">{isPaid ? "Command Center" : "Making Real"}</span> <br />

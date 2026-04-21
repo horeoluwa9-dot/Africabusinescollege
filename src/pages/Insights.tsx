@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Search, Filter, ArrowRight, Download, Mail, ArrowLeft, ArrowRight as ArrowRightIcon, Linkedin, Twitter } from 'lucide-react';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { SectionLabel } from '../components/SectionLabel';
+import { downloadMockPdf } from '../lib/downloadPdf';
 
 import { Page } from '../components/Layout';
 
@@ -12,11 +13,100 @@ interface InsightsProps {
 
 export const Insights = ({ onPageChange }: InsightsProps) => {
   const [notification, setNotification] = React.useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = React.useState('All Insights');
 
   const showNotification = (message: string) => {
     setNotification(message);
     setTimeout(() => setNotification(null), 3000);
   };
+
+  const insightsData = [
+    { 
+      id: 'urban-legacies',
+      cat: 'Governance', 
+      time: '8 MIN READ', 
+      title: 'Restructuring Urban Legacies: The Rise of Pan-African Smart Cities.', 
+      desc: 'How decentralization and localized energy grids are transforming the blueprint of the African metropolis.',
+      author: 'AMARA OKAFOR',
+      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'afcfta-playbook',
+      cat: 'Capital Markets', 
+      time: '15 MIN READ', 
+      title: 'The AfCFTA Playbook: Navigating Cross-Border Liquidity in 2026.', 
+      desc: 'Analyzing the regulatory shifts enabling seamless capital flow across the continental free trade zone.',
+      author: 'KOFI MENSAH',
+      img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'execution-leadership',
+      cat: 'Entrepreneurship', 
+      time: '12 MIN READ', 
+      title: 'Execution Leadership: Beyond the Quarterly Earnings Cycle.', 
+      desc: 'Why the most successful African CEOs are prioritizing long-term social utility over short-term returns.',
+      author: 'FATIMA DIOP',
+      img: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'last-mile-logistics',
+      cat: 'Digital Economy', 
+      time: '10 MIN READ', 
+      title: 'Optimizing Last-Mile Logistics in Megacities.', 
+      desc: 'Leveraging data-driven routing and micro-warehousing to overcome the friction of African urban congestion.',
+      author: 'DAVID OKAFOR',
+      img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'regulatory-sandbox',
+      cat: 'Public Policy', 
+      time: '14 MIN READ', 
+      title: 'Regulatory Sandbox: A Guide for Tech Founders.', 
+      desc: 'How to navigate the evolving regulatory landscape and collaborate with governments to scale safely.',
+      author: 'AMARA DIOP',
+      img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'exit-strategies',
+      cat: 'Capital Markets', 
+      time: '18 MIN READ', 
+      title: 'Exit Strategies for African Tech Startups.', 
+      desc: 'An analysis of recent M&A activity and the path to secondary markets for Pan-African founders.',
+      author: 'ZARA EL-AMIN',
+      img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'simulation-lab',
+      cat: 'Entrepreneurship', 
+      time: '5 MIN READ', 
+      title: 'ABC Launches New Simulation Lab for Market Expansion', 
+      desc: 'A look into how ABC is using new immersive simulations to train founders for Pan-African growth.',
+      author: 'ABC PRESS',
+      img: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'fintech-founders',
+      cat: 'Digital Economy', 
+      time: '7 MIN READ', 
+      title: 'Cohort 2026: The Rise of Pan-African Fintech Founders', 
+      desc: 'Highlighting the next wave of financial innovators emerging from our latest cohort.',
+      author: 'ABC PRESS',
+      img: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80"
+    },
+    { 
+      id: 'adesina-vc',
+      cat: 'Capital Markets', 
+      time: '10 MIN READ', 
+      title: 'Professor Adesina on the Future of African Venture Capital', 
+      desc: 'A critical analysis of capital allocation models shifting towards local LPs in the decade ahead.',
+      author: 'ABC PRESS',
+      img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+    }
+  ];
+
+  const filteredInsights = activeFilter === 'All Insights' 
+    ? insightsData 
+    : insightsData.filter(insight => insight.cat === activeFilter);
 
   return (
     <div className="pt-24 min-h-screen relative">
@@ -47,7 +137,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            onClick={() => onPageChange('insight-detail', 'sovereign-alpha')}
+            onClick={() => onPageChange('insight-detail', 'execution-alpha')}
             className="mt-8 relative rounded-[40px] overflow-hidden min-h-[500px] lg:min-h-[600px] group cursor-pointer shadow-2xl"
           >
             <img 
@@ -66,7 +156,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                   <span className="text-white/60 text-[8px] font-black uppercase tracking-widest">12 MIN READ</span>
                 </div>
                 <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-[0.95] mb-10 drop-shadow-lg">
-                  The Sovereign Alpha: How African Institutional Capital is Redefining Global Risk.
+                  The Execution Alpha: How African Institutional Capital is Redefining Global Risk.
                 </h2>
                 <div className="flex items-center space-x-4">
                   <div className="w-14 h-14 rounded-full overflow-hidden bg-slate-200 border-2 border-white/20 shadow-sm">
@@ -90,9 +180,9 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             {['All Insights', 'Entrepreneurship', 'Capital Markets', 'Public Policy', 'Digital Economy', 'Governance'].map((filter, i) => (
               <button 
                 key={filter} 
-                onClick={() => showNotification(`Filtering by ${filter}`)}
+                onClick={() => setActiveFilter(filter)}
                 className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
-                  i === 0 ? 'bg-emerald-500 text-white' : 'bg-white border border-slate-200 text-slate-400 hover:border-emerald-500 hover:text-emerald-500'
+                  activeFilter === filter ? 'bg-emerald-500 text-white' : 'bg-white border border-slate-200 text-slate-400 hover:border-emerald-500 hover:text-emerald-500'
                 }`}
               >
                 {filter}
@@ -110,64 +200,9 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {[
-              { 
-                id: 'urban-legacies',
-                cat: 'GOVERNANCE', 
-                time: '8 MIN READ', 
-                title: 'Restructuring Urban Legacies: The Rise of Pan-African Smart Cities.', 
-                desc: 'How decentralization and localized energy grids are transforming the blueprint of the African metropolis.',
-                author: 'AMARA OKAFOR',
-                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
-              },
-              { 
-                id: 'afcfta-playbook',
-                cat: 'MARKETS', 
-                time: '15 MIN READ', 
-                title: 'The AfCFTA Playbook: Navigating Cross-Border Liquidity in 2026.', 
-                desc: 'Analyzing the regulatory shifts enabling seamless capital flow across the continental free trade zone.',
-                author: 'KOFI MENSAH',
-                img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80"
-              },
-              { 
-                id: 'sovereign-leadership',
-                cat: 'STRATEGY', 
-                time: '12 MIN READ', 
-                title: 'Sovereign Leadership: Beyond the Quarterly Earnings Cycle.', 
-                desc: 'Why the most successful African CEOs are prioritizing long-term social utility over short-term returns.',
-                author: 'FATIMA DIOP',
-                img: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80"
-              },
-              { 
-                id: 'last-mile-logistics',
-                cat: 'OPERATIONS', 
-                time: '10 MIN READ', 
-                title: 'Optimizing Last-Mile Logistics in Megacities.', 
-                desc: 'Leveraging data-driven routing and micro-warehousing to overcome the friction of African urban congestion.',
-                author: 'DAVID OKAFOR',
-                img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
-              },
-              { 
-                id: 'regulatory-sandbox',
-                cat: 'POLICY', 
-                time: '14 MIN READ', 
-                title: 'Regulatory Sandbox: A Guide for Tech Founders.', 
-                desc: 'How to navigate the evolving regulatory landscape and collaborate with governments to scale safely.',
-                author: 'AMARA DIOP',
-                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
-              },
-              { 
-                id: 'exit-strategies',
-                cat: 'CAPITAL', 
-                time: '18 MIN READ', 
-                title: 'Exit Strategies for African Tech Startups.', 
-                desc: 'An analysis of recent M&A activity and the path to secondary markets for Pan-African founders.',
-                author: 'ZARA EL-AMIN',
-                img: "https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&w=800&q=80"
-              }
-            ].map((insight, i) => (
+            {filteredInsights.map((insight, i) => (
               <motion.div 
-                key={i} 
+                key={insight.id} 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
@@ -265,8 +300,11 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             ].map((paper, i) => (
               <div 
                 key={i} 
-                onClick={() => onPageChange('post-download')}
                 className="bg-slate-50 p-12 rounded-[40px] flex items-center space-x-12 group cursor-pointer hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm hover:shadow-xl"
+                onClick={() => {
+                  downloadMockPdf(paper.title);
+                  showNotification('Brochure downloaded successfully');
+                }}
               >
                 <div className={`${paper.color} w-32 h-44 rounded-lg shadow-2xl shrink-0 flex flex-col justify-end p-4 relative overflow-hidden`}>
                   <div className="absolute top-0 right-0 p-2 opacity-10">
@@ -322,10 +360,10 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
         </div>
       </section>
 
-      {/* The Weekly Sovereign */}
+      {/* The Weekly Execution */}
       <section className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-5xl mx-auto bg-slate-50 rounded-[60px] p-12 md:p-24 text-center">
-          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-8 uppercase">The Weekly Sovereign</h2>
+          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-8 uppercase">The Weekly Execution</h2>
           <p className="text-xl text-slate-500 font-medium mb-12 max-w-2xl mx-auto">
             Join 25,000+ institutional leaders receiving our curated intelligence on African strategy every Sunday morning.
           </p>
@@ -333,7 +371,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto"
             onSubmit={(e) => {
               e.preventDefault();
-              showNotification('Subscription successful. Welcome to The Weekly Sovereign.');
+              showNotification('Subscription successful. Welcome to The Weekly Execution.');
             }}
           >
             <input 
@@ -360,7 +398,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             <span className="text-[20vw] font-black uppercase tracking-tighter">VERIDIAN</span>
           </div>
           <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-botanical-950 mb-12 uppercase leading-[0.9] relative z-10">
-            Shape the <br /> Sovereign Future.
+            Shape the <br /> Execution Future.
           </h2>
           <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
             <button 

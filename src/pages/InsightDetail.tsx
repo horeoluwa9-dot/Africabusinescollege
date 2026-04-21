@@ -10,8 +10,8 @@ interface InsightDetailProps {
 }
 
 const INSIGHTS_DATA: Record<string, any> = {
-  'sovereign-alpha': {
-    title: 'The Sovereign Alpha: How African Institutional Capital is Redefining Global Risk.',
+  'execution-alpha': {
+    title: 'The Execution Alpha: How African Institutional Capital is Redefining Global Risk.',
     category: 'SPECIAL REPORT',
     readTime: '12 MIN READ',
     author: 'Dr. Elias Ndlovu',
@@ -19,7 +19,7 @@ const INSIGHTS_DATA: Record<string, any> = {
     date: 'April 12, 2026',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
     content: `
-      <p className="insight-dropcap">The tectonic plates of global finance are shifting, and the epicenter is moving toward the African continent. For decades, African institutional capital—pension funds, sovereign wealth funds, and central bank reserves—was viewed as a passive participant in the global economy. Today, it is emerging as the "Sovereign Alpha."</p>
+      <p className="insight-dropcap">The tectonic plates of global finance are shifting, and the epicenter is moving toward the African continent. For decades, African institutional capital—pension funds, execution wealth funds, and central bank reserves—was viewed as a passive participant in the global economy. Today, it is emerging as the "Execution Alpha."</p>
       
       <h3>The Paradigm Shift</h3>
       <p>Data from the 2025 Economic Summit reveals that African pension funds now manage over $1.2 trillion in assets. This capital is no longer seeking western-managed passive index funds. Instead, it is being deployed into home-grown infrastructure, tech-enabled logistics, and strategic mineral value-chains.</p>
@@ -29,9 +29,9 @@ const INSIGHTS_DATA: Record<string, any> = {
       </blockquote>
 
       <h3>Redefining Risk</h3>
-      <p>Global credit rating agencies have historically applied a "sovereign ceiling" that disconnected pricing from performance. African institutional investors, with their boots-on-the-ground intelligence, are proving that the perceived risk of African projects is often exponentially higher than the actual default risk.</p>
+      <p>Global credit rating agencies have historically applied a "execution ceiling" that disconnected pricing from performance. African institutional investors, with their boots-on-the-ground intelligence, are proving that the perceived risk of African projects is often exponentially higher than the actual default risk.</p>
       
-      <p>By leveraging local currency financing and regional trade agreements like the AfCFTA, these sovereign players are effectively hedging against the volatility of the US Dollar and Euro, creating a more stable internal economic engine.</p>
+      <p>By leveraging local currency financing and regional trade agreements like the AfCFTA, these execution players are effectively hedging against the volatility of the US Dollar and Euro, creating a more stable internal economic engine.</p>
 
       <h3>Implications for the Next Economic Decade</h3>
       <p>As we look toward 2030, the integration of these capital pools will be the primary driver of the $6.7 trillion consumer and business spending projected for Africa. Leadership must now focus on the regulatory frameworks that allow this capital to flow seamlessly across borders while maintaining the highest standards of governance.</p>
@@ -66,8 +66,8 @@ const INSIGHTS_DATA: Record<string, any> = {
       <p>The primary challenge remains the reconciliation of multiple local currencies during cross-border B2B transactions. The Pan-African Payment and Settlement System (PAPSS) is the technological backbone making this possible, reducing the reliance on third-party reserve currencies.</p>
     `
   },
-  'sovereign-leadership': {
-    title: 'Sovereign Leadership: Beyond the Quarterly Earnings Cycle.',
+  'execution-leadership': {
+    title: 'Execution Leadership: Beyond the Quarterly Earnings Cycle.',
     category: 'STRATEGY',
     readTime: '12 MIN READ',
     author: 'Fatima Diop',
@@ -75,7 +75,7 @@ const INSIGHTS_DATA: Record<string, any> = {
     date: 'March 15, 2026',
     image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
     content: `
-      <p>African business leadership is evolving from "management" to "stewardship." The concept of Sovereign Leadership prioritizes the long-term economic health of the continent as a primary indicator of corporate success.</p>
+      <p>African business leadership is evolving from "management" to "stewardship." The concept of Execution Leadership prioritizes the long-term economic health of the continent as a primary indicator of corporate success.</p>
       <h3>The Social Utility Mandate</h3>
       <p>Unlike Western markets where shareholder primacy often dictates short-termism, African leaders are finding that embedding social impact into the core business model is the only path to sustainable returns over a multi-decade horizon.</p>
     `
@@ -159,6 +159,48 @@ const INSIGHTS_DATA: Record<string, any> = {
       <h3>The M&A Landscape</h3>
       <p>We are seeing increased interest from global tech giants and established African conglomerates looking to acquire specialized technological moats. The consolidation of the fintech sector is just the beginning of a broader exit cycle.</p>
     `
+  },
+  'simulation-lab': {
+    title: 'ABC Launches New Simulation Lab for Market Expansion',
+    category: 'NEWS',
+    readTime: '5 MIN READ',
+    author: 'ABC Press Team',
+    role: 'Editorial',
+    date: 'May 1, 2026',
+    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80',
+    content: `
+      <p className="insight-dropcap">We are excited to announce the launch of our newest simulation lab focused on pan-African market expansion strategies. This new learning environment allows founders to test their business models in simulated new markets before risking actual capital.</p>
+      <h3>Practical Learning</h3>
+      <p>The lab incorporates real-time regulatory and macroeconomic data from 15 different African countries, providing an unparalleled level of realism for strategic planning.</p>
+    `
+  },
+  'fintech-founders': {
+    title: 'Cohort 2026: The Rise of Pan-African Fintech Founders',
+    category: 'NEWS',
+    readTime: '7 MIN READ',
+    author: 'ABC Press Team',
+    role: 'Editorial',
+    date: 'May 5, 2026',
+    image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1200&q=80',
+    content: `
+      <p className="insight-dropcap">Our incoming cohort of 2026 represents the most diverse group of financial innovators we have seen to date. Over 40% of the incoming founders are working on cross-border payment solutions.</p>
+      <h3>Beyond Payments</h3>
+      <p>While payments remain a foundational challenge, this cohort is moving up the stack into embedded finance, credit scaling algorithms, and execution wealth management tools.</p>
+    `
+  },
+  'adesina-vc': {
+    title: 'Professor Adesina on the Future of African Venture Capital',
+    category: 'NEWS',
+    readTime: '10 MIN READ',
+    author: 'Editorial Desk',
+    role: 'Interviews',
+    date: 'May 10, 2026',
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80',
+    content: `
+      <p className="insight-dropcap">In a recent interview, ABC faculty member Professor Adesina outlined a vision for the next decade of African venture capital. "The era of the tourist investor is ending," he noted, emphasizing the need for deep local context.</p>
+      <h3>Domestic Capital Activation</h3>
+      <p>The conversation highlighted the crucial next step: unlocking domestic institutional capital, particularly pension funds, to drive the next wave of pan-African mega-rounds.</p>
+    `
   }
 };
 
@@ -166,7 +208,7 @@ export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) =
   const { isRTL } = useLanguage();
   const [notification, setNotification] = React.useState<string | null>(null);
   
-  const insight = insightId ? INSIGHTS_DATA[insightId] : INSIGHTS_DATA['sovereign-alpha'];
+  const insight = insightId ? INSIGHTS_DATA[insightId] : INSIGHTS_DATA['execution-alpha'];
 
   const showNotification = (message: string) => {
     setNotification(message);
@@ -255,9 +297,21 @@ export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) =
                  <span className="text-[10px] font-black uppercase tracking-widest">{insight.date}</span>
                </div>
                <div className="flex items-center space-x-4">
-                 <button onClick={() => showNotification('Shared to LinkedIn')} className="hover:text-emerald-500 transition-colors"><Linkedin className="w-4 h-4" /></button>
-                 <button onClick={() => showNotification('Shared to Twitter')} className="hover:text-emerald-500 transition-colors"><Twitter className="w-4 h-4" /></button>
-                 <button onClick={() => showNotification('Share link copied')} className="hover:text-emerald-500 transition-colors"><Share2 className="w-4 h-4" /></button>
+                 <button onClick={() => {
+                   showNotification('Opening LinkedIn...');
+                   window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+                 }} className="hover:text-emerald-500 transition-colors"><Linkedin className="w-4 h-4" /></button>
+                 <button onClick={() => {
+                   showNotification('Preparing your post...');
+                   window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(insight.title)}`, '_blank');
+                 }} className="hover:text-emerald-500 transition-colors"><Twitter className="w-4 h-4" /></button>
+                 <button onClick={() => {
+                   navigator.clipboard.writeText(window.location.href).then(() => {
+                     showNotification('Link copied successfully');
+                   }).catch(() => {
+                     showNotification('Something went wrong. Try again.');
+                   });
+                 }} className="hover:text-emerald-500 transition-colors"><Share2 className="w-4 h-4" /></button>
                </div>
             </div>
           </div>
@@ -307,19 +361,30 @@ export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) =
            <div className="flex items-center space-x-4">
               <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Share Insight:</span>
               <div className="flex space-x-2">
-                 {[
-                   { icon: Linkedin, label: 'LinkedIn' },
-                   { icon: Twitter, label: 'Twitter' },
-                   { icon: Share2, label: 'Share Link' }
-                 ].map((social, i) => (
-                   <button 
-                    key={i} 
-                    onClick={() => showNotification(`${social.label} shared successfully`)}
-                    className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
-                   >
-                     <social.icon className="w-4 h-4" />
-                   </button>
-                 ))}
+                 <button 
+                  onClick={() => {
+                    showNotification('Opening LinkedIn...');
+                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+                  }}
+                  className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
+                 ><Linkedin className="w-4 h-4" /></button>
+                 <button 
+                  onClick={() => {
+                    showNotification('Preparing your post...');
+                    window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(insight.title)}`, '_blank');
+                  }}
+                  className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
+                 ><Twitter className="w-4 h-4" /></button>
+                 <button 
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                      showNotification('Link copied successfully');
+                    }).catch(() => {
+                      showNotification('Something went wrong. Try again.');
+                    });
+                  }}
+                  className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
+                 ><Share2 className="w-4 h-4" /></button>
               </div>
            </div>
         </div>

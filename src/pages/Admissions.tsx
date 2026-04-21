@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowRight, 
   CheckCircle2,
@@ -17,7 +17,7 @@ import { SectionLabel } from '../components/SectionLabel';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
-import { AnimatePresence } from 'motion/react';
+import { useToast } from '../contexts/ToastContext';
 
 interface AdmissionsProps {
   onPageChange: (page: Page) => void;
@@ -26,35 +26,15 @@ interface AdmissionsProps {
 const Hero = ({ onPageChange }: AdmissionsProps) => {
   const { isLoggedIn, hasImage } = useAuth();
   const { t } = useLanguage();
-  const [downloading, setDownloading] = React.useState(false);
+  const { showToast } = useToast();
 
   const handleDownloadProspectus = () => {
-    if (isLoggedIn && hasImage) {
-      onPageChange('post-download');
-    } else {
-      setDownloading(true);
-      downloadMockPdf('ABC_Institutional_Prospectus');
-      setTimeout(() => setDownloading(false), 3000);
-    }
+    downloadMockPdf('ABC_Institutional_Prospectus');
+    showToast('Brochure Downloaded Successfully');
   };
 
   return (
     <section className="pt-48 pb-32 px-6 md:px-12 max-w-7xl mx-auto relative">
-      <AnimatePresence>
-        {downloading && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
-          >
-            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">{t('admissions.hero_ProspectusSuccess')}</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
       <div className="max-w-4xl">
         <SectionLabel className="mb-8">{t('admissions.hero_Enrolling')}</SectionLabel>
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12">

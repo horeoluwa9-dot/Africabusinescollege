@@ -21,7 +21,7 @@ export const ARTICLES: Article[] = [
   },
   {
     id: '3',
-    title: 'Sovereign Leadership: Beyond the Quarterly Earnings Cycle.',
+    title: 'Execution Leadership: Beyond the Quarterly Earnings Cycle.',
     category: 'Strategy',
     readTime: '10 Min Read',
     excerpt: 'Why the most successful African CEOs are prioritizing long-term social utility over short-term dividends.',
@@ -387,7 +387,7 @@ export const PROGRAMS: ProgramDetail[] = [
   {
     id: 'investment-and-finance',
     title: 'Investment & Finance',
-    subtitle: 'Master the mechanics of capital and financial sovereignty.',
+    subtitle: 'Master the mechanics of capital and financial executionty.',
     category: 'Finance',
     tag: 'EXEC-CERT',
     excerpt: 'Master capital allocation and financial analysis within the complex African regulatory environment.',
@@ -534,7 +534,7 @@ export const SESSIONS: Session[] = [
   {
     id: '1',
     date: { day: '14', month: 'NOV' },
-    title: 'The Future of Sovereign Wealth Funds',
+    title: 'The Future of Execution Wealth Funds',
     description: 'Join Dr. Amara Diop for an in-depth analysis of African national investment strategies.',
     type: 'VIRTUAL EVENT',
     location: 'PAN-AFRICAN ZOOM',

@@ -30,6 +30,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
 
 import { SectionLabel } from '../components/SectionLabel';
+import { useToast } from '../contexts/ToastContext';
 
 interface HomeProps {
   onPageChange: (page: Page, id?: string) => void;
@@ -38,18 +39,13 @@ interface HomeProps {
 const HeroSlider = ({ onPageChange }: HomeProps) => {
   const { isLoggedIn, hasImage } = useAuth();
   const { t } = useLanguage();
+  const { showToast } = useToast();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [downloading, setDownloading] = useState(false);
 
   const handleDownload = () => {
-    if (isLoggedIn && hasImage) {
-      onPageChange('post-download');
-    } else {
-      setDownloading(true);
-      downloadMockPdf(slides[currentSlide].headline);
-      setTimeout(() => setDownloading(false), 3000);
-    }
+    downloadMockPdf(slides[currentSlide].headline);
+    showToast('Brochure Downloaded Successfully');
   };
 
   const slides = [
@@ -276,10 +272,10 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
 
 const Stats = () => {
   const stats = [
-    { label: 'Alumni Network', value: '12K+' },
-    { label: 'Placement Rate', value: '94%' },
-    { label: 'African Nations', value: '45+' },
-    { label: 'Industry Partners', value: '150+' }
+    { label: 'Founders & Operators', value: '12K+' },
+    { label: 'Hired within 6 months', value: '94%' },
+    { label: 'Countries Represented', value: '45+' },
+    { label: 'Hiring Partners', value: '150+' }
   ];
 
   return (
@@ -298,45 +294,25 @@ const Stats = () => {
 
 const Programs = ({ onPageChange }: HomeProps) => {
   const { isLoggedIn, hasImage } = useAuth();
+  const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState('Advanced');
-  const [downloading, setDownloading] = useState(false);
   const tabs = ['Advanced', 'Executive', 'Beginner'];
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isLoggedIn && hasImage) {
-      onPageChange('post-download');
-    } else {
-      setDownloading(true);
-      downloadMockPdf('Programs');
-      setTimeout(() => setDownloading(false), 3000);
-    }
+    downloadMockPdf('Programs');
+    showToast('Brochure Downloaded Successfully');
   };
 
   return (
     <section className="py-32 bg-slate-50">
-      <AnimatePresence>
-        {downloading && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
-          >
-            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">Prospectus Downloaded Successfully</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
       
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-20">
           <div className="max-w-2xl">
-            <SectionLabel className="mb-6">Academic Excellence</SectionLabel>
-            <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-6 uppercase leading-tight">Designed for Every Stage of Leadership</h2>
-            <p className="text-slate-500 text-lg font-medium">Select a path that aligns with your professional trajectory and institutional goals.</p>
+            <SectionLabel className="mb-6">Explore Programs</SectionLabel>
+            <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-6 uppercase leading-tight">Pick Your Path</h2>
+            <p className="text-slate-500 text-lg font-medium">Find the program that matches your career goals and current experience level.</p>
           </div>
           <div className="flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
             {tabs.map(tab => (
@@ -456,30 +432,30 @@ const Ecosystem = ({ onPageChange }: HomeProps) => {
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div>
-          <SectionLabel className="mb-8">The ABC Advantage</SectionLabel>
+          <SectionLabel className="mb-8">Why ABC?</SectionLabel>
           <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 leading-[0.9] uppercase">
             Built for <br />
-            <span className="text-emerald-500 italic">Execution</span>
+            <span className="text-emerald-500 italic">Builders</span>
           </h2>
           <p className="text-slate-500 text-xl leading-relaxed font-medium mb-12">
-            Our proprietary Business Instrument Studio merges physical seminar intensity with digital precision. Experience simulations that mirror the complexity of African market dynamics.
+            Learn from real African markets. Use the exact tools real companies use. Test your decisions in safe environments.
           </p>
           
           <div className="space-y-10 mb-12">
             {[
               { 
-                title: 'Live Interactive Classes', 
-                desc: 'Real-time engagement with global faculty and industry practitioners.',
+                title: 'Live Classes', 
+                desc: 'Talk directly with people who have actually built companies.',
                 icon: <Globe className="w-6 h-6 text-emerald-500" />
               },
               { 
-                title: 'Cohort-Based Learning', 
-                desc: 'Deep relationships with ambitious peers from over 30 countries.',
+                title: 'Learn Together', 
+                desc: 'Meet ambitious peers from over 30 African countries.',
                 icon: <Users className="w-6 h-6 text-emerald-500" />
               },
               { 
-                title: 'Simulation Labs', 
-                desc: 'Immersive environments where you test strategies against dynamic, real-world market conditions.',
+                title: 'Practice Environments', 
+                desc: 'Test your skills in real-life scenarios before doing it for real.',
                 icon: <Beaker className="w-6 h-6 text-emerald-500" />
               }
             ].map(item => (
@@ -621,7 +597,7 @@ const SimulationLabs = ({ onPageChange }: HomeProps) => {
       desc: t('home.testStrategies'), 
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
       icon: Beaker,
-      status: 'Sovereign Strategy',
+      status: 'Execution Strategy',
       difficulty: 'Expert',
       focus: ['GDP Growth', 'Inflation', 'Fiscal Policy']
     }
@@ -718,8 +694,8 @@ const Testimonials = () => {
     <section className="py-32 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <SectionLabel className="mb-6 justify-center">Student Success</SectionLabel>
-          <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter uppercase leading-tight">{t('home.whatStudentsBuilding')}</h2>
+          <SectionLabel className="mb-6 justify-center">Outcomes</SectionLabel>
+          <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter uppercase leading-tight">Hear from Our Alumni</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -817,35 +793,15 @@ const Sessions = ({ onPageChange }: HomeProps) => {
 
 const CTA = ({ onPageChange }: HomeProps) => {
   const { isLoggedIn, hasImage } = useAuth();
-  const [downloading, setDownloading] = useState(false);
+  const { showToast } = useToast();
 
   const handleDownloadProspectus = () => {
-    if (isLoggedIn && hasImage) {
-      onPageChange('post-download');
-    } else {
-      setDownloading(true);
-      downloadMockPdf('Full_Institutional_Prospectus');
-      setTimeout(() => setDownloading(false), 3000);
-    }
+    downloadMockPdf('Full_Institutional_Prospectus');
+    showToast('Brochure Downloaded Successfully');
   };
 
   return (
     <section className="py-32 bg-botanical-950 relative overflow-hidden">
-      <AnimatePresence>
-        {downloading && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-white text-botanical-950 px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-slate-200"
-          >
-            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">Prospectus Downloaded Successfully</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
       <img 
         src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80" 
         alt="CTA Background" 
@@ -855,10 +811,10 @@ const CTA = ({ onPageChange }: HomeProps) => {
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_bottom_left,#00D98E_0%,transparent_70%)]" />
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8 leading-none">
-          Apply for the 2026 <br />
-          Sovereign MBA Cohort
+          Apply to the <br />
+          2026 Cohort
         </h2>
-        <p className="text-slate-400 text-lg font-medium mb-16">Join a lineage of leadership that defines the future of the continent.</p>
+        <p className="text-slate-400 text-lg font-medium mb-16">Join the next group of founders building companies across Africa.</p>
         
         <div className="bg-white/5 border border-white/10 p-12 rounded-3xl mb-16 max-w-2xl mx-auto flex justify-between items-center">
           <div className="flex space-x-8">

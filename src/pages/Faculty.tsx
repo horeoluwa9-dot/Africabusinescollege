@@ -12,7 +12,7 @@ const FACULTY_MEMBERS = [
   { name: 'Zara El-Amin', role: 'Partner, Blue Ocean Capital', tag: 'INVESTORS', sub: ['M&A', 'GOVERNANCE'], img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80' },
   { name: 'David Okafor', role: 'COO, Pan-African Logistics', tag: 'OPERATORS', sub: ['OPERATIONS', 'SUPPLY CHAIN'], img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80' },
   { name: 'Amara Diop', role: 'Former Minister of Innovation', tag: 'POLICY LEADERS', sub: ['PUBLIC POLICY', 'REGULATION'], img: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=600&q=80' },
-  { name: 'Kofi Mensah', role: 'VC, Sovereign Capital', tag: 'INVESTORS', sub: ['Venture Capital', 'Emerging Markets'], img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80' },
+  { name: 'Kofi Mensah', role: 'VC, Execution Capital', tag: 'INVESTORS', sub: ['Venture Capital', 'Emerging Markets'], img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80' },
   { name: 'Dr. Elena Vance', role: 'Board Advisor, Fintech Group', tag: 'POLICY LEADERS', sub: ['REGULATION', 'STRATEGY'], img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80' }
 ];
 
@@ -44,9 +44,8 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
           >
             <SectionLabel className="mb-8">The Global Leadership Faculty</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
-              Learn From <br />
               <span className="text-emerald-500 italic">Builders</span>, <br />
-              Not Just Instructors.
+              Not Instructors.
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-xl mb-12">
               Our faculty are active founders, seasoned venture capitalists, and policy architects shaping the future of African commerce.

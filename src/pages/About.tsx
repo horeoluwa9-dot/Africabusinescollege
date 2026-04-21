@@ -437,12 +437,12 @@ const ABCAdvantage = () => {
 
 const Recognitions = () => {
   const partners = [
-    { name: 'African Union', logo: 'https://logo.clearbit.com/au.int' },
-    { name: 'Pan-African VC Alliance', logo: 'https://logo.clearbit.com/pava.africa' },
-    { name: 'Google for Startups Africa', logo: 'https://logo.clearbit.com/google.com' },
-    { name: 'African Development Bank', logo: 'https://logo.clearbit.com/afdb.org' },
-    { name: 'GNAM Affiliate', logo: 'https://logo.clearbit.com/globalnetwork.io' },
-    { name: 'Tech Council Africa', logo: 'https://logo.clearbit.com/techcouncil.africa' }
+    { name: 'African Union', icon: Globe2 },
+    { name: 'Pan-African VC Alliance', icon: Users },
+    { name: 'Google for Startups Africa', icon: Zap },
+    { name: 'African Development Bank', icon: Shield },
+    { name: 'GNAM Affiliate', icon: Layers },
+    { name: 'Tech Council Africa', icon: Target }
   ];
 
   return (
@@ -451,19 +451,11 @@ const Recognitions = () => {
         <div className="text-center mb-12">
           <SectionLabel className="mb-8 justify-center">Recognitions & Partnerships</SectionLabel>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12 sm:gap-x-16 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12 sm:gap-x-16 opacity-70 hover:opacity-100 transition-all">
           {partners.map(p => (
             <div key={p.name} className="flex flex-col items-center space-y-4 group">
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-2xl p-4 flex items-center justify-center border border-slate-100 group-hover:border-emerald-500 transition-all">
-                <img 
-                  src={p.logo} 
-                  alt={p.name} 
-                  className="max-w-full max-h-full object-contain"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=f8fafc&color=10b981&bold=true`;
-                  }}
-                  referrerPolicy="no-referrer"
-                />
+                <p.icon className="w-8 h-8 text-botanical-950/40 group-hover:text-emerald-500 transition-colors" />
               </div>
               <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase text-center max-w-[100px]">{p.name}</span>
             </div>
@@ -497,7 +489,7 @@ const NewsSection = ({ onPageChange }: AboutProps) => {
           { id: 'fintech-founders', image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80', title: 'Cohort 2026: The Rise of Pan-African Fintech Founders' },
           { id: 'adesina-vc', image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80', title: 'Professor Adesina on the Future of African Venture Capital' }
         ].map((news, i) => (
-          <div key={i} className="group cursor-pointer" onClick={() => onPageChange('news-detail', news.id)}>
+          <div key={i} className="group cursor-pointer" onClick={() => onPageChange('insight-detail', news.id)}>
             <div className="aspect-[16/10] rounded-3xl overflow-hidden mb-6 bg-slate-100">
               <img 
                 src={news.image}

@@ -19,6 +19,7 @@ import { downloadMockPdf } from '../lib/downloadPdf';
 import { Page } from '../components/Layout';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { SectionLabel } from '../components/SectionLabel';
+import { useToast } from '../contexts/ToastContext';
 
 interface ProgramsProps {
   onPageChange: (page: Page, id?: string) => void;
@@ -26,37 +27,16 @@ interface ProgramsProps {
 
 const Hero = ({ onPageChange }: ProgramsProps) => {
   const { isLoggedIn, hasImage } = useAuth();
-  const [downloading, setDownloading] = useState(false);
+  const { showToast } = useToast();
 
   const handleDownload = () => {
-    if (isLoggedIn && hasImage) {
-      onPageChange('post-download');
-    } else {
-      setDownloading(true);
-      downloadMockPdf('ABC_Institutional_Brochure');
-      setTimeout(() => setDownloading(false), 3000);
-    }
+    downloadMockPdf('ABC_Institutional_Brochure');
+    showToast('Brochure Downloaded Successfully');
   };
 
   return (
     <section className="relative min-h-[85vh] flex items-center pt-8 overflow-hidden bg-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_70%)] opacity-5" />
-      
-      <AnimatePresence>
-        {downloading && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
-          >
-            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">Brochure Downloaded Successfully</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">

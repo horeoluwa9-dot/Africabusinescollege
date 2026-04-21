@@ -50,7 +50,7 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, on
   const steps = [
     { id: 1, title: 'Basic Info', sub: 'Let’s get started', text: 'Tell us a bit about you.', icon: User },
     { id: 2, title: 'Background', sub: 'Your background', text: 'This helps us tailor your experience.', icon: BookOpen },
-    { id: 3, title: 'Intent', sub: 'What are you looking to build?', text: 'Keep it short — just a sentence or two.', icon: FileText },
+    { id: 3, title: 'Intent', sub: 'What are you looking to build?', text: 'Keep it short - just a sentence or two.', icon: FileText },
     { id: 4, title: 'Confirmation', sub: 'Almost done', text: 'Please confirm your details before submitting.', icon: ShieldCheck },
   ];
 
@@ -350,7 +350,7 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, on
                   >
                     <option>Entrepreneurship Program</option>
                     <option>Financial Markets & Venture Capital</option>
-                    <option>Sovereign Leadership</option>
+                    <option>Execution Leadership</option>
                     <option>Digital Economy & AI</option>
                   </select>
                 </div>
@@ -385,15 +385,15 @@ export const Application: React.FC<ApplicationProps> = ({ onComplete, onBack, on
                   <div className="grid grid-cols-2 gap-8">
                     <div>
                       <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Full Name</h4>
-                      <p className="text-sm font-black text-botanical-950">{formData.name || '—'}</p>
+                      <p className="text-sm font-black text-botanical-950">{formData.name || '-'}</p>
                     </div>
                     <div>
                       <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Email</h4>
-                      <p className="text-sm font-black text-botanical-950">{formData.email || '—'}</p>
+                      <p className="text-sm font-black text-botanical-950">{formData.email || '-'}</p>
                     </div>
                     <div>
                       <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Background</h4>
-                      <p className="text-sm font-black text-botanical-950">{formData.background || '—'} / {formData.experience || '—'}</p>
+                      <p className="text-sm font-black text-botanical-950">{formData.background || '-'} / {formData.experience || '-'}</p>
                     </div>
                     <div>
                       <h4 className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Program</h4>

@@ -293,7 +293,7 @@ export const FacultyDashboard = ({ onPageChange }: DashboardProps) => {
                     <div>
                       <h4 className="text-sm font-black text-emerald-900 uppercase tracking-widest mb-4">Faculty Research</h4>
                       <p className="text-xs text-emerald-800/70 font-medium leading-relaxed mb-8">
-                        Your latest whitepaper "Sovereign Strategic Frameworks in Pan-African Markets" is currently trending in the Research Hub.
+                        Your latest whitepaper "Execution Strategic Frameworks in Pan-African Markets" is currently trending in the Research Hub.
                       </p>
                     </div>
                     <button className="bg-emerald-500 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all flex items-center justify-center space-x-2" onClick={() => setActiveView('research')}>
@@ -382,7 +382,7 @@ export const FacultyDashboard = ({ onPageChange }: DashboardProps) => {
                <h2 className="text-3xl font-black text-botanical-950 tracking-tighter mb-8 uppercase">Research & Assets</h2>
                <div className="grid grid-cols-1 gap-6">
                   {[
-                    { title: 'Sovereign Strategic Frameworks', type: 'PDF • Whitepaper', downloads: '1.2K' },
+                    { title: 'Execution Strategic Frameworks', type: 'PDF • Whitepaper', downloads: '1.2K' },
                     { title: 'Pan-African Market Patterns 2026', type: 'Dataset • CSV', downloads: '450' },
                     { title: 'Institutional Resilience Model', type: 'Simulation • Executable', downloads: '890' }
                   ].map((asset, i) => (

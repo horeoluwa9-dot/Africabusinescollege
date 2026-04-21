@@ -16,7 +16,7 @@ const InquirePricing: React.FC<InquirePricingProps> = ({ onPageChange }) => {
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
           <SectionLabel className="mb-8" dark>Institutional Investment</SectionLabel>
           <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-8 uppercase leading-[0.85]">
-            Pricing <br /> <span className="text-emerald-500 italic">Sovereignty.</span>
+            Pricing <br /> <span className="text-emerald-500 italic">Executionty.</span>
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl font-medium leading-relaxed">
             Transparent, execution-driven investment structures for individuals and global institutions.
@@ -30,7 +30,7 @@ const InquirePricing: React.FC<InquirePricingProps> = ({ onPageChange }) => {
            <div className="bg-slate-50 p-12 rounded-[48px] border border-slate-100 flex flex-col h-full">
               <div className="mb-12">
                  <h3 className="text-2xl font-black text-botanical-950 uppercase mb-4">Standard Cohort</h3>
-                 <p className="text-slate-400 font-medium">Individual leaders and founders embarking on their sovereign journey.</p>
+                 <p className="text-slate-400 font-medium">Individual leaders and founders embarking on their execution journey.</p>
               </div>
               <div className="mb-12">
                  <div className="flex items-baseline space-x-2">
