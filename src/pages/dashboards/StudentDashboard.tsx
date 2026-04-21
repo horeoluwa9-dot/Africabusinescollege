@@ -86,9 +86,9 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#FBFBFB] font-sans text-slate-900">
-      {/* Sidebar - Notion Style Minimal */}
-      <aside className="w-[260px] bg-white border-r border-slate-100 p-4 flex flex-col shrink-0">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#FBFBFB] font-sans text-slate-900">
+      {/* Sidebar - Hidden on mobile */}
+      <aside className="hidden md:flex w-[260px] bg-white border-r border-slate-100 p-4 flex-col shrink-0">
         <div className="px-4 py-6 mb-4">
           <div 
             className="cursor-pointer group flex items-center space-x-3 mb-8"
@@ -147,18 +147,33 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
         </div>
       </aside>
 
+      {/* Mobile Header */}
+      <header className="md:hidden sticky top-0 z-50 bg-white border-b border-slate-100 p-4 flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 bg-botanical-950 rounded-lg flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 40 40" fill="none" className="w-6 h-6">
+              <path d="M20 8L36 18L20 28L4 18L20 8Z" fill="#ffffff" />
+            </svg>
+          </div>
+          <span className="text-xs font-black uppercase tracking-tighter text-botanical-950">ABC Learning OS</span>
+        </div>
+        <button onClick={() => showToast('Profile settings opening...')} className="w-8 h-8 rounded-full overflow-hidden border border-slate-100">
+           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Profile" className="w-full h-full object-cover" />
+        </button>
+      </header>
+
       {/* Main Content */}
-      <main className="flex-grow flex flex-col min-w-0 overflow-y-auto">
+      <main className="flex-grow flex flex-col min-w-0 overflow-y-auto pb-24 md:pb-0">
         {activeView === 'os' ? (
-          <section className="px-12 pt-12 pb-8">
-            <div className="flex justify-between items-start mb-12">
+          <section className="px-6 md:px-12 pt-8 md:pt-12 pb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
               <div>
-                <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-2">
+                <h2 className="text-3xl md:text-4xl font-black text-botanical-950 tracking-tighter mb-2">
                   {t('student.welcome')}, {user?.name?.split(' ')[0] || 'Kofi'}.
                 </h2>
-                <div className="flex items-center space-x-4">
+                <div className="flex flex-wrap items-center gap-4">
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{user?.program || 'Entrepreneurship Program'}</span>
-                  <span className="w-1 h-1 bg-slate-200 rounded-full" />
+                  <span className="w-1 h-1 bg-slate-200 rounded-full hidden sm:block" />
                   <div className="flex items-center space-x-2">
                      <div className="w-32 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                       <div className="h-full bg-emerald-500 w-[24%]" />
@@ -167,33 +182,33 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 w-full md:w-auto">
                 <button onClick={() => showToast('No new notifications')} className="p-2.5 bg-white border border-slate-100 rounded-xl shadow-sm text-slate-400 hover:text-botanical-950 transition-all">
                   <Bell className="w-5 h-5" />
                 </button>
-                <button onClick={() => showToast('Events panel opening...')} className="bg-emerald-500 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 hover:scale-105 transition-all">
-                  Register for Cohort Event
+                <button onClick={() => showToast('Events panel opening...')} className="flex-grow md:flex-none bg-emerald-500 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 hover:scale-105 transition-all">
+                  Cohort Event
                 </button>
               </div>
             </div>
 
             {/* SECTION 2: CURRENT STATUS / COHORT NOTIFICATION */}
-            <div className="bg-botanical-950 rounded-[32px] p-8 text-white relative overflow-hidden mb-12 group cursor-pointer transition-all hover:bg-botanical-900" onClick={() => showToast('Opening session details...')}>
+            <div className="bg-botanical-950 rounded-[32px] p-6 md:p-8 text-white relative overflow-hidden mb-12 group cursor-pointer transition-all hover:bg-botanical-900" onClick={() => showToast('Opening session details...')}>
                <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform duration-700">
-                <Zap className="w-48 h-48" />
+                <Zap className="w-32 md:w-48 h-32 md:h-48" />
               </div>
-              <div className="relative z-10 flex items-center justify-between">
-                <div className="space-y-4">
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="space-y-4 w-full">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
                       <Calendar className="w-4 h-4 text-white" />
                     </div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Next Cohort Session</span>
                   </div>
-                  <h3 className="text-3xl font-black tracking-tight leading-none">Cohort starts in 3 days.</h3>
+                  <h3 className="text-2xl md:text-3xl font-black tracking-tight leading-none text-white">Cohort starts in 3 days.</h3>
                   <p className="text-slate-400 text-sm font-medium">Topic: Advanced Unit Economics & Execution Market Entry</p>
                 </div>
-                <button onClick={(e) => { e.stopPropagation(); showToast('Added to schedule'); }} className="bg-white text-botanical-950 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center space-x-3 hover:bg-emerald-500 hover:text-white transition-all">
+                <button onClick={(e) => { e.stopPropagation(); showToast('Added to schedule'); }} className="w-full md:w-auto bg-white text-botanical-950 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center space-x-3 hover:bg-emerald-500 hover:text-white transition-all">
                   <span>Add to Schedule</span>
                   <Plus className="w-4 h-4" />
                 </button>
@@ -490,6 +505,22 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
           </section>
         )}
       </main>
+
+      {/* Mobile Bottom Nav */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-4 z-50">
+        {sidebarItems.slice(0, 5).map((item, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveView(item.id)}
+            className={`flex flex-col items-center space-y-1 transition-all ${
+              activeView === item.id ? 'text-emerald-500' : 'text-slate-400'
+            }`}
+          >
+            <item.icon className="w-5 h-5" />
+            <span className="text-[8px] font-black uppercase tracking-widest">{item.label}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 };

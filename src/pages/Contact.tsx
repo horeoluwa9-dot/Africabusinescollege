@@ -1,12 +1,26 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Globe, ArrowRight, MessageSquare, Users, Handshake, Newspaper } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Handshake, Newspaper, Users } from 'lucide-react';
+import { Page } from '../components/Layout';
+import { useToast } from '../contexts/ToastContext';
 
-export const Contact = () => {
+interface ContactProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const Contact = ({ onPageChange }: ContactProps) => {
+  const { showToast } = useToast();
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    showToast('Message sent successfully! Our team will contact you soon.');
+    // Keep on page, maybe clear form if we had state
+  };
+
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 overflow-hidden bg-white">
+      <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -14,11 +28,11 @@ export const Contact = () => {
             transition={{ duration: 0.8 }}
             className="relative z-10"
           >
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               Get in Touch <br />
               <span className="text-emerald-500 italic">with ABC</span>
             </h1>
-            <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-xl mb-12">
+            <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium max-w-xl mb-12">
               Our team is here to support your journey towards business excellence. Whether you are a prospective student, a potential partner, or a member of our community, we look forward to hearing from you.
             </p>
           </motion.div>
@@ -27,7 +41,7 @@ export const Contact = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="relative"
+            className="relative hidden md:block"
           >
             <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
@@ -76,7 +90,10 @@ export const Contact = () => {
                 <p className="text-slate-400 text-xs font-medium leading-relaxed mb-8">
                   Scale your impact with ABC's executive networks and simulation labs.
                 </p>
-                <button className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-emerald-400 transition-colors">
+                <button 
+                  onClick={() => onPageChange('partnerships')}
+                  className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-emerald-400 transition-colors"
+                >
                   <span>Collaborate With Us</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -107,7 +124,10 @@ export const Contact = () => {
                 <p className="text-slate-500 text-xs font-medium leading-relaxed mb-8">
                   Dedicated assistance for current students and faculty members.
                 </p>
-                <button className="w-full py-3 border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:border-emerald-500 hover:text-emerald-500 transition-all">
+                <button 
+                  onClick={() => onPageChange('login-student')}
+                  className="w-full py-3 border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:border-emerald-500 hover:text-emerald-500 transition-all font-bold"
+                >
                   Visit Student Portal
                 </button>
               </div>
@@ -117,19 +137,19 @@ export const Contact = () => {
       </section>
 
       {/* Start a Conversation Form */}
-      <section className="py-32 px-6 md:px-12 bg-white">
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4 block">DIRECT MESSAGE</span>
-          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-16 uppercase">Start a Conversation</h2>
+          <h2 className="text-4xl md:text-5xl font-black text-botanical-950 tracking-tighter mb-16 uppercase">Start a Conversation</h2>
           
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+          <form onSubmit={handleFormSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Name</label>
-              <input type="text" placeholder="John Doe" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-botanical-950 focus:outline-none focus:border-emerald-500 transition-colors" />
+              <input required type="text" placeholder="John Doe" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-botanical-950 focus:outline-none focus:border-emerald-500 transition-colors" />
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Email Address</label>
-              <input type="email" placeholder="john@company.com" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-botanical-950 focus:outline-none focus:border-emerald-500 transition-colors" />
+              <input required type="email" placeholder="john@company.com" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-botanical-950 focus:outline-none focus:border-emerald-500 transition-colors" />
             </div>
             <div className="md:col-span-2 space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Inquiry Type</label>
@@ -142,10 +162,10 @@ export const Contact = () => {
             </div>
             <div className="md:col-span-2 space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Message</label>
-              <textarea rows={6} placeholder="How can we help you achieve your goals?" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-botanical-950 focus:outline-none focus:border-emerald-500 transition-colors resize-none" />
+              <textarea required rows={6} placeholder="How can we help you achieve your goals?" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-botanical-950 focus:outline-none focus:border-emerald-500 transition-colors resize-none" />
             </div>
             <div className="md:col-span-2 pt-8 flex justify-center">
-              <button className="bg-botanical-950 text-white px-16 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/10">
+              <button type="submit" className="bg-botanical-950 text-white px-16 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/10 active:scale-95">
                 Send Message
               </button>
             </div>
@@ -154,11 +174,11 @@ export const Contact = () => {
       </section>
 
       {/* Global Reach Section */}
-      <section className="py-32 px-6 md:px-12 bg-slate-50">
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-slate-50">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div>
-            <h2 className="text-5xl font-black tracking-tighter text-botanical-950 mb-8 uppercase">Digital-First, <br /> Global Reach</h2>
-            <p className="text-xl text-slate-500 leading-relaxed font-medium mb-12">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-botanical-950 mb-8 uppercase">Digital-First, <br /> Global Reach</h2>
+            <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium mb-12">
               While ABC operates as a digital-first institution to ensure accessibility across the continent, we maintain physical regional hubs for simulation labs and collaborative workshops.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

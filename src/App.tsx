@@ -35,6 +35,7 @@ import { JoinNetwork, AlumniOutcomes, EventsPage } from './pages/CommunityPages'
 import { motion, AnimatePresence } from 'motion/react';
 import { StudentDashboard } from './pages/dashboards/StudentDashboard';
 import { FacultyDashboard } from './pages/dashboards/FacultyDashboard';
+import { StudentPortal } from './pages/StudentPortal';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { SimulationDetails } from './pages/SimulationDetails';
@@ -205,7 +206,7 @@ export default function App() {
               case 'accreditation':
                 return <Accreditation onPageChange={handlePageChange} />;
               case 'login-student':
-                return <GenericPage title="Student Portal" description="Access your learning modules, labs, and cohort network." onBack={() => setActivePage('home')} />;
+                return <StudentPortal onPageChange={handlePageChange} />;
               case 'login-faculty':
                 return <GenericPage title="Faculty Portal" description="Manage your sessions, research, and student progress." onBack={() => setActivePage('home')} />;
               

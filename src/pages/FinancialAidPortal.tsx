@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { CreditCard, Shield, Globe, TrendingUp, CheckCircle2, Download, ExternalLink, Mail, ArrowRight } from 'lucide-react';
+import { Target, Users, Rocket, Building2, CheckCircle2, ArrowRight } from 'lucide-react';
 import { SectionLabel } from '../components/SectionLabel';
 import { Page } from '../components/Layout';
 
@@ -11,139 +11,138 @@ interface FinancialAidPortalProps {
 const FinancialAidPortal: React.FC<FinancialAidPortalProps> = ({ onPageChange }) => {
   return (
     <div className="pt-24 bg-white min-h-screen">
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-           <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1920&q=80" alt="Finance" className="w-full h-full object-cover grayscale" />
-        </div>
+      {/* Hero Section */}
+      <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center">
-          <SectionLabel className="mb-8 justify-center">Student Services</SectionLabel>
-          <h1 className="text-6xl md:text-8xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
-            Financial Aid <br /> <span className="text-emerald-500 italic">Portal.</span>
+          <SectionLabel className="mb-8 justify-center">Commitment to Accessibility</SectionLabel>
+          <h1 className="text-5xl md:text-8xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
+            Access & Funding <br /> <span className="text-emerald-500 italic">at Africa Business College</span>
           </h1>
-          <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
-            Ensuring that financial barriers don't stand in the way of continental leadership. Explore our diverse funding mechanisms.
+          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
+            ABC is committed to ensuring that financial barriers do not stand in the way of continental leadership. Our funding programs are designed to support the next generation of high-impact entrepreneurs.
           </p>
-          <div className="flex justify-center">
-             <div className="bg-white p-6 rounded-3xl shadow-xl flex items-center space-x-6 border border-slate-100">
-                <div className="text-center">
-                   <div className="text-3xl font-black text-botanical-950 tracking-tighter">$4.8M</div>
-                   <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Awarded in 2025</div>
-                </div>
-                <div className="w-px h-10 bg-slate-100" />
-                <div className="text-center">
-                   <div className="text-3xl font-black text-botanical-950 tracking-tighter">1,200+</div>
-                   <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Beneficiaries</div>
-                </div>
-             </div>
+          <div className="bg-emerald-50 border border-emerald-100 p-6 rounded-3xl max-w-2xl mx-auto flex items-start gap-4 text-left">
+            <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
+            <p className="text-emerald-900 text-sm font-medium">
+              Important: Funding at ABC is highly competitive and merit-based. While we strive for maximum accessibility, awards are not guaranteed to all applicants.
+            </p>
           </div>
         </div>
       </section>
 
+      {/* Types of Funding */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-           {[
-              {
-                 title: "Merit Scholarships",
-                 desc: "For candidates with proven track records of early innovation and academic distinction.",
-                 limit: "Up to 100% Tuition",
-                 icon: Globe
-              },
-              {
-                 title: "Regional Grants",
-                 desc: "Specific funding allocated to underrepresented regional markets within Africa.",
-                 limit: "25% - 50% Coverage",
-                 icon: TrendingUp
-              },
-              {
-                 title: "Corporate Sponsors",
-                 desc: "For candidates whose employers are part of the ABC Corporate Alliance network.",
-                 limit: "Employee Benefit",
-                 icon: Shield
-              }
-           ].map((aid, i) => (
-              <div key={i} className="bg-white p-12 rounded-[40px] border border-slate-100 shadow-sm hover:border-emerald-500 transition-all group flex flex-col justify-between">
-                 <div>
-                    <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-emerald-500 group-hover:text-white transition-all text-emerald-500">
-                       <aid.icon className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-2xl font-black text-botanical-950 mb-4 uppercase tracking-tighter">{aid.title}</h3>
-                    <p className="text-slate-500 font-medium leading-relaxed mb-8">{aid.desc}</p>
-                 </div>
-                 <div className="pt-8 border-t border-slate-50">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">{aid.limit}</span>
-                 </div>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-black text-botanical-950 tracking-tighter uppercase mb-4">Types of Funding</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            {
+              title: "Merit-based scholarships",
+              desc: "For candidates with exceptional academic backgrounds or proven early-stage records of excellence.",
+              icon: Target
+            },
+            {
+              title: "Need-based support",
+              desc: "Financial assistance tailored for talented individuals who demonstrate significant financial constraints.",
+              icon: Users
+            },
+            {
+              title: "Founder grants",
+              desc: "Non-equity capital specifically for alumni during the venture-building phase of their studies.",
+              icon: Rocket
+            },
+            {
+              title: "Partner-sponsored funding",
+              desc: "Exclusive funding pools provided by our alliance of pan-African corporate and institutional partners.",
+              icon: Building2
+            }
+          ].map((aid, i) => (
+            <div key={i} className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm hover:border-emerald-500 transition-all group">
+              <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-emerald-500 group-hover:text-white transition-all text-emerald-500">
+                <aid.icon className="w-7 h-7" />
               </div>
-           ))}
+              <h3 className="text-xl font-black text-botanical-950 mb-4 uppercase tracking-tighter leading-tight">{aid.title}</h3>
+              <p className="text-slate-500 text-sm font-medium leading-relaxed">{aid.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
+      {/* Who Should Apply */}
       <section className="py-24 bg-botanical-950 text-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-            <div className="bg-white/5 border border-white/10 rounded-[48px] p-16 overflow-hidden relative group">
-                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_bottom_right,#00D98E_0%,transparent_70%)]" />
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 relative z-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div>
+              <SectionLabel className="mb-8" dark>Eligibility</SectionLabel>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-8 uppercase leading-tight">Who should apply?</h2>
+              <div className="space-y-8">
+                {[
+                  { title: "Early-stage founders", desc: "Entrepreneurs currently building or scaling ventures across the continent." },
+                  { title: "High-potential professionals", desc: "Rising leaders with a clear path to executive impact in strategic sectors." },
+                  { title: "Underrepresented regions", desc: "Candidates from markets with developing tech ecosystems seeking to bridge the gap." }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-6">
+                    <div className="w-10 h-10 border border-emerald-500/30 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-emerald-500 font-bold">{i + 1}</span>
+                    </div>
                     <div>
-                        <SectionLabel className="mb-8" dark>Installment Plans</SectionLabel>
-                        <h2 className="text-5xl font-black tracking-tighter mb-8 uppercase leading-tight">Flexible Payment <br /> Engineering.</h2>
-                        <p className="text-lg text-slate-400 font-medium leading-relaxed mb-12">
-                            Distribute your tuition across 12 manageable monthly installments to optimize your venture's cash flow during your studies.
-                        </p>
-                        <ul className="space-y-4 mb-12">
-                           {['Zero Interest for 12 Months', 'Instant Activation', 'Multi-Currency Support'].map(item => (
-                              <li key={item} className="flex items-center space-x-3 text-slate-300">
-                                 <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                                 <span className="font-medium">{item}</span>
-                              </li>
-                           ))}
-                        </ul>
-                        <button onClick={() => onPageChange('checkout' as Page)} className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all flex items-center space-x-3">
-                           <span>Configure Plan</span>
-                           <ArrowRight className="w-4 h-4" />
-                        </button>
+                      <h4 className="text-xl font-black text-white mb-2 uppercase">{item.title}</h4>
+                      <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
                     </div>
-                    <div className="relative">
-                        <div className="bg-white/10 backdrop-blur-2xl p-10 rounded-[40px] border border-white/20 shadow-2xl">
-                           <div className="flex justify-between items-center mb-12">
-                              <CreditCard className="w-10 h-10 text-emerald-500" />
-                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Digital Payment Engine</span>
-                           </div>
-                           <div className="space-y-6">
-                              <div className="h-4 bg-white/5 rounded-full w-3/4" />
-                              <div className="h-4 bg-white/5 rounded-full w-1/2" />
-                              <div className="h-20 bg-emerald-500/20 rounded-2xl border border-emerald-500/30 flex items-center px-6">
-                                 <div className="flex-grow">
-                                    <div className="text-[8px] font-black text-emerald-500 uppercase tracking-widest mb-1">Monthly Installment</div>
-                                    <div className="text-2xl font-black text-white">$1,041.67</div>
-                                 </div>
-                                 <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center">
-                                    <CheckCircle2 className="w-6 h-6 text-white" />
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                    </div>
-                </div>
+                  </div>
+                ))}
+              </div>
             </div>
+            <div className="relative">
+              <div className="aspect-square rounded-[40px] overflow-hidden border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="Funding" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="py-32 text-center bg-white">
-        <div className="max-w-3xl mx-auto px-6">
-           <SectionLabel className="mb-8 justify-center">Documentation</SectionLabel>
-           <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-8 uppercase">Application Readiness</h2>
-           <p className="text-slate-500 text-lg font-medium mb-12">
-              Before applying through the aid portal, ensure you have your proof of income, academic transcripts, and institutional recommendation letters ready.
-           </p>
-           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <button className="bg-botanical-950 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all shadow-xl flex items-center justify-center space-x-3">
-                   <Download className="w-4 h-4" />
-                   <span>Download Guide</span>
-                </button>
-                <button className="flex items-center justify-center space-x-3 text-emerald-500 font-black uppercase tracking-widest text-[10px] hover:text-botanical-950 transition-colors">
-                   <span>Contact FinAid Team</span>
-                   <Mail className="w-4 h-4" />
-                </button>
-           </div>
+      {/* Process Section */}
+      <section className="py-32 px-6 md:px-12 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-black tracking-tighter text-botanical-950 uppercase mb-8">The Funding Process</h2>
+            <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center justify-center gap-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Sequence Notice:</span>
+              <p className="text-xs text-slate-500 font-bold uppercase tracking-tight">Funding comes AFTER application (or alongside, but separate form).</p>
+            </div>
+          </div>
+
+          <div className="relative space-y-12">
+            <div className="absolute left-[19px] top-4 bottom-4 w-px bg-slate-100" />
+            {[
+              { title: "Apply to a program", desc: "Complete your standard application for your target ABC program." },
+              { title: "Receive conditional admission", desc: "Successfully progress through the review and interview phase." },
+              { title: "Apply for funding", desc: "Once conditionally admitted, unlock the detailed financial aid application." },
+              { title: "Review & decision", desc: "Wait for the committee to review your combined academic and financial profile." }
+            ].map((step, i) => (
+              <div key={i} className="flex gap-12 relative z-10 group">
+                <div className="w-10 h-10 bg-white border-2 border-slate-100 rounded-full flex items-center justify-center shrink-0 group-hover:border-emerald-500 transition-colors">
+                  <span className="text-botanical-950 font-black text-sm">{i + 1}</span>
+                </div>
+                <div>
+                  <h4 className="text-2xl font-black text-botanical-950 mb-2 uppercase tracking-tighter">{step.title}</h4>
+                  <p className="text-slate-500 font-medium leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-24 pt-12 border-t border-slate-100 flex justify-center">
+            <button 
+              onClick={() => onPageChange('application')}
+              className="bg-botanical-950 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all shadow-xl flex items-center gap-3"
+            >
+              <span>Begin Application</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </section>
     </div>
