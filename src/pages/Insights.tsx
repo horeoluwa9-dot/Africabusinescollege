@@ -11,8 +11,25 @@ interface InsightsProps {
 }
 
 export const Insights = ({ onPageChange }: InsightsProps) => {
+  const [notification, setNotification] = React.useState<string | null>(null);
+
+  const showNotification = (message: string) => {
+    setNotification(message);
+    setTimeout(() => setNotification(null), 3000);
+  };
+
   return (
-    <div className="pt-24">
+    <div className="pt-24 min-h-screen relative">
+      {/* Toast Notification */}
+      <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[100] pointer-events-none">
+        <div className={`bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10 transition-all duration-300 ${notification ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
+            <Mail className="w-4 h-4 text-white" />
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-widest whitespace-nowrap">{notification}</span>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="pt-16 pb-12 px-6 md:px-12 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
@@ -31,30 +48,34 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             onClick={() => onPageChange('insight-detail', 'sovereign-alpha')}
-            className="mt-8 relative rounded-[40px] overflow-hidden aspect-[16/7] min-h-[400px] group cursor-pointer shadow-2xl"
+            className="mt-8 relative rounded-[40px] overflow-hidden min-h-[500px] lg:min-h-[600px] group cursor-pointer shadow-2xl"
           >
             <img 
-              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" 
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80" 
               alt="Featured Report" 
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-12 md:p-20 max-w-3xl">
-              <div className="flex items-center space-x-4 mb-6">
-                <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">Special Report</span>
-                <span className="text-white/60 text-[8px] font-black uppercase tracking-widest">12 MIN READ</span>
-              </div>
-              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase leading-tight mb-8">
-                The Sovereign Alpha: How African Institutional Capital is Redefining Global Risk.
-              </h2>
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-200">
-                  <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80" alt="Dr. Elias Ndlovu" referrerPolicy="no-referrer" />
+            <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/40 to-transparent" />
+            
+            {/* Vertically centered content area with padding */}
+            <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-20">
+              <div className="max-w-4xl">
+                <div className="flex items-center space-x-4 mb-6">
+                  <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest text-shadow-sm">Special Report</span>
+                  <span className="text-white/60 text-[8px] font-black uppercase tracking-widest">12 MIN READ</span>
                 </div>
-                <div>
-                  <h4 className="text-white font-black uppercase tracking-tight text-sm">Dr. Elias Ndlovu</h4>
-                  <p className="text-emerald-500 text-[10px] font-black uppercase tracking-widest">Academic Director of Research</p>
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-[0.95] mb-10 drop-shadow-lg">
+                  The Sovereign Alpha: How African Institutional Capital is Redefining Global Risk.
+                </h2>
+                <div className="flex items-center space-x-4">
+                  <div className="w-14 h-14 rounded-full overflow-hidden bg-slate-200 border-2 border-white/20 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80" alt="Dr. Elias Ndlovu" referrerPolicy="no-referrer" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-black uppercase tracking-tight text-base">Dr. Elias Ndlovu</h4>
+                    <p className="text-emerald-500 text-[10px] font-black uppercase tracking-widest mt-1">Academic Director of Research</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -69,6 +90,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             {['All Insights', 'Entrepreneurship', 'Capital Markets', 'Public Policy', 'Digital Economy', 'Governance'].map((filter, i) => (
               <button 
                 key={filter} 
+                onClick={() => showNotification(`Filtering by ${filter}`)}
                 className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
                   i === 0 ? 'bg-emerald-500 text-white' : 'bg-white border border-slate-200 text-slate-400 hover:border-emerald-500 hover:text-emerald-500'
                 }`}
@@ -96,7 +118,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 title: 'Restructuring Urban Legacies: The Rise of Pan-African Smart Cities.', 
                 desc: 'How decentralization and localized energy grids are transforming the blueprint of the African metropolis.',
                 author: 'AMARA OKAFOR',
-                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
+                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
               },
               { 
                 id: 'afcfta-playbook',
@@ -105,7 +127,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 title: 'The AfCFTA Playbook: Navigating Cross-Border Liquidity in 2026.', 
                 desc: 'Analyzing the regulatory shifts enabling seamless capital flow across the continental free trade zone.',
                 author: 'KOFI MENSAH',
-                img: "https://images.unsplash.com/photo-1526304640581-d334cdbdf4f2?auto=format&fit=crop&w=600&q=80"
+                img: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80"
               },
               { 
                 id: 'sovereign-leadership',
@@ -114,7 +136,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 title: 'Sovereign Leadership: Beyond the Quarterly Earnings Cycle.', 
                 desc: 'Why the most successful African CEOs are prioritizing long-term social utility over short-term returns.',
                 author: 'FATIMA DIOP',
-                img: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80"
+                img: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80"
               },
               { 
                 id: 'last-mile-logistics',
@@ -123,7 +145,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 title: 'Optimizing Last-Mile Logistics in Megacities.', 
                 desc: 'Leveraging data-driven routing and micro-warehousing to overcome the friction of African urban congestion.',
                 author: 'DAVID OKAFOR',
-                img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
+                img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
               },
               { 
                 id: 'regulatory-sandbox',
@@ -132,7 +154,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 title: 'Regulatory Sandbox: A Guide for Tech Founders.', 
                 desc: 'How to navigate the evolving regulatory landscape and collaborate with governments to scale safely.',
                 author: 'AMARA DIOP',
-                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
+                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
               },
               { 
                 id: 'exit-strategies',
@@ -141,7 +163,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 title: 'Exit Strategies for African Tech Startups.', 
                 desc: 'An analysis of recent M&A activity and the path to secondary markets for Pan-African founders.',
                 author: 'ZARA EL-AMIN',
-                img: "https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=600&q=80"
+                img: "https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&w=800&q=80"
               }
             ].map((insight, i) => (
               <motion.div 
@@ -185,10 +207,16 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
               <h2 className="text-5xl font-black tracking-tighter text-botanical-950 uppercase">The Deep Dives</h2>
             </div>
             <div className="flex space-x-4">
-              <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all">
+              <button 
+                onClick={() => showNotification('Previous series analysis')}
+                className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all"
+              >
                 <ArrowLeft className="w-5 h-5" />
               </button>
-              <button className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all">
+              <button 
+                onClick={() => showNotification('Next series analysis')}
+                className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all"
+              >
                 <ArrowRightIcon className="w-5 h-5" />
               </button>
             </div>
@@ -250,7 +278,13 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 <div>
                   <h3 className="text-xl font-black text-botanical-950 uppercase tracking-tight mb-4 group-hover:text-emerald-500 transition-colors">{paper.title}</h3>
                   <p className="text-slate-500 text-xs font-medium leading-relaxed mb-6">{paper.desc}</p>
-                  <button className="flex items-center space-x-2 text-[8px] font-black uppercase tracking-widest text-emerald-600">
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      showNotification('Downloading professional report...');
+                    }}
+                    className="flex items-center space-x-2 text-[8px] font-black uppercase tracking-widest text-emerald-600"
+                  >
                     <Download className="w-3 h-3" />
                     <span>Download Executive PDF (4.2 MB)</span>
                   </button>
@@ -295,13 +329,23 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
           <p className="text-xl text-slate-500 font-medium mb-12 max-w-2xl mx-auto">
             Join 25,000+ institutional leaders receiving our curated intelligence on African strategy every Sunday morning.
           </p>
-          <form className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+          <form 
+            className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto"
+            onSubmit={(e) => {
+              e.preventDefault();
+              showNotification('Subscription successful. Welcome to The Weekly Sovereign.');
+            }}
+          >
             <input 
               type="email" 
               placeholder="Enter your institutional email" 
+              required
               className="flex-1 bg-white border border-slate-200 rounded-xl px-6 py-4 text-botanical-950 focus:outline-none focus:border-emerald-500 transition-colors"
             />
-            <button className="bg-botanical-950 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all">
+            <button 
+              type="submit"
+              className="bg-botanical-950 text-white px-10 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all"
+            >
               Subscribe
             </button>
           </form>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Calendar, User, Share2, Linkedin, Twitter, MessageSquare, Bookmark, BookOpen } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Page } from '../components/Layout';
@@ -59,7 +59,7 @@ const INSIGHTS_DATA: Record<string, any> = {
     author: 'Kofi Mensah',
     role: 'Regional Trade Economist',
     date: 'March 28, 2026',
-    image: 'https://images.unsplash.com/photo-1526304640581-d334cdbdf4f2?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1200&q=80',
     content: `
       <p>The African Continental Free Trade Area (AfCFTA) is more than a trade deal—it is a liquidity event. For the first time, capital can move with relative friction-less ease across 54 jurisdictions.</p>
       <h3>Managing the Liquidity Gap</h3>
@@ -153,7 +153,7 @@ const INSIGHTS_DATA: Record<string, any> = {
     author: 'Zara El-Amin',
     role: 'Partner, Blue Ocean Capital',
     date: 'April 20, 2026',
-    image: 'https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&w=1200&q=80',
     content: `
       <p>The liquidity question is no longer "if," but "when" and "how." As the first wave of Pan-African startups reaches maturity, the focus of both founders and investors is shifting toward the secondary market and strategic acquisitions.</p>
       <h3>The M&A Landscape</h3>
@@ -164,7 +164,14 @@ const INSIGHTS_DATA: Record<string, any> = {
 
 export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) => {
   const { isRTL } = useLanguage();
+  const [notification, setNotification] = React.useState<string | null>(null);
+  
   const insight = insightId ? INSIGHTS_DATA[insightId] : INSIGHTS_DATA['sovereign-alpha'];
+
+  const showNotification = (message: string) => {
+    setNotification(message);
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   if (!insight) {
     return (
@@ -177,6 +184,23 @@ export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) =
 
   return (
     <div className="pt-24 bg-white min-h-screen">
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {notification && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: 20, x: '-50%' }}
+            className="fixed bottom-12 left-1/2 z-[100] bg-botanical-950 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center space-x-4 border border-white/10"
+          >
+            <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
+              <BookOpen className="w-4 h-4 text-white" />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest">{notification}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Reading Progress Bar */}
       <motion.div 
         initial={{ width: 0 }}
@@ -231,9 +255,9 @@ export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) =
                  <span className="text-[10px] font-black uppercase tracking-widest">{insight.date}</span>
                </div>
                <div className="flex items-center space-x-4">
-                 <button className="hover:text-emerald-500 transition-colors"><Linkedin className="w-4 h-4" /></button>
-                 <button className="hover:text-emerald-500 transition-colors"><Twitter className="w-4 h-4" /></button>
-                 <button className="hover:text-emerald-500 transition-colors"><Share2 className="w-4 h-4" /></button>
+                 <button onClick={() => showNotification('Shared to LinkedIn')} className="hover:text-emerald-500 transition-colors"><Linkedin className="w-4 h-4" /></button>
+                 <button onClick={() => showNotification('Shared to Twitter')} className="hover:text-emerald-500 transition-colors"><Twitter className="w-4 h-4" /></button>
+                 <button onClick={() => showNotification('Share link copied')} className="hover:text-emerald-500 transition-colors"><Share2 className="w-4 h-4" /></button>
                </div>
             </div>
           </div>
@@ -265,11 +289,17 @@ export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) =
         {/* Article Actions */}
         <div className="flex flex-col md:flex-row items-center justify-between py-12 border-y border-slate-100 gap-8">
            <div className="flex items-center space-x-6">
-              <button className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-botanical-950 hover:text-emerald-500 transition-colors">
+              <button 
+                onClick={() => showNotification('Insight analysis saved to library')}
+                className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-botanical-950 hover:text-emerald-500 transition-colors"
+              >
                 <Bookmark className="w-4 h-4" />
                 <span>Save Analysis</span>
               </button>
-              <button className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-botanical-950 hover:text-emerald-500 transition-colors">
+              <button 
+                onClick={() => showNotification('Opening community discussion...')}
+                className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-botanical-950 hover:text-emerald-500 transition-colors"
+              >
                 <MessageSquare className="w-4 h-4" />
                 <span>Discussion</span>
               </button>
@@ -277,9 +307,17 @@ export const InsightDetail = ({ onPageChange, insightId }: InsightDetailProps) =
            <div className="flex items-center space-x-4">
               <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Share Insight:</span>
               <div className="flex space-x-2">
-                 {[Linkedin, Twitter, Share2].map((Icon, i) => (
-                   <button key={i} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all">
-                     <Icon className="w-4 h-4" />
+                 {[
+                   { icon: Linkedin, label: 'LinkedIn' },
+                   { icon: Twitter, label: 'Twitter' },
+                   { icon: Share2, label: 'Share Link' }
+                 ].map((social, i) => (
+                   <button 
+                    key={i} 
+                    onClick={() => showNotification(`${social.label} shared successfully`)}
+                    className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
+                   >
+                     <social.icon className="w-4 h-4" />
                    </button>
                  ))}
               </div>
