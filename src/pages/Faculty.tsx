@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Users, Microscope, GraduationCap, Briefcase, ArrowRight, Filter, Search, Globe, Linkedin, Twitter, CheckCircle2, X } from 'lucide-react';
+import { Users, Microscope, GraduationCap, Briefcase, ArrowRight, Filter, Search, Globe, Linkedin, Twitter, CheckCircle2, X, Zap, Play } from 'lucide-react';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 import { useLanguage } from '../contexts/LanguageContext';
 
 import { Page } from '../components/Layout';
+import { SectionLabel } from '../components/SectionLabel';
 
 const FACULTY_MEMBERS = [
   { name: 'Marcus Thorne', role: 'Founder, Neobank Nigeria', tag: 'ENTREPRENEURS', sub: ['FINTECH', 'SCALING'], img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80' },
@@ -16,7 +17,7 @@ const FACULTY_MEMBERS = [
 ];
 
 interface FacultyProps {
-  onPageChange: (page: Page) => void;
+  onPageChange: (page: Page, id?: string) => void;
 }
 
 export const Faculty = ({ onPageChange }: FacultyProps) => {
@@ -34,16 +35,14 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 overflow-hidden bg-white">
+      <section className="relative pt-16 pb-20 px-6 md:px-12 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">The Global Leadership Faculty</span>
-            </div>
+            <SectionLabel className="mb-8">The Global Leadership Faculty</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               Learn From <br />
               <span className="text-emerald-500 italic">Builders</span>, <br />
@@ -240,11 +239,22 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
             </div>
           </div>
           <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">Featured Industry Leader</span>
-            <h2 className="text-5xl font-black tracking-tighter text-botanical-950 mb-8 uppercase leading-tight">Mastering Venture Capital in Volatile Economies</h2>
-            <p className="text-lg lg:text-xl text-slate-500 leading-relaxed font-medium mb-12">
-              Elena has deployed over $2B in capital across 12 African nations. At ABC, she leads the "Scale & Exit" simulation lab, providing students with direct access to investor frameworks and real-world term sheets.
+            <SectionLabel className="mb-6">Featured Industry Leader</SectionLabel>
+            <h2 className="text-5xl font-black tracking-tighter text-botanical-950 mb-8 uppercase leading-tight">Mastering Venture Capital in African Markets</h2>
+            <p className="text-lg lg:text-xl text-slate-500 leading-relaxed font-medium mb-8">
+              Learn how venture capital operates across emerging and volatile economies. This module explores deal structuring, capital deployment, and investment strategy through real-world African case studies and practitioner-led instruction.
             </p>
+            
+            <div className="bg-slate-50 p-8 rounded-3xl mb-12 border border-slate-100">
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4 flex items-center">
+                <Zap className="w-3 h-3 mr-2" />
+                Apply What You Learn
+              </h4>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                Engage in the <span className="text-botanical-950 font-bold">Startup Fundraising Simulation</span>, where you raise capital, negotiate terms, and evaluate investor decisions in dynamic market conditions.
+              </p>
+            </div>
+
             <div className="space-y-6 mb-12">
               {[
                 'Ex-Partner at Goldman Sachs Emerging Markets',
@@ -252,17 +262,30 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
                 'Author of "The Frontier Playbook"'
               ].map(item => (
                 <div key={item} className="flex items-center space-x-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-3 h-3 text-white" />
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-500" />
                   </div>
                   <span className="text-botanical-950 font-black uppercase tracking-tight text-xs lg:text-sm">{item}</span>
                 </div>
               ))}
             </div>
-            <button className="w-full sm:w-auto bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all flex items-center justify-center space-x-3">
-              <span>View Course Details</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button 
+                onClick={() => onPageChange('programs')}
+                className="w-full sm:w-auto bg-botanical-950 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 transition-all flex items-center justify-center space-x-3"
+              >
+                <span>Explore Program</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => onPageChange('simulation-labs')}
+                className="w-full sm:w-auto bg-white border border-slate-200 text-botanical-950 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all flex items-center justify-center space-x-3"
+              >
+                <span>Start Simulation</span>
+                <Play className="w-3 h-3 fill-current" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -283,11 +306,11 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { author: 'David Okafor', title: 'Optimizing Last-Mile Logistics in Megacities', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' },
-              { author: 'Amara Diop', title: 'Regulatory Sandbox: A Guide for Tech Founders', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80' },
-              { author: 'Zara El-Amin', title: 'Exit Strategies for African Tech Startups', img: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80' }
+              { id: 'last-mile-logistics', author: 'David Okafor', title: 'Optimizing Last-Mile Logistics in Megacities', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' },
+              { id: 'regulatory-sandbox', author: 'Amara Diop', title: 'Regulatory Sandbox: A Guide for Tech Founders', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80' },
+              { id: 'exit-strategies', author: 'Zara El-Amin', title: 'Exit Strategies for African Tech Startups', img: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=800&q=80' }
             ].map((article, i) => (
-              <div key={i} className="group cursor-pointer">
+              <div key={i} className="group cursor-pointer" onClick={() => onPageChange('insight-detail', article.id)}>
                 <div className="aspect-video rounded-[40px] overflow-hidden mb-8 shadow-sm">
                   <img src={article.img} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                 </div>

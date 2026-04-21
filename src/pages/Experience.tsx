@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, Quote, Mail, Linkedin, Twitter } from 'lucide-react';
 import { Page } from '../components/Layout';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { SectionLabel } from '../components/SectionLabel';
 
 interface ExperienceProps {
   onPageChange: (page: Page) => void;
@@ -29,9 +30,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onPageChange }) => {
               <span className="text-[10px] font-black uppercase tracking-widest">Back to About</span>
             </button>
             
-            <div className="inline-flex items-center space-x-2 bg-white/5 px-3 py-1 rounded-full mb-8 border border-white/10">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 italic">Institutional Voice</span>
-            </div>
+            <SectionLabel className="mb-8">Institutional Voice</SectionLabel>
             
             <h1 className="text-6xl md:text-9xl font-black text-white tracking-tighter uppercase leading-[0.8] mb-12">
               The <span className="text-emerald-500 italic">Director's</span> <br /> Vision

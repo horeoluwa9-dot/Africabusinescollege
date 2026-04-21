@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Page } from '../components/Layout';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { SectionLabel } from '../components/SectionLabel';
 
 interface AboutProps {
   onPageChange: (page: Page, id?: string) => void;
@@ -30,9 +31,7 @@ const AboutHero = () => {
     <section className="pt-6 pb-32 bg-white px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-7 order-1">
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-8">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">The Institution</span>
-            </div>
+            <SectionLabel className="mb-8">The Institution</SectionLabel>
             <h1 className="text-5xl md:text-8xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
               Architecture of <br /> <span className="text-emerald-500 italic">Execution</span>
             </h1>
@@ -81,9 +80,7 @@ const DirectorMessage = ({ onPageChange }: AboutProps) => {
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto bg-slate-50 rounded-[64px] mb-32">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div>
-          <div className="inline-flex items-center space-x-2 bg-white px-3 py-1 rounded-full mb-8 shadow-sm">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Message from the Academic Director</span>
-          </div>
+          <SectionLabel className="mb-8">Message from the Academic Director</SectionLabel>
           
           <div className="relative">
             <span className="absolute -top-12 -left-8 text-botanical-950/5 text-[160px] font-black leading-none pointer-events-none">"</span>
@@ -178,10 +175,7 @@ const FacultyResearch = ({ onPageChange }: AboutProps) => {
   return (
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="text-center mb-24">
-        <div className="inline-flex items-center space-x-2 bg-slate-100 px-3 py-1 rounded-full mb-6">
-          <BookOpen className="w-3 h-3 text-slate-600" />
-          <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Thought Leadership</span>
-        </div>
+        <SectionLabel className="mb-6 justify-center">Thought Leadership</SectionLabel>
         <h2 className="text-4xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 uppercase mx-auto max-w-4xl">
           A practitioner-led faculty dedicated to shaping, teaching, and evolving African business practice
         </h2>
@@ -344,10 +338,7 @@ const AlumniSection = ({ onPageChange }: AboutProps) => {
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div>
-          <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-8">
-            <Users className="w-3 h-3 text-emerald-600" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">ABC Alumni Community</span>
-          </div>
+          <SectionLabel className="mb-8">ABC Alumni Community</SectionLabel>
           <h2 className="text-4xl md:text-5xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-tight">
             Africa Business College Alumni
           </h2>
@@ -420,9 +411,7 @@ const ABCAdvantage = () => {
       <AnimatedBackground intensity="low" className="opacity-20" />
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center mb-24">
-          <div className="inline-flex items-center space-x-2 bg-white/5 px-3 py-1 rounded-full mb-6 border border-white/10">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">The ABC Advantage</span>
-          </div>
+          <SectionLabel className="mb-6 justify-center" dark>The ABC Advantage</SectionLabel>
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 uppercase">
             A Serious African Business Institution
           </h2>
@@ -448,25 +437,35 @@ const ABCAdvantage = () => {
 
 const Recognitions = () => {
   const partners = [
-    { name: 'African Union', icon: Globe2 },
-    { name: 'Pan-African VC Alliance', icon: TrendingUp },
-    { name: 'Google for Startups Africa', icon: Zap },
-    { name: 'African Development Bank', icon: Shield },
-    { name: 'GNAM Affiliate', icon: Award },
-    { name: 'Tech Council Africa', icon: Cpu }
+    { name: 'African Union', logo: 'https://logo.clearbit.com/au.int' },
+    { name: 'Pan-African VC Alliance', logo: 'https://logo.clearbit.com/pava.africa' },
+    { name: 'Google for Startups Africa', logo: 'https://logo.clearbit.com/google.com' },
+    { name: 'African Development Bank', logo: 'https://logo.clearbit.com/afdb.org' },
+    { name: 'GNAM Affiliate', logo: 'https://logo.clearbit.com/globalnetwork.io' },
+    { name: 'Tech Council Africa', logo: 'https://logo.clearbit.com/techcouncil.africa' }
   ];
 
   return (
     <section className="py-24 border-b border-slate-100 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
-          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Recognitions & Partnerships</span>
+          <SectionLabel className="mb-8 justify-center">Recognitions & Partnerships</SectionLabel>
         </div>
         <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12 sm:gap-x-16 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
           {partners.map(p => (
-            <div key={p.name} className="flex items-center space-x-3 text-botanical-950">
-              <p.icon className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-500" />
-              <span className="text-sm sm:text-xl font-bold tracking-tight whitespace-nowrap">{p.name}</span>
+            <div key={p.name} className="flex flex-col items-center space-y-4 group">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-2xl p-4 flex items-center justify-center border border-slate-100 group-hover:border-emerald-500 transition-all">
+                <img 
+                  src={p.logo} 
+                  alt={p.name} 
+                  className="max-w-full max-h-full object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=f8fafc&color=10b981&bold=true`;
+                  }}
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase text-center max-w-[100px]">{p.name}</span>
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Handshake, Globe, Zap, Users, Microscope, TrendingUp, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { SectionLabel } from '../components/SectionLabel';
 
 export const Partnerships = () => {
   return (
@@ -13,9 +14,7 @@ export const Partnerships = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Partnerships</span>
-            </div>
+            <SectionLabel className="mb-6">Partnerships</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8">
               Building With <br />
               <span className="text-emerald-500 italic">Leading</span> <br />

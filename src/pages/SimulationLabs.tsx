@@ -12,6 +12,8 @@ interface SimulationLabsProps {
 
 import { SimulationCarousel } from '../components/SimulationCarousel';
 
+import { SectionLabel } from '../components/SectionLabel';
+
 export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id?: string) => void }) => {
   const { t } = useLanguage();
   const { isLoggedIn, isApplied, isPaid } = useAuth();
@@ -79,10 +81,7 @@ export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Sovereign Business Laboratory</span>
-            </div>
+            <SectionLabel className="mb-6">Sovereign Business Laboratory</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               {isPaid ? "Your Strategic" : "Learn Business by"} <br />
               <span className="text-emerald-500 italic">{isPaid ? "Command Center" : "Making Real"}</span> <br />
@@ -315,9 +314,7 @@ export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#00D98E_0%,transparent_70%)] opacity-5" />
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="relative z-10">
-            <div className="inline-flex items-center space-x-2 bg-emerald-500/10 px-3 py-1 rounded-full mb-6">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">The Lab Toolbox</span>
-            </div>
+            <SectionLabel className="mb-6" dark>The Lab Toolbox</SectionLabel>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-white mb-8 uppercase">
               Business Instrument <br /> Studio
             </h2>

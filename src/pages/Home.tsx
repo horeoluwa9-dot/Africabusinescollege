@@ -29,6 +29,8 @@ import { AnimatedBackground } from '../components/AnimatedBackground';
 import { useAuth } from '../contexts/AuthContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
 
+import { SectionLabel } from '../components/SectionLabel';
+
 interface HomeProps {
   onPageChange: (page: Page, id?: string) => void;
 }
@@ -148,17 +150,9 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
           >
             {/* Left Content */}
             <div className="lg:col-span-7">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex items-center space-x-4 mb-8"
-              >
-                <div className="h-px w-12 bg-emerald-500" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">
-                  {slides[currentSlide].eyebrow}
-                </span>
-              </motion.div>
+              <SectionLabel className="mb-8" dark>
+                {slides[currentSlide].eyebrow}
+              </SectionLabel>
 
               <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.85] text-white mb-8 uppercase overflow-hidden">
                 {slides[currentSlide].headline.split(' ').map((word, i) => (
@@ -340,9 +334,7 @@ const Programs = ({ onPageChange }: HomeProps) => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-20">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Academic Excellence</span>
-            </div>
+            <SectionLabel className="mb-6">Academic Excellence</SectionLabel>
             <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-6 uppercase leading-tight">Designed for Every Stage of Leadership</h2>
             <p className="text-slate-500 text-lg font-medium">Select a path that aligns with your professional trajectory and institutional goals.</p>
           </div>
@@ -464,9 +456,7 @@ const Ecosystem = ({ onPageChange }: HomeProps) => {
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div>
-          <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-8">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">The ABC Advantage</span>
-          </div>
+          <SectionLabel className="mb-8">The ABC Advantage</SectionLabel>
           <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 leading-[0.9] uppercase">
             Built for <br />
             <span className="text-emerald-500 italic">Execution</span>
@@ -642,9 +632,7 @@ const SimulationLabs = ({ onPageChange }: HomeProps) => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-12">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">{t('home.theLaboratory')}</span>
-            </div>
+            <SectionLabel className="mb-6">{t('home.theLaboratory')}</SectionLabel>
             <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-6 uppercase leading-tight">
               {t('home.simLabsTitle')}
             </h2>
@@ -679,9 +667,7 @@ const InstrumentStudio = ({ onPageChange }: HomeProps) => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row justify-between items-end gap-12 mb-24">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 bg-white/5 px-3 py-1 rounded-full mb-8 border border-white/10">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">{t('home.businessInstrumentStudio')}</span>
-            </div>
+            <SectionLabel className="mb-8" dark>{t('home.businessInstrumentStudio')}</SectionLabel>
             <h2 className="text-5xl md:text-6xl font-black text-white tracking-tighter uppercase leading-tight">{t('home.useRealTools')}</h2>
           </div>
         </div>
@@ -732,9 +718,7 @@ const Testimonials = () => {
     <section className="py-32 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">{t('home.studentSuccess')}</span>
-          </div>
+          <SectionLabel className="mb-6 justify-center">Student Success</SectionLabel>
           <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter uppercase leading-tight">{t('home.whatStudentsBuilding')}</h2>
         </div>
 

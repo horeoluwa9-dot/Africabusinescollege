@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { Page } from '../components/Layout';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { SectionLabel } from '../components/SectionLabel';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
@@ -55,10 +56,7 @@ const Hero = ({ onPageChange }: AdmissionsProps) => {
         )}
       </AnimatePresence>
       <div className="max-w-4xl">
-        <div className="flex items-center space-x-4 mb-8">
-          <div className="h-px w-12 bg-emerald-500" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">{t('admissions.hero_Enrolling')}</span>
-        </div>
+        <SectionLabel className="mb-8">{t('admissions.hero_Enrolling')}</SectionLabel>
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12">
           {t('admissions.hero_StartJourney')}
         </h1>
@@ -85,7 +83,7 @@ const Hero = ({ onPageChange }: AdmissionsProps) => {
   );
 };
 
-const TargetAudience = () => {
+const TargetAudience = ({ onPageChange }: AdmissionsProps) => {
   const { t } = useLanguage();
   const audiences = [
     { icon: Rocket, title: t('admissions.entrepreneurs'), desc: t('admissions.entrepreneursDesc') },
@@ -99,14 +97,14 @@ const TargetAudience = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">{t('admissions.audience_Target')}</div>
+            <SectionLabel className="mb-4">{t('admissions.audience_Target')}</SectionLabel>
             <h2 className="text-5xl font-black text-botanical-950 tracking-tighter">{t('admissions.audience_WhoShouldApply')}</h2>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {audiences.map(item => (
-            <div key={item.title} className="bg-white p-10 rounded-3xl border border-slate-100 hover:shadow-2xl transition-all group cursor-pointer relative overflow-hidden">
+            <div key={item.title} className="bg-white p-10 rounded-3xl border border-slate-100 hover:shadow-2xl transition-all group cursor-pointer relative overflow-hidden" onClick={() => onPageChange('who-should-apply' as Page)}>
               <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-8 group-hover:bg-emerald-500 group-hover:text-white transition-all">
                 <item.icon className="w-5 h-5" />
               </div>
@@ -146,7 +144,7 @@ const SelectionJourney = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">{t('admissions.journey_Title')}</div>
+            <SectionLabel className="mb-4" dark>{t('admissions.journey_Title')}</SectionLabel>
             <h2 className="text-6xl font-black text-white tracking-tighter mb-8 leading-[0.9]">{t('admissions.journey_MainTitle')}</h2>
             <p className="text-slate-400 text-lg font-medium leading-relaxed mb-12">
               {t('admissions.journey_Desc')}
@@ -232,12 +230,12 @@ const Criteria = ({ onPageChange }: AdmissionsProps) => {
   );
 };
 
-const Tuition = () => {
+const Tuition = ({ onPageChange }: AdmissionsProps) => {
   const { t } = useLanguage();
   return (
     <section className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12 text-center mb-20">
-        <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">{t('admissions.investment_Title')}</div>
+        <SectionLabel className="mb-4 justify-center">{t('admissions.investment_Title')}</SectionLabel>
         <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-8">{t('admissions.investment_MainTitle')}</h2>
         <p className="text-slate-500 max-w-2xl mx-auto font-medium">
           {t('admissions.investment_Desc')}
@@ -261,12 +259,12 @@ const Tuition = () => {
               ))}
             </ul>
           </div>
-          <button className="w-full bg-white border border-slate-200 text-botanical-950 px-8 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all">
+          <button onClick={() => onPageChange('inquire-pricing' as Page)} className="w-full bg-white border border-slate-200 text-botanical-950 px-8 py-4 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all">
             {t('admissions.enrollment_Inquire')}
           </button>
         </div>
 
-        <div className="bg-botanical-950 p-12 rounded-3xl relative overflow-hidden group cursor-pointer">
+        <div className="bg-botanical-950 p-12 rounded-3xl relative overflow-hidden group cursor-pointer" onClick={() => onPageChange('inquire-details' as Page)}>
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_70%)]" />
           <div className="relative z-10 flex flex-col h-full justify-between">
             <div>
@@ -294,7 +292,7 @@ const Tuition = () => {
               <p className="text-sm text-slate-500 font-medium">{t('admissions.scholarship_Support')}</p>
             </div>
           </div>
-          <button className="bg-white text-botanical-950 px-8 py-3 text-[10px] font-black uppercase tracking-widest rounded-lg border border-slate-200 hover:bg-slate-50 transition-all whitespace-nowrap">
+          <button onClick={() => onPageChange('financial-aid' as Page)} className="bg-white text-botanical-950 px-8 py-3 text-[10px] font-black uppercase tracking-widest rounded-lg border border-slate-200 hover:bg-slate-50 transition-all whitespace-nowrap">
             {t('admissions.scholarship_AidPortal')}
           </button>
         </div>
@@ -303,16 +301,16 @@ const Tuition = () => {
   );
 };
 
-const FAQSection = () => {
+const FAQSection = ({ onPageChange }: AdmissionsProps) => {
   const { t } = useLanguage();
   const [openId, setOpenId] = React.useState<string | null>(null);
 
   return (
     <section className="py-32 px-6 md:px-12 max-w-4xl mx-auto">
       <div className="text-center mb-20">
-        <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4">{t('admissions.faq_Support')}</div>
+        <SectionLabel className="mb-4 justify-center">{t('admissions.faq_Support')}</SectionLabel>
         <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-8">{t('admissions.faq_MainTitle')}</h2>
-        <button className="text-[10px] font-black uppercase tracking-widest text-emerald-500 border-b border-emerald-500 pb-1 hover:text-botanical-950 hover:border-botanical-950 transition-all">
+        <button onClick={() => onPageChange('admissions-faq' as Page)} className="text-[10px] font-black uppercase tracking-widest text-emerald-500 border-b border-emerald-500 pb-1 hover:text-botanical-950 hover:border-botanical-950 transition-all">
           {t('admissions.faq_AllFaqs')}
         </button>
       </div>
@@ -385,11 +383,11 @@ export const Admissions = ({ onPageChange }: AdmissionsProps) => {
   return (
     <>
       <Hero onPageChange={onPageChange} />
-      <TargetAudience />
+      <TargetAudience onPageChange={onPageChange} />
       <SelectionJourney />
       <Criteria onPageChange={onPageChange} />
-      <Tuition />
-      <FAQSection />
+      <Tuition onPageChange={onPageChange} />
+      <FAQSection onPageChange={onPageChange} />
       <FinalCTA onPageChange={onPageChange} />
     </>
   );

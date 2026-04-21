@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { Users, GraduationCap, Microscope, TrendingUp, MapPin, Calendar, ArrowRight, Share2, Mail, Zap } from 'lucide-react';
 import { AnimatedBackground } from '../components/AnimatedBackground';
 
+import { SectionLabel } from '../components/SectionLabel';
+
 export const Community = ({ onPageChange }: { onPageChange: (page: any) => void }) => {
   return (
     <div className="pt-24">
@@ -14,9 +16,7 @@ export const Community = ({ onPageChange }: { onPageChange: (page: any) => void 
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Network of Excellence</span>
-            </div>
+            <SectionLabel className="mb-6">Network of Excellence</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8">
               Join a <br />
               Community of <br />

@@ -18,6 +18,7 @@ import { downloadMockPdf } from '../lib/downloadPdf';
 
 import { Page } from '../components/Layout';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { SectionLabel } from '../components/SectionLabel';
 
 interface ProgramsProps {
   onPageChange: (page: Page, id?: string) => void;
@@ -65,10 +66,7 @@ const Hero = ({ onPageChange }: ProgramsProps) => {
             transition={{ duration: 0.8 }}
             className="lg:col-span-7 relative z-10"
           >
-            <div className="flex items-center space-x-4 mb-8">
-              <div className="h-px w-12 bg-emerald-500" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">Built for Precision</span>
-            </div>
+            <SectionLabel dark className="mb-8">Built for Precision</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] text-botanical-950 mb-8 uppercase">
               Explore Our <br />
               <span className="text-emerald-500 italic">Programs</span>
@@ -130,10 +128,7 @@ const FilterBar = ({ active, setActive }: FilterBarProps) => {
     <div className="bg-surface-low border-y border-slate-100 py-10" id="all-programs">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col space-y-8">
-          <div className="flex items-center space-x-4">
-            <div className="h-px w-8 bg-emerald-500" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 whitespace-nowrap">Filter by Category</span>
-          </div>
+          <SectionLabel dark className="mb-4">Filter by Category</SectionLabel>
           <div className="flex flex-wrap gap-3 overflow-x-auto no-scrollbar pb-2">
             {categories.map(cat => (
               <button

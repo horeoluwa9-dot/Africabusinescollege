@@ -40,6 +40,12 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { SimulationDetails } from './pages/SimulationDetails';
 import { FullCourseViewer } from './pages/FullCourseViewer';
+import WhoShouldApply from './pages/WhoShouldApply';
+import InquireDetails from './pages/InquireDetails';
+import InquirePricing from './pages/InquirePricing';
+import FinancialAidPortal from './pages/FinancialAidPortal';
+import AdmissionsFAQ from './pages/AdmissionsFAQ';
+import CurriculumPage from './pages/CurriculumPage';
 
 export default function App() {
   const [activePage, setActivePage] = useState<Page | 'full-course'>(() => {
@@ -225,6 +231,20 @@ export default function App() {
                 return <InsightDetail insightId={selectedInsightId || undefined} onPageChange={handlePageChange} />;
               case 'news-detail':
                 return <NewsDetail newsId={selectedNewsId || undefined} onPageChange={handlePageChange} />;
+
+              // New Admissions & Curriculum Pages
+              case 'who-should-apply':
+                return <WhoShouldApply onPageChange={handlePageChange} />;
+              case 'inquire-details':
+                return <InquireDetails onPageChange={handlePageChange} />;
+              case 'inquire-pricing':
+                return <InquirePricing onPageChange={handlePageChange} />;
+              case 'financial-aid':
+                return <FinancialAidPortal onPageChange={handlePageChange} />;
+              case 'admissions-faq':
+                return <AdmissionsFAQ onPageChange={handlePageChange} />;
+              case 'view-curriculum':
+                return <CurriculumPage onPageChange={handlePageChange} />;
 
               default:
                 return <Home onPageChange={handlePageChange} />;

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Search, Filter, ArrowRight, Download, Mail, ArrowLeft, ArrowRight as ArrowRightIcon, Linkedin, Twitter } from 'lucide-react';
 import { AnimatedBackground } from '../components/AnimatedBackground';
+import { SectionLabel } from '../components/SectionLabel';
 
 import { Page } from '../components/Layout';
 
@@ -13,19 +14,15 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="py-24 px-6 md:px-12 bg-white overflow-hidden">
+      <section className="pt-16 pb-12 px-6 md:px-12 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-7">
-              <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-8">
-                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Insights & Intelligence</span>
-              </div>
-              <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12 uppercase">
+            <div className="lg:col-span-8">
+              <SectionLabel className="mb-8" dark>Insights & Intelligence</SectionLabel>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12 uppercase">
                 Architecting the <br />
                 <span className="text-emerald-500 italic">African Future</span>
               </h1>
-            </div>
-            <div className="lg:col-span-5 lg:pt-12">
             </div>
           </div>
 
@@ -34,7 +31,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             onClick={() => onPageChange('insight-detail', 'sovereign-alpha')}
-            className="mt-16 relative rounded-[40px] overflow-hidden aspect-[16/7] min-h-[400px] group cursor-pointer shadow-2xl"
+            className="mt-8 relative rounded-[40px] overflow-hidden aspect-[16/7] min-h-[400px] group cursor-pointer shadow-2xl"
           >
             <img 
               src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" 
@@ -98,7 +95,8 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 time: '8 MIN READ', 
                 title: 'Restructuring Urban Legacies: The Rise of Pan-African Smart Cities.', 
                 desc: 'How decentralization and localized energy grids are transforming the blueprint of the African metropolis.',
-                author: 'AMARA OKAFOR'
+                author: 'AMARA OKAFOR',
+                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
               },
               { 
                 id: 'afcfta-playbook',
@@ -106,7 +104,8 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 time: '15 MIN READ', 
                 title: 'The AfCFTA Playbook: Navigating Cross-Border Liquidity in 2026.', 
                 desc: 'Analyzing the regulatory shifts enabling seamless capital flow across the continental free trade zone.',
-                author: 'KOFI MENSAH'
+                author: 'KOFI MENSAH',
+                img: "https://images.unsplash.com/photo-1526304640581-d334cdbdf4f2?auto=format&fit=crop&w=600&q=80"
               },
               { 
                 id: 'sovereign-leadership',
@@ -114,16 +113,47 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                 time: '12 MIN READ', 
                 title: 'Sovereign Leadership: Beyond the Quarterly Earnings Cycle.', 
                 desc: 'Why the most successful African CEOs are prioritizing long-term social utility over short-term returns.',
-                author: 'FATIMA DIOP'
+                author: 'FATIMA DIOP',
+                img: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80"
+              },
+              { 
+                id: 'last-mile-logistics',
+                cat: 'OPERATIONS', 
+                time: '10 MIN READ', 
+                title: 'Optimizing Last-Mile Logistics in Megacities.', 
+                desc: 'Leveraging data-driven routing and micro-warehousing to overcome the friction of African urban congestion.',
+                author: 'DAVID OKAFOR',
+                img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
+              },
+              { 
+                id: 'regulatory-sandbox',
+                cat: 'POLICY', 
+                time: '14 MIN READ', 
+                title: 'Regulatory Sandbox: A Guide for Tech Founders.', 
+                desc: 'How to navigate the evolving regulatory landscape and collaborate with governments to scale safely.',
+                author: 'AMARA DIOP',
+                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80"
+              },
+              { 
+                id: 'exit-strategies',
+                cat: 'CAPITAL', 
+                time: '18 MIN READ', 
+                title: 'Exit Strategies for African Tech Startups.', 
+                desc: 'An analysis of recent M&A activity and the path to secondary markets for Pan-African founders.',
+                author: 'ZARA EL-AMIN',
+                img: "https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=600&q=80"
               }
             ].map((insight, i) => (
-              <div 
+              <motion.div 
                 key={i} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
                 onClick={() => onPageChange('insight-detail', insight.id)}
                 className="group cursor-pointer"
               >
                 <div className="aspect-video rounded-[32px] overflow-hidden mb-8 shadow-sm">
-                  <img src={i === 0 ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" : i === 1 ? "https://images.unsplash.com/photo-1526304640581-d334cdbdf4f2?auto=format&fit=crop&w=600&q=80" : "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80"} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                  <img src={insight.img} alt={insight.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                 </div>
                 <div className="flex items-center space-x-4 mb-4">
                   <span className="text-emerald-500 text-[8px] font-black uppercase tracking-widest">{insight.cat}</span>
@@ -137,10 +167,10 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
                   {insight.desc}
                 </p>
                 <div className="flex justify-between items-center pt-6 border-t border-slate-100">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{insight.author}</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">BY {insight.author}</span>
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

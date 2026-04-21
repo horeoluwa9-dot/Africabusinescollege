@@ -117,6 +117,48 @@ const INSIGHTS_DATA: Record<string, any> = {
     content: `
       <p>The African startup ecosystem is graduating. After the exuberance of 2021-2022, the focus has shifted from gross volume to unit economics and path-to-profitability. We are now entering the era of IPO readiness.</p>
     `
+  },
+  'last-mile-logistics': {
+    title: 'Optimizing Last-Mile Logistics in Megacities.',
+    category: 'OPERATIONS',
+    readTime: '10 MIN READ',
+    author: 'David Okafor',
+    role: 'COO, Pan-African Logistics',
+    date: 'April 15, 2026',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
+    content: `
+      <p className="insight-dropcap">The logistics of African megacities are defined by complexity. From the sprawling markets of Lagos to the hilly terrain of Addis Ababa, the "last mile" remains the most expensive and inefficient part of the supply chain.</p>
+      <h3>The Data-Driven Solution</h3>
+      <p>By leveraging real-time traffic data and localized micro-warehousing, we are seeing a 30% reduction in delivery times. The integration of electric bikes and two-wheelers into the formal logistics grid is further bypassing urban congestion.</p>
+    `
+  },
+  'regulatory-sandbox': {
+    title: 'Regulatory Sandbox: A Guide for Tech Founders.',
+    category: 'POLICY',
+    readTime: '14 MIN READ',
+    author: 'Amara Diop',
+    role: 'Former Minister of Innovation',
+    date: 'April 18, 2026',
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80',
+    content: `
+      <p>Regulation is often seen as a barrier to innovation, but in the most successful tech ecosystems, it is a partner. Regulatory sandboxes allow for controlled experimentation, protecting consumers while giving founders room to iterate on new financial and healthcare technologies.</p>
+      <h3>Engaging with Stakeholders</h3>
+      <p>Trust is the primary currency. Founders who engage early with central banks and telecommunication regulators find that the path to licensing is significantly smoother than those who seek to "move fast and break things" in highly sensitive African sectors.</p>
+    `
+  },
+  'exit-strategies': {
+    title: 'Exit Strategies for African Tech Startups.',
+    category: 'CAPITAL',
+    readTime: '18 MIN READ',
+    author: 'Zara El-Amin',
+    role: 'Partner, Blue Ocean Capital',
+    date: 'April 20, 2026',
+    image: 'https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=1200&q=80',
+    content: `
+      <p>The liquidity question is no longer "if," but "when" and "how." As the first wave of Pan-African startups reaches maturity, the focus of both founders and investors is shifting toward the secondary market and strategic acquisitions.</p>
+      <h3>The M&A Landscape</h3>
+      <p>We are seeing increased interest from global tech giants and established African conglomerates looking to acquire specialized technological moats. The consolidation of the fintech sector is just the beginning of a broader exit cycle.</p>
+    `
   }
 };
 

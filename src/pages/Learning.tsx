@@ -9,6 +9,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { downloadMockPdf } from '../lib/downloadPdf';
 import { AnimatePresence } from 'motion/react';
 
+import { SectionLabel } from '../components/SectionLabel';
+
 interface ExperienceProps {
   onPageChange: (page: Page, id?: string) => void;
 }
@@ -55,10 +57,7 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
             transition={{ duration: 0.8 }}
             className="lg:col-span-7"
           >
-            <div className="inline-flex items-center space-x-4 mb-8">
-              <div className="w-12 h-px bg-emerald-500" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">The ABC Learning Model</span>
-            </div>
+            <SectionLabel className="mb-8" dark>The ABC Learning Model</SectionLabel>
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-white mb-12 uppercase">
               Online Rigor, <br />
               <span className="text-emerald-500 italic">Real-World Impact.</span>
@@ -68,7 +67,7 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6">
               <button 
-                onClick={() => onPageChange('programs')}
+                onClick={() => onPageChange('view-curriculum' as Page)}
                 className="bg-emerald-500 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20"
               >
                 View Curriculum

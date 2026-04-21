@@ -17,7 +17,9 @@ export type Page =
   | 'privacy' | 'terms' | 'accreditation'
   | 'login-student' | 'login-faculty'
   | 'dashboard-student' | 'dashboard-faculty' | 'news-detail' | 'insight-detail'
-  | 'scholarship' | 'events' | 'join-network' | 'alumni' | 'simulation-details';
+  | 'scholarship' | 'events' | 'join-network' | 'alumni' | 'simulation-details'
+  | 'who-should-apply' | 'inquire-details' | 'inquire-pricing' | 'financial-aid'
+  | 'admissions-faq' | 'view-curriculum';
 
 interface LayoutProps {
   children: React.ReactNode;
