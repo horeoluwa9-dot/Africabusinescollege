@@ -43,7 +43,7 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
             transition={{ duration: 0.8 }}
           >
             <SectionLabel className="mb-8">The Global Leadership Faculty</SectionLabel>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               <span className="text-emerald-500 italic">Builders</span>, <br />
               Not Instructors.
             </h1>

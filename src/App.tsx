@@ -47,6 +47,7 @@ import FinancialAidPortal from './pages/FinancialAidPortal';
 import AdmissionsFAQ from './pages/AdmissionsFAQ';
 import CurriculumPage from './pages/CurriculumPage';
 import { EventDetail } from './pages/EventDetail';
+import { ModulePage } from './pages/ModulePage';
 
 export default function App() {
   const [activePage, setActivePage] = useState<Page | 'full-course'>(() => {
@@ -56,6 +57,7 @@ export default function App() {
     return 'home';
   });
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(null);
+  const [selectedModuleId, setSelectedModuleId] = useState<number>(0);
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
   const [selectedInsightId, setSelectedInsightId] = useState<string | null>(null);
   const [selectedSimulationId, setSelectedSimulationId] = useState<string | null>(null);
@@ -67,6 +69,9 @@ export default function App() {
       if (page === 'program-detail') {
         setSelectedProgramId(id);
         setEntryContext({ source: 'program', id: id });
+      }
+      if (page === 'module-viewer') {
+        setSelectedModuleId(parseInt(id, 10));
       }
       if (page === 'news-detail') {
         setSelectedNewsId(id);
@@ -225,6 +230,16 @@ export default function App() {
                 
               case 'full-course':
                 return <FullCourseViewer programId={selectedProgramId} onBack={() => setActivePage('dashboard-student')} />;
+
+              case 'module-viewer':
+                return (
+                  <ModulePage 
+                    programId={selectedProgramId} 
+                    moduleId={selectedModuleId} 
+                    onBack={() => setActivePage('dashboard-student')}
+                    onComplete={() => setActivePage('dashboard-student')}
+                  />
+                );
 
               case 'post-view':
                 return <PostView onPageChange={handlePageChange} />;

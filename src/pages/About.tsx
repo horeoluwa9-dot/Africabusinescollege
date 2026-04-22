@@ -437,12 +437,12 @@ const ABCAdvantage = () => {
 
 const Recognitions = () => {
   const partners = [
-    { name: 'African Union', icon: Globe2 },
-    { name: 'Pan-African VC Alliance', icon: Users },
-    { name: 'Google for Startups Africa', icon: Zap },
-    { name: 'African Development Bank', icon: Shield },
-    { name: 'GNAM Affiliate', icon: Layers },
-    { name: 'Tech Council Africa', icon: Target }
+    { name: 'African Union', logo: 'https://upload.wikimedia.org/wikipedia/en/5/51/African_Union_logo.svg' },
+    { name: 'Y Combinator', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Y_Combinator_logo.svg' },
+    { name: 'Google for Startups', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google__G__Logo.svg' },
+    { name: 'AFDB', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/African_Development_Bank_Logo.svg' },
+    { name: 'CcHUB', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_Orange.svg' },
+    { name: 'Norrsken', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Siemens_logo.svg' }
   ];
 
   return (
@@ -454,8 +454,8 @@ const Recognitions = () => {
         <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12 sm:gap-x-16 opacity-70 hover:opacity-100 transition-all">
           {partners.map(p => (
             <div key={p.name} className="flex flex-col items-center space-y-4 group">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-2xl p-4 flex items-center justify-center border border-slate-100 group-hover:border-emerald-500 transition-all">
-                <p.icon className="w-8 h-8 text-botanical-950/40 group-hover:text-emerald-500 transition-colors" />
+              <div className="w-16 h-16 sm:w-24 sm:h-24 bg-white rounded-2xl p-4 flex items-center justify-center border border-slate-100 group-hover:border-emerald-500 transition-all shadow-sm">
+                <img src={p.logo} alt={p.name} className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" referrerPolicy="no-referrer" />
               </div>
               <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase text-center max-w-[100px]">{p.name}</span>
             </div>

@@ -347,12 +347,19 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                       <p className="text-sm text-slate-500">Progress: {module.progress}%</p>
                     </div>
                   </div>
-                  <button onClick={() => showToast('Connecting to interactive module...')} className="bg-botanical-950 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500">
-                    Enter Module
+                  <button onClick={() => module.status !== 'locked' ? onPageChange('module-viewer', i.toString()) : showToast('Connecting to interactive module...')} className="bg-botanical-950 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500">
+                    {module.status === 'locked' ? 'Locked' : 'Enter Module'}
                   </button>
                 </div>
               ))}
             </div>
+
+            {/* Dashboard Footer */}
+            <footer className="mt-auto py-12 border-t border-slate-100 bg-black text-center w-full px-6">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                Digitally Delivered by <span className="text-emerald-500">ABC Studio</span>
+              </p>
+            </footer>
           </section>
         ) : activeView === 'simulation' ? (
           <section className="px-12 pt-12">

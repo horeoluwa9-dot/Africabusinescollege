@@ -103,36 +103,34 @@ export const PROGRAMS: ProgramDetail[] = [
     category: 'Entrepreneurship',
     tag: 'ADMISSIONS',
     excerpt: 'Learn how to identify opportunities, validate ideas, build scalable business models, and execute with confidence.',
-    duration: '8–12 Weeks',
-    format: 'Cohort-Based | Online',
-    level: 'Beginner',
+    duration: '2 WEEKS',
+    format: 'COHORT-BASED | ONLINE',
+    level: 'BEGINNER',
     focus: 'Startups',
-    badge: 'Includes Simulations & Capstone Project',
+    badge: 'A VALIDATED BUSINESS IDEA',
     image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80',
     overview: {
-      content: 'This program is designed to help you move from idea to execution. You will learn how to identify real opportunities, validate your business ideas, and build ventures that can scale in African markets.',
+      content: 'This program is designed to move from a validated business idea to a complete business model through simulations and a capstone project.',
       bullets: [
-        'Opportunity identification',
-        'Market validation',
-        'Business model design',
-        'Go-to-market strategy',
-        'Venture execution'
+        'A VALIDATED BUSINESS IDEA',
+        'INCLUDES SIMULATIONS',
+        'INCLUDES CAPSTONE PROJECT',
+        'A COMPLETE BUSINESS MODEL'
       ]
     },
     gains: [
-      'A validated business idea',
-      'A complete business model',
-      'Market entry strategy',
-      'Financial understanding of your venture',
-      'Execution roadmap'
+      'A VALIDATED BUSINESS IDEA',
+      'INCLUDES SIMULATIONS',
+      'INCLUDES CAPSTONE PROJECT',
+      'A COMPLETE BUSINESS MODEL'
     ],
     structure: [
-      { title: 'Opportunity Identification', duration: '2 Weeks', description: 'Learn how to identify real, high-potential business opportunities in African markets.' },
-      { title: 'Business Model Design', duration: '2 Weeks', description: 'Design scalable and profitable business models.' },
-      { title: 'Market Validation', duration: '2 Weeks', description: 'Test and validate your idea before committing resources.' },
-      { title: 'Go-To-Market Strategy', duration: '2 Weeks', description: 'Plan how to launch and acquire your first customers.' },
-      { title: 'Venture Finance Fundamentals', duration: '1 Week', description: 'Understand revenue, costs, and financial sustainability.' },
-      { title: 'Execution & Scaling', duration: '2 Weeks', description: 'Learn how to operate and grow your venture.' }
+      { title: 'Module 1', duration: '2 Days', description: 'Opportunity identification and market validation.' },
+      { title: 'Module 2', duration: '2 Days', description: 'Business model design and value proposition.' },
+      { title: 'Module 3', duration: '2 Days', description: 'Go-to-market strategy and customer acquisition.' },
+      { title: 'Module 4', duration: '2 Days', description: 'Venture finance and sustainability.' },
+      { title: 'Module 5', duration: '2 Days', description: 'Execution and operations.' },
+      { title: 'Module 6', duration: '2 Days', description: 'Scaling and capstone project.' }
     ],
     learningExperience: [
       'Live sessions with instructors',

@@ -352,7 +352,7 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
                 </div>
                 
                 <h3 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-2 relative z-10">PROGRAM</h3>
-                <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter mb-12 relative z-10 leading-relaxed max-w-[85%] break-words hyphens-auto">
+                <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-12 relative z-10 leading-relaxed max-w-[85%] break-words hyphens-auto">
                   {program.title}
                 </h2>
                 

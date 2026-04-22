@@ -63,11 +63,20 @@ export const Partnerships = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-slate-200 rounded-[40px] overflow-hidden border border-slate-200">
-            {[...Array(10)].map((_, i) => (
-              <div key={i} className="bg-white aspect-square flex items-center justify-center p-12 group">
-                <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center group-hover:bg-emerald-50 transition-colors">
-                  <Handshake className="w-8 h-8 text-slate-300 group-hover:text-emerald-500 transition-colors" />
-                </div>
+            {[
+              'https://upload.wikimedia.org/wikipedia/commons/b/b2/Y_Combinator_logo.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/5/53/Google__G__Logo.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/b/bf/African_Development_Bank_Logo.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg',
+              'https://upload.wikimedia.org/wikipedia/en/5/51/African_Union_logo.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/f/ff/Standard_Bank_Logo.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/4/4e/Mastercard-logo.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_Orange.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/e/e1/Siemens_logo.svg',
+              'https://upload.wikimedia.org/wikipedia/commons/7/77/Visa_2021.svg'
+            ].map((logo, i) => (
+              <div key={i} className="bg-white aspect-square flex items-center justify-center p-8 group overflow-hidden">
+                <img src={logo} alt="Partner Logo" className="w-16 h-16 md:w-20 md:h-20 object-contain grayscale group-hover:grayscale-0 transition-all duration-500 opacity-60 group-hover:opacity-100" referrerPolicy="no-referrer" />
               </div>
             ))}
           </div>

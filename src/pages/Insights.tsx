@@ -189,10 +189,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
               </button>
             ))}
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Filtered By</span>
-            <Filter className="w-4 h-4 text-slate-400" />
-          </div>
+          <Filter className="w-4 h-4 text-slate-400" />
         </div>
       </section>
 

@@ -12,7 +12,7 @@ export type Page =
   | 'faculty' | 'learning' | 'simulation-labs' | 'careers' | 'application'
   | 'checkout' | 'welcome' | 'simulation-demo' | 'full-course'
   | 'entrepreneurship' | 'venture-building' | 'digital-business' | 'innovation-leadership'
-  | 'program-detail' | 'post-view'
+  | 'program-detail' | 'post-view' | 'module-viewer'
   | 'community' | 'partnerships' | 'contact'
   | 'privacy' | 'terms' | 'accreditation'
   | 'login-student' | 'login-faculty'
@@ -523,7 +523,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
         <div className="relative z-10 border-t border-white/5 py-12">
           <div className={`max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">
-              © 2026 AFRICA BUSINESS COLLEGE All Rights Reserved by <a href="https://cyclebreeze.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-500 hover:text-emerald-400 italic">Cyclebreeze</a>
+              © 2026 AFRICA BUSINESS COLLEGE All Rights Reserved • Digitally Delivered by <span className="text-emerald-500">ABC Studio</span>
             </p>
             <div className={`flex flex-wrap justify-center gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
               {[

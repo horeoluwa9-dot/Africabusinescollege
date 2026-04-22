@@ -257,7 +257,7 @@ const ProgramGrid = ({ onPageChange, activeCategory }: ProgramGridProps) => {
             <div className="p-10 flex flex-col flex-grow">
               <div className="mb-6">
                 <span className="text-[8px] font-black tracking-widest text-emerald-500 uppercase block mb-2">{program.category}</span>
-                <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors">
+                <h3 className="text-xl font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors">
                   {program.title}
                 </h3>
               </div>
