@@ -29,10 +29,10 @@ interface AboutProps {
 const AboutHero = () => {
   return (
     <section className="pt-6 pb-32 bg-white px-6 md:px-12 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          <div className="lg:col-span-7 order-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+          <div className="lg:col-span-7 order-1 pt-4">
             <SectionLabel className="mb-8">The Institution</SectionLabel>
-            <h1 className="text-5xl md:text-8xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
+            <h1 className="text-4xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
               Architecture of <br /> <span className="text-emerald-500 italic">Execution</span>
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed font-bold mb-8">
@@ -58,17 +58,16 @@ const AboutHero = () => {
               </div>
             </div>
           </div>
-          <div className="lg:col-span-5 order-2 relative flex items-center justify-center lg:justify-end">
-            <div className="w-full max-w-[400px] aspect-[3/4] lg:h-[60vh] lg:min-h-[500px] rounded-[48px] overflow-hidden border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative">
+          <div className="lg:col-span-5 order-2 relative">
+            <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl group">
               <img 
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" 
                 alt="ABC Campus Life" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/20 via-transparent to-transparent" />
             </div>
-            <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-emerald-500 rounded-full -z-10 blur-[100px] opacity-20" />
           </div>
       </div>
     </section>
@@ -437,12 +436,12 @@ const ABCAdvantage = () => {
 
 const Recognitions = () => {
   const partners = [
-    { name: 'African Union', logo: 'https://upload.wikimedia.org/wikipedia/en/5/51/African_Union_logo.svg' },
-    { name: 'Y Combinator', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Y_Combinator_logo.svg' },
-    { name: 'Google for Startups', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google__G__Logo.svg' },
-    { name: 'AFDB', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/African_Development_Bank_Logo.svg' },
-    { name: 'CcHUB', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_Orange.svg' },
-    { name: 'Norrsken', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Siemens_logo.svg' }
+    { name: 'African Union', domain: 'au.int' },
+    { name: 'Y Combinator', domain: 'ycombinator.com' },
+    { name: 'Google for Startups', domain: 'google.com' },
+    { name: 'AfricInvest', domain: 'africinvest.com' },
+    { name: 'CcHUB', domain: 'cchubnigeria.com' },
+    { name: 'Norrsken', domain: 'norrsken.vc' }
   ];
 
   return (
@@ -451,11 +450,26 @@ const Recognitions = () => {
         <div className="text-center mb-12">
           <SectionLabel className="mb-8 justify-center">Recognitions & Partnerships</SectionLabel>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12 sm:gap-x-16 opacity-70 hover:opacity-100 transition-all">
+        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12 sm:gap-x-16 transition-all">
           {partners.map(p => (
             <div key={p.name} className="flex flex-col items-center space-y-4 group">
-              <div className="w-16 h-16 sm:w-24 sm:h-24 bg-white rounded-2xl p-4 flex items-center justify-center border border-slate-100 group-hover:border-emerald-500 transition-all shadow-sm">
-                <img src={p.logo} alt={p.name} className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" referrerPolicy="no-referrer" />
+              <div className="w-16 h-16 sm:w-24 sm:h-24 bg-white rounded-2xl p-4 flex items-center justify-center border border-slate-100 group-hover:border-emerald-500 transition-all shadow-sm overflow-hidden">
+                <img 
+                  src={`https://logo.clearbit.com/${p.domain}?size=256`}
+                  alt={p.name} 
+                  className="w-full h-full object-contain transition-all" 
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src.includes('clearbit.com')) {
+                      // Fallback 1: Google Favicons
+                      target.src = `https://www.google.com/s2/favicons?domain=${p.domain}&sz=256`;
+                    } else if (!target.src.includes('ui-avatars')) {
+                      // Fallback 2: Initials
+                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=00D98E&color=fff&bold=true`;
+                    }
+                  }}
+                />
               </div>
               <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase text-center max-w-[100px]">{p.name}</span>
             </div>

@@ -74,15 +74,16 @@ export const SimulationLabs = ({ onPageChange }: { onPageChange: (page: Page, id
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="relative pt-6 pb-32 px-6 md:px-12 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="pt-4"
           >
             <SectionLabel className="mb-6">Execution Business Laboratory</SectionLabel>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               {isPaid ? "Your Strategic" : "Learn Business by"} <br />
               <span className="text-emerald-500 italic">{isPaid ? "Command Center" : "Making Real"}</span> <br />
               {isPaid ? "is Active" : "Decisions"}

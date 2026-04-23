@@ -214,16 +214,6 @@ export default function App() {
                 return <StudentPortal onPageChange={handlePageChange} />;
               case 'login-faculty':
                 return <GenericPage title="Faculty Portal" description="Manage your sessions, research, and student progress." onBack={() => setActivePage('home')} />;
-              
-              // Program Sub-pages
-              case 'entrepreneurship':
-                return <GenericPage title="Entrepreneurship" description="Master the mechanics of building scalable businesses in African markets." onBack={() => setActivePage('programs')} />;
-              case 'venture-building':
-                return <GenericPage title="Venture Building" description="From ideation to Series A: The blueprint for continental startups." onBack={() => setActivePage('programs')} />;
-              case 'digital-business':
-                return <GenericPage title="Digital Business" description="Scaling products and platforms in the world's fastest-growing digital economy." onBack={() => setActivePage('programs')} />;
-              case 'innovation-leadership':
-                return <GenericPage title="Innovation Leadership" description="Leading high-performance teams through digital transformation." onBack={() => setActivePage('programs')} />;
 
               case 'program-detail':
                 return <ProgramDetail programId={selectedProgramId} onPageChange={handlePageChange} onBack={() => setActivePage('programs')} />;

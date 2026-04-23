@@ -20,15 +20,15 @@ export const Contact = ({ onPageChange }: ContactProps) => {
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="relative pt-6 pb-32 px-6 md:px-12 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative z-10"
+            className="relative z-10 pt-4"
           >
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               Get in Touch <br />
               <span className="text-emerald-500 italic">with ABC</span>
             </h1>
@@ -177,20 +177,10 @@ export const Contact = ({ onPageChange }: ContactProps) => {
       <section className="py-24 md:py-32 px-6 md:px-12 bg-slate-50">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-botanical-950 mb-8 uppercase">Digital-First, <br /> Global Reach</h2>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-botanical-950 mb-8 uppercase">Digitally Delivered, <br /> Globally Accessible</h2>
             <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium mb-12">
-              While ABC operates as a digital-first institution to ensure accessibility across the continent, we maintain physical regional hubs for simulation labs and collaborative workshops.
+              ABC is a digital-first institution built for access across African markets. Our learning model combines live sessions, simulations, and collaborative online experiences.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div>
-                <h4 className="text-emerald-500 font-black uppercase tracking-tight mb-4">West Africa Hub</h4>
-                <p className="text-slate-500 text-sm font-medium">Lagos, Nigeria <br /> Innovation District</p>
-              </div>
-              <div>
-                <h4 className="text-emerald-500 font-black uppercase tracking-tight mb-4">East Africa Hub</h4>
-                <p className="text-slate-500 text-sm font-medium">Nairobi, Kenya <br /> Digital Square</p>
-              </div>
-            </div>
           </div>
           <div className="relative rounded-[40px] overflow-hidden shadow-2xl">
             <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=80" alt="Global Reach Map" className="w-full h-full object-cover" referrerPolicy="no-referrer" />

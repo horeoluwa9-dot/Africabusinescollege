@@ -3,19 +3,60 @@ import { motion } from 'motion/react';
 import { Handshake, Globe, Zap, Users, Microscope, TrendingUp, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { SectionLabel } from '../components/SectionLabel';
 
+const PARTNERS_DATA = {
+  'Universities': [
+    { name: 'Harvard Business School', domain: 'harvard.edu' },
+    { name: 'Stanford University', domain: 'stanford.edu' },
+    { name: 'Lagos Business School', domain: 'lbs.edu.ng' },
+    { name: 'UCT', domain: 'uct.ac.za' },
+    { name: 'Strathmore', domain: 'strathmore.edu' }
+  ],
+  'Businesses': [
+    { name: 'Google', domain: 'google.com' },
+    { name: 'Microsoft', domain: 'microsoft.com' },
+    { name: 'Visa', domain: 'visa.com' },
+    { name: 'Mastercard', domain: 'mastercard.com' },
+    { name: 'Orange', domain: 'orange.com' }
+  ],
+  'Investors': [
+    { name: 'Y Combinator', domain: 'ycombinator.com' },
+    { name: 'Partech', domain: 'partechpartners.com' },
+    { name: 'Norrsken', domain: 'norrsken.vc' },
+    { name: 'AfricInvest', domain: 'africinvest.com' },
+    { name: 'Helios', domain: 'heliosinvestment.com' }
+  ],
+  'Innovation Hubs': [
+    { name: 'CcHUB', domain: 'cchubnigeria.com' },
+    { name: 'iHub', domain: 'ihub.co.ke' },
+    { name: 'BongoHive', domain: 'bongohive.co.zm' },
+    { name: 'MEST Africa', domain: 'meltwater.org' },
+    { name: 'KLab', domain: 'klab.rw' }
+  ],
+  'Global Partners': [
+    { name: 'African Union', domain: 'au.int' },
+    { name: 'AFDB', domain: 'afdb.org' },
+    { name: 'World Bank', domain: 'worldbank.org' },
+    { name: 'UNDP', domain: 'undp.org' },
+    { name: 'WEF', domain: 'weforum.org' }
+  ]
+};
+
 export const Partnerships = () => {
+  const [activeTab, setActiveTab] = React.useState('Universities');
+
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="relative pt-6 pb-32 px-6 md:px-12 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="pt-4"
           >
             <SectionLabel className="mb-6">Partnerships</SectionLabel>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               Building With <br />
               <span className="text-emerald-500 italic">Leading</span> <br />
               Institutions
@@ -31,7 +72,7 @@ export const Partnerships = () => {
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="aspect-[4/3] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl group">
+            <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl group">
               <img 
                 src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80" 
                 alt="Partnerships" 
@@ -54,8 +95,16 @@ export const Partnerships = () => {
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mt-12">
-              {['Universities', 'Businesses', 'Investors', 'Innovation Hubs', 'Global Partners'].map(tab => (
-                <button key={tab} className="px-6 py-2 rounded-full border border-slate-200 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all">
+              {Object.keys(PARTNERS_DATA).map(tab => (
+                <button 
+                  key={tab} 
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-2 rounded-full border text-[10px] font-black uppercase tracking-widest transition-all ${
+                    activeTab === tab 
+                      ? 'bg-botanical-950 text-white border-botanical-950 shadow-xl' 
+                      : 'bg-white border-slate-200 text-slate-400 hover:border-emerald-500 hover:text-emerald-500'
+                  }`}
+                >
                   {tab}
                 </button>
               ))}
@@ -63,20 +112,27 @@ export const Partnerships = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-slate-200 rounded-[40px] overflow-hidden border border-slate-200">
-            {[
-              'https://upload.wikimedia.org/wikipedia/commons/b/b2/Y_Combinator_logo.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/5/53/Google__G__Logo.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/b/bf/African_Development_Bank_Logo.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg',
-              'https://upload.wikimedia.org/wikipedia/en/5/51/African_Union_logo.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/f/ff/Standard_Bank_Logo.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/4/4e/Mastercard-logo.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_Orange.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/e/e1/Siemens_logo.svg',
-              'https://upload.wikimedia.org/wikipedia/commons/7/77/Visa_2021.svg'
-            ].map((logo, i) => (
-              <div key={i} className="bg-white aspect-square flex items-center justify-center p-8 group overflow-hidden">
-                <img src={logo} alt="Partner Logo" className="w-16 h-16 md:w-20 md:h-20 object-contain grayscale group-hover:grayscale-0 transition-all duration-500 opacity-60 group-hover:opacity-100" referrerPolicy="no-referrer" />
+            {PARTNERS_DATA[activeTab as keyof typeof PARTNERS_DATA].map((partner, i) => (
+              <div key={partner.name} className="bg-white aspect-square flex flex-col items-center justify-center p-8 group overflow-hidden">
+                <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-4">
+                  <img 
+                    src={`https://logo.clearbit.com/${partner.domain}?size=256`}
+                    alt={partner.name} 
+                    className="w-full h-full object-contain transition-all duration-500" 
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (target.src.includes('clearbit.com')) {
+                        // Fallback 1: Google Favicon (returns high res for domains like au.int, weforum.org)
+                        target.src = `https://www.google.com/s2/favicons?domain=${partner.domain}&sz=256`;
+                      } else if (!target.src.includes('ui-avatars')) {
+                        // Fallback 2: Initials
+                        target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(partner.name)}&background=00D98E&color=fff&bold=true`;
+                      }
+                    }}
+                  />
+                </div>
+                <span className="text-[8px] font-black tracking-widest text-slate-300 uppercase opacity-0 group-hover:opacity-100 transition-opacity text-center line-clamp-1">{partner.name}</span>
               </div>
             ))}
           </div>

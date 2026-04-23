@@ -55,7 +55,7 @@ const Newsletter = () => {
           type="email" 
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
+          placeholder="ENTER YOUR EMAIL"
           className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[10px] font-black uppercase tracking-widest text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-500 transition-colors"
           required
         />
@@ -472,15 +472,15 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
               <h6 className="text-[10px] font-black uppercase tracking-widest text-white mb-8">Programs</h6>
               <ul className="space-y-4">
                 {[
-                  { name: 'All Programs', page: 'programs' },
-                  { name: 'Entrepreneurship', page: 'entrepreneurship' },
-                  { name: 'Venture Building', page: 'venture-building' },
-                  { name: 'Digital Business', page: 'digital-business' },
-                  { name: 'Innovation Leadership', page: 'innovation-leadership' }
+                  { name: 'All Programs', page: 'programs', id: undefined },
+                  { name: 'Entrepreneurship', page: 'program-detail', id: 'entrepreneurship' },
+                  { name: 'Venture Building', page: 'program-detail', id: 'venture-building' },
+                  { name: 'Digital Business', page: 'program-detail', id: 'digital-business' },
+                  { name: 'Innovation Leadership', page: 'program-detail', id: 'innovation-leadership' }
                 ].map(item => (
                   <li key={item.name} className="whitespace-nowrap">
                     <button 
-                      onClick={() => onPageChange(item.page as Page)}
+                      onClick={() => onPageChange(item.page as Page, item.id)}
                       className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 transition-colors"
                     >
                       {item.name}
@@ -523,7 +523,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
         <div className="relative z-10 border-t border-white/5 py-12">
           <div className={`max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">
-              © 2026 AFRICA BUSINESS COLLEGE All Rights Reserved • Digitally Delivered by <span className="text-emerald-500">ABC Studio</span>
+              © 2026 African Business College. All Rights Reserved. Delivered by ABC STUDIO
             </p>
             <div className={`flex flex-wrap justify-center gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
               {[

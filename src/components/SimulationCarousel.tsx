@@ -141,7 +141,7 @@ export const SimulationCarousel = ({ items, onSelect, onExplore, title, subtitle
                 </div>
                 
                 <div>
-                  <h4 className="text-sm font-black uppercase tracking-tight mb-2 leading-tight">
+                  <h4 className="text-[11px] font-black uppercase tracking-tight mb-2 leading-tight">
                     {item.name}
                   </h4>
                   <div className={`h-1 w-8 rounded-full transition-all duration-500 ${

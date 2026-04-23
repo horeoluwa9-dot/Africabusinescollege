@@ -52,13 +52,6 @@ export const ModulePage: React.FC<ModulePageProps> = ({ programId, moduleId, onB
 
         <div className="flex items-center gap-4">
           <button 
-            onClick={() => setIsAiPanelOpen(!isAiPanelOpen)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isAiPanelOpen ? 'bg-botanical-950 text-white' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'}`}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>AI Studio</span>
-          </button>
-          <button 
             onClick={onComplete}
             className="bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 active:scale-95"
           >

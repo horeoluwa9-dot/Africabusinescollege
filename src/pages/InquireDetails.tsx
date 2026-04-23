@@ -45,7 +45,7 @@ const InquireDetails: React.FC<InquireDetailsProps> = ({ onPageChange }) => {
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div>
             <SectionLabel className="mb-8">Contact Center</SectionLabel>
-            <h1 className="text-6xl md:text-8xl font-black text-botanical-950 tracking-tighter mb-12 uppercase leading-[0.85]">
+            <h1 className="text-4xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-12 uppercase leading-[0.85]">
               Institutional <br /> <span className="text-emerald-500 italic">Inquiry.</span>
             </h1>
             <p className="text-xl text-slate-500 font-medium leading-relaxed mb-16">

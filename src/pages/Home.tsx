@@ -113,7 +113,7 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
 
   return (
     <section 
-      className="relative bg-botanical-950 min-h-[90vh] flex items-center overflow-hidden pt-12"
+      className="relative bg-botanical-950 min-h-[90vh] flex items-center overflow-hidden pt-32 pb-16"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -126,15 +126,15 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center py-20"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start py-20"
           >
             {/* Left Content */}
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-7 pt-4">
               <SectionLabel className="mb-8" dark>
                 {slides[currentSlide].eyebrow}
               </SectionLabel>
 
-              <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.85] text-white mb-8 uppercase overflow-hidden">
+              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.85] text-white mb-8 uppercase overflow-hidden">
                 {slides[currentSlide].headline.split(' ').map((word, i) => (
                   <span key={i} className="inline-block overflow-hidden mr-[0.2em] whitespace-nowrap">
                     <motion.span
@@ -198,9 +198,9 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
                 delay: 0.4,
                 ease: [0.22, 1, 0.36, 1]
               }}
-              className="lg:col-span-5 relative h-full flex items-center justify-center lg:justify-end"
+              className="lg:col-span-5 relative"
             >
-              <div className="w-full max-w-[400px] aspect-[3/4] lg:h-[60vh] lg:min-h-[500px] rounded-[40px] overflow-hidden border border-white/10 relative group shadow-2xl">
+              <div className="aspect-square bg-slate-100/10 rounded-[40px] overflow-hidden relative shadow-2xl group">
                 <motion.img 
                   key={`img-${currentSlide}`}
                   initial={{ scale: 1.2 }}
@@ -344,7 +344,7 @@ const Programs = ({ onPageChange }: HomeProps) => {
               <div className="p-10 flex flex-col flex-grow">
                 <div className="mb-6">
                   <span className="text-[8px] font-black tracking-widest text-emerald-500 uppercase block mb-2">{program.category}</span>
-                  <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors">
+                  <h3 className="text-[10px] font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors truncate">
                     {program.title}
                   </h3>
                 </div>
@@ -744,7 +744,7 @@ const Sessions = ({ onPageChange }: HomeProps) => {
           <div className="flex justify-between items-center mb-12 border-b border-slate-100 pb-6">
             <h3 className="text-xl font-black text-botanical-950 tracking-tight">{t('home.upcomingSessions')}</h3>
             <button 
-              onClick={() => onPageChange('insights')}
+              onClick={() => onPageChange('events')}
               className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors"
             >
               {t('home.viewAllEvents')}

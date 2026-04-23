@@ -28,21 +28,20 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
   return (
     <div className="pt-24 relative">
       {/* Hero Section */}
-      <section className="relative py-32 px-6 md:px-12 overflow-hidden bg-botanical-950">
-        <AnimatedBackground intensity="high" className="opacity-40" />
-        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+      <section className="relative pt-6 pb-32 px-6 md:px-12 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start pt-4">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="lg:col-span-7"
           >
-            <SectionLabel className="mb-8" dark>The ABC Learning Model</SectionLabel>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-white mb-12 uppercase">
+            <SectionLabel className="mb-8">The ABC Learning Model</SectionLabel>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12 uppercase">
               Online Rigor, <br />
               <span className="text-emerald-500 italic">Real-World Impact.</span>
             </h1>
-            <p className="text-xl text-slate-400 leading-relaxed font-medium mb-12 max-w-2xl">
+            <p className="text-xl text-slate-500 leading-relaxed font-medium mb-12 max-w-2xl">
               We've re-engineered business education for the digital age. Our model combines high-fidelity online classes with immersive simulation labs and global peer networks.
             </p>
             <div className="flex flex-col sm:flex-row gap-6">
@@ -54,7 +53,7 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
               </button>
               <button 
                 onClick={() => onPageChange('simulation-labs')}
-                className="bg-white/10 border border-white/10 text-white px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/20 transition-all"
+                className="bg-white border border-slate-200 text-slate-600 px-12 py-6 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all active:scale-95"
               >
                 Enter Simulation Labs
               </button>
@@ -65,16 +64,16 @@ export const Learning = ({ onPageChange }: ExperienceProps) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="lg:col-span-5 relative flex items-center justify-center lg:justify-end"
+            className="lg:col-span-5 relative"
           >
-            <div className="w-full max-w-[400px] aspect-[3/4] lg:h-[60vh] lg:min-h-[500px] rounded-[40px] overflow-hidden border border-white/10 relative group shadow-2xl">
+            <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative group shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" 
                 alt="Online Learning" 
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/20 via-transparent to-transparent" />
             </div>
           </motion.div>
         </div>

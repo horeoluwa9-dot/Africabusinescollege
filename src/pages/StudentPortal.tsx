@@ -11,11 +11,11 @@ interface StudentPortalProps {
 export const StudentPortal: React.FC<StudentPortalProps> = ({ onPageChange }) => {
   return (
     <div className="pt-24 min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-6 pb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="pt-4">
             <SectionLabel className="mb-8">Access Point</SectionLabel>
-            <h1 className="text-5xl md:text-8xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
+            <h1 className="text-4xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
               Student <br /> <span className="text-emerald-500 italic">Portal.</span>
             </h1>
             <p className="text-xl text-slate-500 font-medium leading-relaxed mb-12">

@@ -230,7 +230,7 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
                         <h4 className="text-2xl font-black text-botanical-950 uppercase tracking-tighter">{course.title}</h4>
                       </div>
                       <button 
-                        onClick={() => onPageChange('simulation-demo')}
+                        onClick={() => onPageChange('module-viewer', i.toString())}
                         className="bg-white border border-slate-200 text-botanical-950 px-6 py-3 text-[8px] font-black uppercase tracking-widest rounded-lg hover:bg-emerald-500 hover:text-white transition-all"
                       >
                         View Course
@@ -352,7 +352,7 @@ export const ProgramDetail = ({ programId, onPageChange, onBack }: ProgramDetail
                 </div>
                 
                 <h3 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-2 relative z-10">PROGRAM</h3>
-                <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-12 relative z-10 leading-relaxed max-w-[85%] break-words hyphens-auto">
+                <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-12 relative z-10 leading-relaxed">
                   {program.title}
                 </h2>
                 

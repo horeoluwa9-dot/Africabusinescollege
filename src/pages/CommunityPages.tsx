@@ -144,6 +144,8 @@ export const EventsPage = ({ onBack, onPageChange }: Props) => (
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
+          { title: 'The Future of Execution Wealth Funds', type: 'Public', location: 'Pan-African Zoom', date: 'NOV 14', img: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80', id: 'wealth-funds' },
+          { title: 'Agribusiness Supply Chain Summit', type: 'Public', location: 'EMBA Hall', date: 'NOV 22', img: 'https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1?auto=format&fit=crop&w=800&q=80', id: 'agribusiness-summit' },
           { title: 'ABC Annual Summit 2026', type: 'Public', location: 'Lagos', date: 'DEC 12', img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80', id: 'annual-summit-2026' },
           { title: "Founders' Private Dinner", type: 'Invite Only', location: 'Nairobi', date: 'JAN 05', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80', id: 'founders-dinner' },
           { title: 'Regional Meetup: Joburg', type: 'Public', location: 'Johannesburg', date: 'FEB 10', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80', id: 'regional-joburg' },

@@ -44,6 +44,26 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
   const { user, logout, isLoggedIn, isPaid } = useAuth();
   const { showToast } = useToast();
   const [activeView, setActiveView] = React.useState('os');
+  const [chatMessage, setChatMessage] = React.useState('');
+  const [communityMessages, setCommunityMessages] = React.useState([
+    { user: 'Amara K.', msg: 'Incredible insights in the growth simulator today.', time: '10:42 AM' },
+    { user: 'Execution Faculty', msg: 'Reminder: Live session begins in 1 hour.', time: '11:00 AM' },
+    { user: 'Jean-Luc M.', msg: 'Has anyone cracked the pricing model for Francophone markets?', time: '11:15 AM' }
+  ]);
+
+  const handleSendMessage = () => {
+    if (!chatMessage.trim()) return;
+    
+    const newMessage = {
+      user: user?.name || 'Kofi Mensah',
+      msg: chatMessage,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+    
+    setCommunityMessages([newMessage, ...communityMessages]);
+    setChatMessage('');
+    showToast('Message sent to cohort');
+  };
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -415,11 +435,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
             <div className="flex-grow grid grid-cols-12 gap-8 pb-12">
               <div className="col-span-8 flex flex-col space-y-6">
                 <div className="bg-slate-50 p-6 rounded-3xl flex-grow overflow-y-auto space-y-4">
-                   {[
-                     { user: 'Amara K.', msg: 'Incredible insights in the growth simulator today.', time: '10:42 AM' },
-                     { user: 'Execution Faculty', msg: 'Reminder: Live session begins in 1 hour.', time: '11:00 AM' },
-                     { user: 'Jean-Luc M.', msg: 'Has anyone cracked the pricing model for Francophone markets?', time: '11:15 AM' }
-                   ].map((chat, i) => (
+                   {communityMessages.map((chat, i) => (
                      <div key={i} className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 max-w-[80%]">
                         <div className="flex justify-between items-center mb-2">
                            <span className="text-[10px] font-black tracking-tight text-emerald-500">{chat.user}</span>
@@ -430,8 +446,14 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                    ))}
                 </div>
                 <div className="flex space-x-4">
-                   <input className="flex-grow bg-white border border-slate-100 rounded-2xl px-6 py-4 text-sm focus:border-emerald-500 focus:outline-none shadow-sm" placeholder="Message your cohort..." />
-                   <button onClick={() => showToast('Message sent to cohort')} className="bg-botanical-950 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/20">Send</button>
+                   <input 
+                     className="flex-grow bg-white border border-slate-100 rounded-2xl px-6 py-4 text-sm focus:border-emerald-500 focus:outline-none shadow-sm" 
+                     placeholder="Message your cohort..." 
+                     value={chatMessage}
+                     onChange={(e) => setChatMessage(e.target.value)}
+                     onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                   />
+                   <button onClick={handleSendMessage} className="bg-botanical-950 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/20">Send</button>
                 </div>
               </div>
               <div className="col-span-4 bg-white border border-slate-100 rounded-[40px] p-10">

@@ -9,15 +9,16 @@ export const Community = ({ onPageChange }: { onPageChange: (page: any, id?: str
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="relative pt-6 pb-32 px-6 md:px-12 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="pt-4"
           >
             <SectionLabel className="mb-6">Network of Excellence</SectionLabel>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               Join a <br />
               Community of <br />
               <span className="text-emerald-500 italic">Builders</span>
@@ -41,7 +42,7 @@ export const Community = ({ onPageChange }: { onPageChange: (page: any, id?: str
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
+            <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" 
                 alt="Community" 

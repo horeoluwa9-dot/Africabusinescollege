@@ -126,7 +126,7 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-8">
               <SectionLabel className="mb-8" dark>Insights & Intelligence</SectionLabel>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12 uppercase">
+              <h1 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12 uppercase">
                 Architecting the <br />
                 <span className="text-emerald-500 italic">African Future</span>
               </h1>
@@ -189,7 +189,6 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
               </button>
             ))}
           </div>
-          <Filter className="w-4 h-4 text-slate-400" />
         </div>
       </section>
 
@@ -237,20 +236,6 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
             <div>
               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-4 block">PREMIUM SERIES CONTENT</span>
               <h2 className="text-5xl font-black tracking-tighter text-botanical-950 uppercase">The Deep Dives</h2>
-            </div>
-            <div className="flex space-x-4">
-              <button 
-                onClick={() => showNotification('Previous series analysis')}
-                className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={() => showNotification('Next series analysis')}
-                className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all"
-              >
-                <ArrowRightIcon className="w-5 h-5" />
-              </button>
             </div>
           </div>
 

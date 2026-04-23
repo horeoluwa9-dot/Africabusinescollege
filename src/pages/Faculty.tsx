@@ -22,28 +22,34 @@ interface FacultyProps {
 
 export const Faculty = ({ onPageChange }: FacultyProps) => {
   const { t } = useLanguage();
+  const [activeExpertise, setActiveExpertise] = useState('All Expertise');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 
-  const filteredFaculty = FACULTY_MEMBERS.filter(f => 
-    f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    f.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    f.tag.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    f.sub.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  const filteredFaculty = FACULTY_MEMBERS.filter(f => {
+    const matchesSearch = f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      f.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      f.tag.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      f.sub.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    const matchesExpertise = activeExpertise === 'All Expertise' || f.tag.toLowerCase().includes(activeExpertise.toLowerCase()) || f.sub.some(s => s.toLowerCase().includes(activeExpertise.toLowerCase()));
+    
+    return matchesSearch && matchesExpertise;
+  });
 
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative pt-16 pb-20 px-6 md:px-12 overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="relative pt-6 pb-20 px-6 md:px-12 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="pt-4"
           >
             <SectionLabel className="mb-8">The Global Leadership Faculty</SectionLabel>
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
               <span className="text-emerald-500 italic">Builders</span>, <br />
               Not Instructors.
             </h1>
@@ -84,7 +90,7 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
+            <div className="aspect-square bg-slate-100 rounded-[40px] overflow-hidden relative shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" 
                 alt="Featured Faculty" 
@@ -112,16 +118,17 @@ export const Faculty = ({ onPageChange }: FacultyProps) => {
 
       {/* Filter Bar (Static/Non-functional as requested) */}
       <section className="py-12 px-6 md:px-12 bg-slate-50 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-4 cursor-default">
-          {['All Expertise', 'Entrepreneurship', 'Venture Capital', 'Finance', 'Tech', 'Strategy', 'Policy'].map((filter, i) => (
-            <span 
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-4">
+          {['All Expertise', 'Entrepreneurship', 'Venture Capital', 'Finance', 'Tech', 'Strategy', 'Policy'].map((filter) => (
+            <button 
               key={filter} 
-              className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest select-none ${
-                i === 0 ? 'bg-botanical-950 text-white' : 'bg-white border border-slate-200 text-slate-300'
+              onClick={() => setActiveExpertise(filter)}
+              className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
+                activeExpertise === filter ? 'bg-botanical-950 text-white shadow-lg' : 'bg-white border border-slate-200 text-slate-400 hover:border-emerald-500 hover:text-emerald-500'
               }`}
             >
               {filter}
-            </span>
+            </button>
           ))}
         </div>
       </section>

@@ -63,7 +63,7 @@ export const Scholarship: React.FC<ScholarshipProps> = ({ onPageChange }) => {
           <div className="inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full mb-6">
             <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Financial Aid</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-botanical-950 mb-6 leading-none">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-botanical-950 mb-6 leading-none">
             Scholarship <br /> <span className="text-emerald-500 italic">Application</span>
           </h1>
           <p className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">

@@ -34,10 +34,10 @@ const Hero = ({ onPageChange }: AdmissionsProps) => {
   };
 
   return (
-    <section className="pt-48 pb-32 px-6 md:px-12 max-w-7xl mx-auto relative">
+    <section className="pt-32 pb-32 px-6 md:px-12 max-w-7xl mx-auto relative">
       <div className="max-w-4xl">
         <SectionLabel className="mb-8">{t('admissions.hero_Enrolling')}</SectionLabel>
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12 uppercase">
           {t('admissions.hero_StartJourney')}
         </h1>
         <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-2xl mb-12">
@@ -157,7 +157,7 @@ const Criteria = ({ onPageChange }: AdmissionsProps) => {
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
         <div className="lg:col-span-8">
-          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-16">{t('admissions.criteriaTitle')}</h2>
+          <h2 className="text-5xl font-black text-botanical-950 tracking-tighter mb-16">Admissions Criteria</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {[
               { title: t('admissions.criteria1Title'), desc: t('admissions.criteria1Desc') },
@@ -245,12 +245,16 @@ const Tuition = ({ onPageChange }: AdmissionsProps) => {
         </div>
 
         <div className="bg-botanical-950 p-12 rounded-3xl relative overflow-hidden group cursor-pointer" onClick={() => onPageChange('inquire-details' as Page)}>
+          <div className="absolute inset-0 opacity-20 pointer-events-none group-hover:scale-105 transition-transform duration-1000">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Team Enrollment" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
+          </div>
+          <div className="absolute inset-0 opacity-80 bg-botanical-950" />
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_70%)]" />
           <div className="relative z-10 flex flex-col h-full justify-between">
             <div>
               <h3 className="text-3xl font-black text-white mb-8">{t('admissions.partnership_Title')}</h3>
-              <p className="text-slate-400 font-medium leading-relaxed mb-12">
-                {t('admissions.partnership_Desc')}
+              <p className="text-slate-200 font-medium leading-relaxed mb-12">
+                Discounted rates for teams of 3 or more doing the program together.
               </p>
             </div>
             <div className="flex items-center text-[10px] font-black uppercase tracking-widest text-emerald-500 group-hover:translate-x-2 transition-transform">

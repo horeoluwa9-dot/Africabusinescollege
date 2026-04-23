@@ -39,11 +39,11 @@ const WhoShouldApply: React.FC<WhoShouldApplyProps> = ({ onPageChange }) => {
 
   return (
     <div className="pt-24 bg-white min-h-screen">
-      <section className="py-32 bg-botanical-950 relative overflow-hidden">
+      <section className="pt-6 pb-32 bg-botanical-950 relative overflow-hidden">
         <AnimatedBackground intensity="low" className="opacity-20" />
-        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center pt-4">
           <SectionLabel className="mb-8 justify-center" dark>Candidate Profile</SectionLabel>
-          <h1 className="text-6xl md:text-9xl font-black text-white tracking-tighter mb-12 uppercase leading-[0.8]">
+          <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-12 uppercase leading-[0.85]">
              The New <br /> <span className="text-emerald-500 italic">Vanguard.</span>
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">

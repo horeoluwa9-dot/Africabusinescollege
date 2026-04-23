@@ -10,8 +10,8 @@ interface AccreditationProps {
 
 export const Accreditation: React.FC<AccreditationProps> = ({ onPageChange }) => {
   return (
-    <div className="pt-32 pb-24 bg-white">
-      <div className="max-w-4xl mx-auto px-6 md:px-12">
+    <div className="pt-24 pb-24 bg-white">
+      <div className="max-w-4xl mx-auto px-6 md:px-12 pt-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -21,7 +21,7 @@ export const Accreditation: React.FC<AccreditationProps> = ({ onPageChange }) =>
             <Award className="w-3.5 h-3.5 text-emerald-500" />
             <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Global Standards</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-botanical-950 tracking-tighter uppercase mb-12 leading-none">
+          <h1 className="text-4xl md:text-6xl font-black text-botanical-950 tracking-tighter uppercase mb-12 leading-none">
             Accreditation <span className="text-emerald-500">& Quality</span>
           </h1>
 

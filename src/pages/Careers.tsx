@@ -56,12 +56,12 @@ export const Careers: React.FC<CareersProps> = ({ onPageChange }) => {
       </div>
 
       {/* Hero Section */}
-      <section className="py-24 px-6 md:px-12 bg-white border-b border-slate-100">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="pt-6 pb-32 px-6 md:px-12 bg-white border-b border-slate-100">
+        <div className="max-w-4xl mx-auto text-center pt-4">
           <div className="flex justify-center mb-8">
             <SectionLabel text="Careers at Africa Business College" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase">
             Build what business education should have been
           </h1>
           <div className="text-xl text-slate-500 leading-relaxed font-medium mx-auto space-y-6">
