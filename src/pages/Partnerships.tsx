@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { Handshake, Globe, Zap, Users, Microscope, TrendingUp, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { SectionLabel } from '../components/SectionLabel';
 
+import { Page } from '../components/Layout';
+
 const PARTNERS_DATA = {
   'Universities': [
     { name: 'Harvard Business School', domain: 'harvard.edu' },
@@ -41,13 +43,17 @@ const PARTNERS_DATA = {
   ]
 };
 
-export const Partnerships = () => {
+interface PartnershipsProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const Partnerships: React.FC<PartnershipsProps> = ({ onPageChange }) => {
   const [activeTab, setActiveTab] = React.useState('Universities');
 
   return (
     <div className="pt-24">
       {/* Hero Section */}
-      <section className="relative pt-6 pb-32 px-6 md:px-12 overflow-hidden bg-white">
+      <section className="relative pt-0 pb-16 px-6 md:px-12 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}

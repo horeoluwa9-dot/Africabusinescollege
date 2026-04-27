@@ -35,16 +35,16 @@ const Hero = ({ onPageChange }: ProgramsProps) => {
   };
 
   return (
-    <section className="relative min-h-[85vh] flex items-center pt-6 pb-32 overflow-hidden bg-white">
+    <section className="relative flex items-center pt-32 pb-48 overflow-hidden bg-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_70%)] opacity-5" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-7 relative z-10 pt-4"
+            className="relative z-10 pt-4"
           >
             <SectionLabel dark className="mb-8">Built for Precision</SectionLabel>
             <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.85] text-botanical-950 mb-8 uppercase">
@@ -77,7 +77,7 @@ const Hero = ({ onPageChange }: ProgramsProps) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="lg:col-span-5 relative flex items-center justify-center lg:justify-end"
+            className="relative flex items-center justify-center lg:justify-end"
           >
             <div className="w-full max-w-[600px] aspect-square rounded-[48px] overflow-hidden border border-slate-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative group">
               <img 
@@ -257,7 +257,7 @@ const ProgramGrid = ({ onPageChange, activeCategory }: ProgramGridProps) => {
             <div className="p-10 flex flex-col flex-grow">
               <div className="mb-6">
                 <span className="text-[8px] font-black tracking-widest text-emerald-500 uppercase block mb-2">{program.category}</span>
-                <h3 className="text-lg font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors">
+                <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors">
                   {program.title}
                 </h3>
               </div>
@@ -324,7 +324,10 @@ const ProgramGrid = ({ onPageChange, activeCategory }: ProgramGridProps) => {
             We design bespoke learning journeys for corporations and government institutions.
           </p>
         </div>
-        <button className="bg-white text-botanical-950 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 hover:text-white transition-all self-start relative z-10">
+        <button 
+          onClick={() => onPageChange('partnerships' as Page)}
+          className="bg-white text-botanical-950 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-500 hover:text-white transition-all self-start relative z-10"
+        >
           Contact Partnerships
         </button>
       </div>

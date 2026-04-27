@@ -28,12 +28,12 @@ interface AboutProps {
 
 const AboutHero = () => {
   return (
-    <section className="pt-6 pb-32 bg-white px-6 md:px-12 max-w-7xl mx-auto">
+    <section className="pt-0 pb-16 bg-white px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-7 order-1 pt-4">
             <SectionLabel className="mb-8">The Institution</SectionLabel>
-            <h1 className="text-4xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-[0.85]">
-              Architecture of <br /> <span className="text-emerald-500 italic">Execution</span>
+            <h1 className="text-4xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 uppercase leading-tight">
+              Architecture of <br /> <span className="text-emerald-500 italic py-2 inline-block">Execution</span>
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed font-bold mb-8">
               ABC offers academic programs, executive programs, simulation-based learning, and custom cohort programs in business education that transform individuals, organisations, and business practices across Africa and beyond.
@@ -547,22 +547,22 @@ const CorporateConnections = ({ onPageChange }: AboutProps) => {
             <div>
               <Mail className="w-6 h-6 text-emerald-500 mb-6" />
               <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">General Inquiries</h4>
-              <p className="text-xs sm:text-sm font-black text-botanical-950 break-all lg:break-normal">info@africabusinesscollege.com</p>
+              <p className="text-[8px] sm:text-[9px] font-black text-botanical-950 truncate whitespace-nowrap">info@africabusinesscollege.com</p>
             </div>
           </div>
           <div className="p-8 bg-white rounded-3xl border border-slate-100 flex flex-col justify-between overflow-hidden">
             <div>
               <Users className="w-6 h-6 text-emerald-500 mb-6" />
               <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">Admissions</h4>
-              <p className="text-xs sm:text-sm font-black text-botanical-950 break-all lg:break-normal">admissions@africabusinesscollege.com</p>
+              <p className="text-[8px] sm:text-[9px] font-black text-botanical-950 truncate whitespace-nowrap">admissions@africabusinesscollege.com</p>
             </div>
           </div>
           <div className="p-8 bg-white rounded-3xl border border-slate-100 flex flex-col justify-between md:col-span-2 overflow-hidden">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-              <div>
+              <div className="min-w-0">
                 <Award className="w-6 h-6 text-emerald-500 mb-6" />
                 <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">Partnerships</h4>
-                <p className="text-xs sm:text-sm font-black text-botanical-950 break-all lg:break-normal">partnerships@africabusinesscollege.com</p>
+                <p className="text-[8px] sm:text-[9px] font-black text-botanical-950 truncate whitespace-nowrap">partnerships@africabusinesscollege.com</p>
               </div>
               <button 
                 onClick={() => onPageChange('contact')}

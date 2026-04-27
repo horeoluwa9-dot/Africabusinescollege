@@ -34,29 +34,76 @@ const Hero = ({ onPageChange }: AdmissionsProps) => {
   };
 
   return (
-    <section className="pt-32 pb-32 px-6 md:px-12 max-w-7xl mx-auto relative">
-      <div className="max-w-4xl">
-        <SectionLabel className="mb-8">{t('admissions.hero_Enrolling')}</SectionLabel>
-        <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-12 uppercase">
-          {t('admissions.hero_StartJourney')}
-        </h1>
-        <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-2xl mb-12">
-          {t('admissions.hero_JourneyDesc')}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-6">
-          <button 
-            onClick={() => onPageChange('application')}
-            className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all active:scale-95 shadow-xl shadow-emerald-500/20"
+    <section className="relative pt-12 pb-16 px-6 md:px-12 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="max-w-4xl">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <SectionLabel className="mb-8">{t('admissions.hero_Enrolling')}</SectionLabel>
+            </motion.div>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] text-botanical-950 mb-8 uppercase"
+            >
+              {t('admissions.hero_StartJourney')}
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-xl text-slate-500 leading-relaxed font-medium max-w-2xl mb-8"
+            >
+              {t('admissions.hero_JourneyDesc')}
+            </motion.p>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6"
+            >
+              <button 
+                onClick={() => onPageChange('application')}
+                className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all active:scale-95 shadow-2xl shadow-emerald-500/20"
+              >
+                {t('admissions.hero_BeginApp')}
+              </button>
+              <button 
+                onClick={handleDownloadProspectus}
+                className="bg-slate-50 border border-slate-200 text-botanical-950 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-100 transition-all active:scale-95 flex items-center justify-center space-x-3"
+              >
+                <span>{t('admissions.hero_DownloadProspectus')}</span>
+                <FileText className="w-4 h-4" />
+              </button>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, x: 20 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="hidden lg:block relative"
           >
-            {t('admissions.hero_BeginApp')}
-          </button>
-          <button 
-            onClick={handleDownloadProspectus}
-            className="bg-white text-botanical-950 border border-slate-200 px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center space-x-3"
-          >
-            <span>{t('admissions.hero_DownloadProspectus')}</span>
-            <FileText className="w-4 h-4" />
-          </button>
+            <div className="aspect-[4/5] rounded-[60px] overflow-hidden shadow-2xl relative border-8 border-slate-50">
+              <img 
+                src="https://images.unsplash.com/photo-1521714161819-15534968fc5f?auto=format&fit=crop&w=1200&q=80" 
+                alt="Admissions Hero" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/20 to-transparent" />
+            </div>
+            {/* Floating Element */}
+            <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl border border-slate-100">
+              <div className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-2">Enrollment Open</div>
+              <div className="text-2xl font-black text-botanical-950 tracking-tight uppercase">January 2026</div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -354,7 +401,10 @@ const FinalCTA = ({ onPageChange }: AdmissionsProps) => {
           >
             {t('admissions.cta_ApplyCohort')}
           </button>
-          <button className="bg-transparent border-2 border-white text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all active:scale-95">
+          <button 
+            onClick={() => onPageChange('discovery-call')}
+            className="bg-transparent border-2 border-white text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all active:scale-95"
+          >
             {t('admissions.cta_BookCall')}
           </button>
         </div>

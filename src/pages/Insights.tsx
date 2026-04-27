@@ -13,7 +13,7 @@ interface InsightsProps {
 
 export const Insights = ({ onPageChange }: InsightsProps) => {
   const [notification, setNotification] = React.useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = React.useState('All Insights');
+  const [activeFilter, setActiveFilter] = React.useState('Capital Markets');
 
   const showNotification = (message: string) => {
     setNotification(message);
@@ -146,10 +146,11 @@ export const Insights = ({ onPageChange }: InsightsProps) => {
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-botanical-950/60 group-hover:bg-botanical-950/40 transition-all duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/80 to-transparent" />
             
             {/* Vertically centered content area with padding */}
-            <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-20">
+            <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-20 relative z-10">
               <div className="max-w-4xl">
                 <div className="flex items-center space-x-4 mb-6">
                   <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest text-shadow-sm">Special Report</span>

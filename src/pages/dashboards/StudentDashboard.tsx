@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -9,6 +9,7 @@ import {
   FileText, 
   Calendar, 
   MessageSquare, 
+  MessageCircle,
   Settings,
   Search,
   Bell,
@@ -26,7 +27,8 @@ import {
   Globe,
   Rocket,
   ShieldCheck,
-  Award
+  Award,
+  ChevronRight
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Page } from '../../components/Layout';
@@ -34,6 +36,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { SimulationCarousel } from '../../components/SimulationCarousel';
 import { ArrowUpRight } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
+import CommunityInterface from '../community/CommunityInterface';
 
 interface DashboardProps {
   onPageChange: (page: Page, id?: string) => void;
@@ -44,26 +47,6 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
   const { user, logout, isLoggedIn, isPaid } = useAuth();
   const { showToast } = useToast();
   const [activeView, setActiveView] = React.useState('os');
-  const [chatMessage, setChatMessage] = React.useState('');
-  const [communityMessages, setCommunityMessages] = React.useState([
-    { user: 'Amara K.', msg: 'Incredible insights in the growth simulator today.', time: '10:42 AM' },
-    { user: 'Execution Faculty', msg: 'Reminder: Live session begins in 1 hour.', time: '11:00 AM' },
-    { user: 'Jean-Luc M.', msg: 'Has anyone cracked the pricing model for Francophone markets?', time: '11:15 AM' }
-  ]);
-
-  const handleSendMessage = () => {
-    if (!chatMessage.trim()) return;
-    
-    const newMessage = {
-      user: user?.name || 'Kofi Mensah',
-      msg: chatMessage,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
-    
-    setCommunityMessages([newMessage, ...communityMessages]);
-    setChatMessage('');
-    showToast('Message sent to cohort');
-  };
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -81,7 +64,9 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
     { id: 'curriculum', icon: Play, label: 'Curriculum' },
     { id: 'simulation', icon: Monitor, label: 'Simulations' },
     { id: 'network', icon: Users, label: 'Community' },
+    { id: 'cohort', icon: Calendar, label: 'Cohort' },
     { id: 'performance', icon: BarChart3, label: 'Performance' },
+    { id: 'notifications', icon: Bell, label: 'Notifications' },
     { id: 'preferences', icon: Settings, label: 'Settings' },
   ];
 
@@ -100,13 +85,65 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
   ];
 
   const performanceMetrics = [
-    { label: 'Decision Score', value: '88/100', trend: '+4%' },
-    { label: 'Simulation Rank', value: 'Top 5%', trend: 'Steady' },
-    { label: 'Strategic Rigor', value: 'A-', trend: 'Improving' },
+    { label: 'Completion Rate', value: '24%', trend: 'On Track', detail: '8/32 Modules' },
+    { label: 'Simulation Score', value: '88/100', trend: 'Top 5%', detail: 'Expert Level' },
+    { label: 'Decision Accuracy', value: '92%', trend: '+4%', detail: 'High Precision' },
+    { label: 'Consistency Index', value: 'A-', trend: 'Stable', detail: '4.2 Avg / Day' },
   ];
+
+  const [showCalendarModal, setShowCalendarModal] = React.useState(false);
+
+  const CalendarModal = () => (
+    <AnimatePresence>
+      {showCalendarModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
+            onClick={() => setShowCalendarModal(false)}
+            className="absolute inset-0 bg-botanical-950/60 backdrop-blur-sm" 
+          />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="bg-white rounded-[40px] p-12 max-w-md w-full relative z-10 shadow-2xl border border-slate-100"
+          >
+            <h3 className="text-3xl font-black text-botanical-950 uppercase tracking-tighter mb-4">Add to Calendar</h3>
+            <p className="text-slate-500 font-medium mb-10">Select your preferred calendar platform to sync the upcoming cohort session.</p>
+            
+            <div className="space-y-4 mb-10">
+              {['Google Calendar', 'Apple Calendar', 'Outlook'].map((cal) => (
+                <button 
+                  key={cal}
+                  onClick={() => {
+                    showToast(`✔ Added to your ${cal}`);
+                    setShowCalendarModal(false);
+                  }}
+                  className="w-full flex items-center justify-between p-6 bg-slate-50 hover:bg-emerald-50 rounded-2xl transition-all group"
+                >
+                  <span className="text-sm font-black text-botanical-950 uppercase tracking-tight group-hover:text-emerald-600 transition-colors">{cal}</span>
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:translate-x-1 group-hover:text-emerald-500 transition-all" />
+                </button>
+              ))}
+            </div>
+
+            <button 
+              onClick={() => setShowCalendarModal(false)}
+              className="w-full py-4 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors"
+            >
+              Close
+            </button>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-[#FBFBFB] font-sans text-slate-900">
+      <CalendarModal />
       {/* Sidebar - Hidden on mobile */}
       <aside className="hidden md:flex w-[260px] bg-white border-r border-slate-100 p-4 flex-col shrink-0">
         <div className="px-4 py-6 mb-4">
@@ -123,18 +160,6 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                 </svg>
             </div>
             <span className="text-sm font-black tracking-tighter text-botanical-950 uppercase">Africa Business College</span>
-          </div>
-
-          <div className="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl mb-6">
-            <img 
-              src={user?.avatarUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"} 
-              alt="Profile" 
-              className="w-8 h-8 rounded-full object-cover border border-slate-200"
-            />
-            <div className="flex-grow min-w-0">
-              <div className="text-[10px] font-black text-botanical-950 truncate">{user?.name || 'Kofi Mensah'}</div>
-              <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Pro Member</div>
-            </div>
           </div>
         </div>
 
@@ -156,7 +181,18 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
           ))}
         </nav>
 
-        <div className="mt-auto pt-6 border-t border-slate-50">
+        <div className="mt-auto pt-6 border-t border-slate-50 space-y-2">
+          <div className="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl mb-2">
+            <img 
+              src={user?.avatarUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"} 
+              alt="Profile" 
+              className="w-8 h-8 rounded-full object-cover border border-slate-200"
+            />
+            <div className="flex-grow min-w-0">
+              <div className="text-[10px] font-black text-botanical-950 truncate">{user?.name || 'Kofi Mensah'}</div>
+              <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Pro Member</div>
+            </div>
+          </div>
           <button 
             onClick={handleLogout}
             className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest text-red-500 hover:bg-red-50 transition-all"
@@ -183,7 +219,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow flex flex-col min-w-0 overflow-y-auto pb-24 md:pb-0">
+      <main className={`flex-grow flex flex-col min-w-0 ${activeView === 'network' ? 'h-screen overflow-hidden' : 'overflow-y-auto pb-24 md:pb-0'}`}>
         {activeView === 'os' ? (
           <section className="px-6 md:px-12 pt-8 md:pt-12 pb-8">
             <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
@@ -191,7 +227,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                 <h2 className="text-3xl md:text-4xl font-black text-botanical-950 tracking-tighter mb-2">
                   {t('student.welcome')}, {user?.name?.split(' ')[0] || 'Kofi'}.
                 </h2>
-                <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-4">
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{user?.program || 'Entrepreneurship Program'}</span>
                   <span className="w-1 h-1 bg-slate-200 rounded-full hidden sm:block" />
                   <div className="flex items-center space-x-2">
@@ -203,17 +239,23 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                 </div>
               </div>
               <div className="flex items-center space-x-4 w-full md:w-auto">
-                <button onClick={() => showToast('No new notifications')} className="p-2.5 bg-white border border-slate-100 rounded-xl shadow-sm text-slate-400 hover:text-botanical-950 transition-all">
+                <button 
+                  onClick={() => setActiveView('notifications')} 
+                  className={`p-2.5 bg-white border border-slate-100 rounded-xl shadow-sm hover:text-botanical-950 transition-all ${activeView === 'notifications' ? 'text-emerald-500 border-emerald-500/20' : 'text-slate-400'}`}
+                >
                   <Bell className="w-5 h-5" />
                 </button>
-                <button onClick={() => showToast('Events panel opening...')} className="flex-grow md:flex-none bg-emerald-500 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 hover:scale-105 transition-all">
-                  Cohort Event
+                <button 
+                  onClick={() => setActiveView('cohort')} 
+                  className="flex-grow md:flex-none bg-emerald-500 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 hover:scale-105 transition-all"
+                >
+                  Cohort Events
                 </button>
               </div>
             </div>
 
             {/* SECTION 2: CURRENT STATUS / COHORT NOTIFICATION */}
-            <div className="bg-botanical-950 rounded-[32px] p-6 md:p-8 text-white relative overflow-hidden mb-12 group cursor-pointer transition-all hover:bg-botanical-900" onClick={() => showToast('Opening session details...')}>
+            <div className="bg-botanical-950 rounded-[32px] p-6 md:p-8 text-white relative overflow-hidden mb-12 group cursor-pointer transition-all hover:bg-botanical-900" onClick={() => setActiveView('cohort')}>
                <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform duration-700">
                 <Zap className="w-32 md:w-48 h-32 md:h-48" />
               </div>
@@ -225,10 +267,13 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                     </div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">Next Cohort Session</span>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-black tracking-tight leading-none text-white">Cohort starts in 3 days.</h3>
+                  <h3 className="text-2xl md:text-3xl font-black tracking-tight leading-none text-white">Cohort session starts in 3 days.</h3>
                   <p className="text-slate-400 text-sm font-medium">Topic: Advanced Unit Economics & Execution Market Entry</p>
                 </div>
-                <button onClick={(e) => { e.stopPropagation(); showToast('Added to schedule'); }} className="w-full md:w-auto bg-white text-botanical-950 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center space-x-3 hover:bg-emerald-500 hover:text-white transition-all">
+                <button 
+                  onClick={(e) => { e.stopPropagation(); setShowCalendarModal(true); }} 
+                  className="w-full md:w-auto bg-white text-botanical-950 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center space-x-3 hover:bg-emerald-500 hover:text-white transition-all active:scale-95"
+                >
                   <span>Add to Schedule</span>
                   <Plus className="w-4 h-4" />
                 </button>
@@ -242,22 +287,23 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                 {/* SECTION 3: CONTINUE LEARNING (MAIN ACTION) */}
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t('student.focus')}</h4>
+                    <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Execution Path</h4>
                   </div>
-                  <div className="bg-white border border-slate-100 rounded-[40px] p-10 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all group flex flex-col md:flex-row items-center gap-10" onClick={() => setActiveView('curriculum')}>
+                  <div className="bg-white border border-slate-100 rounded-[40px] p-10 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all group flex flex-col md:flex-row items-center gap-10 cursor-pointer" onClick={() => setActiveView('curriculum')}>
                     <div className="w-24 h-24 bg-emerald-50 rounded-[32px] flex items-center justify-center shrink-0 border border-emerald-100">
                       <Play className="w-10 h-10 text-emerald-500 fill-current" />
                     </div>
                     <div className="flex-grow space-y-4 text-center md:text-left">
-                      <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Current Module</div>
-                      <h3 className="text-3xl font-black text-botanical-950 tracking-tight leading-tight">Business Model Design: Institutional Advantage</h3>
+                      <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Resume Progress</div>
+                      <h3 className="text-3xl font-black text-botanical-950 tracking-tight leading-tight">Module 3: Pricing Strategy</h3>
                       <div className="flex items-center justify-center md:justify-start space-x-4">
-                        <span className="text-xs font-medium text-slate-500">Unit 2 / 5</span>
-                        <span className="w-1 h-1 bg-slate-200 rounded-full" />
-                        <span className="text-xs font-medium text-slate-500">45 mins remaining</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Last visited: 2 hours ago</span>
                       </div>
                     </div>
-                    <button onClick={() => onPageChange('full-course')} className="bg-botanical-950 text-white px-10 py-6 rounded-2xl text-[12px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all flex items-center space-x-4 shadow-2xl shadow-botanical-950/20 active:scale-95">
+                    <button 
+                      onClick={() => onPageChange('full-course')} 
+                      className="bg-botanical-950 text-white px-10 py-6 rounded-2xl text-[12px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all flex items-center space-x-4 shadow-2xl shadow-botanical-950/20 active:scale-95"
+                    >
                       <span>Continue Program</span>
                       <ArrowRight className="w-5 h-5" />
                     </button>
@@ -317,7 +363,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                     ))}
                     <button onClick={() => setActiveView('performance')} className="w-full py-5 bg-slate-50 text-botanical-950 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-botanical-950 hover:text-white transition-all flex items-center justify-center space-x-3">
                       <BarChart3 className="w-4 h-4" />
-                      <span>View Detailed Dossier</span>
+                      <span>View Details</span>
                     </button>
                   </div>
                 </div>
@@ -353,38 +399,37 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
             </div>
           </section>
         ) : activeView === 'curriculum' ? (
-          <section className="px-12 pt-12">
-            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-8 uppercase">Curriculum</h2>
-            <div className="grid grid-cols-1 gap-6 max-w-4xl">
+          <section className="px-6 md:px-12 pt-8 md:pt-12">
+            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-8 uppercase text-center md:text-left">Curriculum</h2>
+            <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto md:mx-0">
               {modules.map((module, i) => (
-                <div key={i} className="bg-white p-8 rounded-[32px] border border-slate-100 flex items-center justify-between">
+                <div key={i} className="bg-white p-8 rounded-[32px] border border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-emerald-500/20 transition-all group">
                   <div className="flex items-center space-x-8">
-                    <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-botanical-950 font-black">
-                      0{i+1}
+                    <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-botanical-950 font-black relative overflow-hidden">
+                      <div className="absolute inset-0 bg-emerald-500 opacity-0 group-hover:opacity-10 transition-opacity" />
+                       0{i+1}
                     </div>
                     <div>
                       <h3 className="text-xl font-black uppercase tracking-tight mb-1">{module.title}</h3>
-                      <p className="text-sm text-slate-500">Progress: {module.progress}%</p>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-emerald-500" style={{ width: `${module.progress}%` }} />
+                        </div>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{module.progress}%</p>
+                      </div>
                     </div>
                   </div>
-                  <button onClick={() => module.status !== 'locked' ? onPageChange('module-viewer', i.toString()) : showToast('Connecting to interactive module...')} className="bg-botanical-950 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500">
+                  <button onClick={() => module.status !== 'locked' ? onPageChange('module-viewer', i.toString()) : showToast('Connecting to interactive module...')} className={`px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${module.status === 'locked' ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-botanical-950 text-white hover:bg-emerald-500'}`}>
                     {module.status === 'locked' ? 'Locked' : 'Enter Module'}
                   </button>
                 </div>
               ))}
             </div>
-
-            {/* Dashboard Footer */}
-            <footer className="mt-auto py-12 border-t border-slate-100 bg-black text-center w-full px-6">
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
-                Digitally Delivered by <span className="text-emerald-500">ABC Studio</span>
-              </p>
-            </footer>
           </section>
         ) : activeView === 'simulation' ? (
-          <section className="px-12 pt-12">
+          <section className="px-6 md:px-12 pt-8 md:pt-12 pb-24">
              <div className="flex justify-between items-center mb-12">
-                <h2 className="text-4xl font-black text-botanical-950 tracking-tighter uppercase">Simulation Lab</h2>
+                <h2 className="text-4xl font-black text-botanical-950 tracking-tighter uppercase text-center md:text-left">Simulation Lab</h2>
                 <div className="flex items-center space-x-2 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-100">
                   <ShieldCheck className="w-4 h-4 text-emerald-500" />
                   <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Full Access Active</span>
@@ -393,120 +438,359 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
              
              <SimulationCarousel 
                items={simulations.map(sim => ({
-                 id: sim.title.toLowerCase().replace(' ', '-'),
+                 id: sim.title.toLowerCase().replace(/\s+/g, '-'),
                  name: sim.title,
                  desc: `High-fidelity ${sim.level} environment designed for strategic stress testing within the ${sim.title} framework.`,
-                 image: "https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&w=1200&q=80", // Placeholder
+                 image: "https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&w=1200&q=80", 
                  icon: sim.icon,
                  status: sim.status === 'available' ? 'Available' : 'Locked',
                  difficulty: sim.level,
                  focus: ['Strategy', 'Execution', 'Crisis Management']
                }))} 
-               onSelect={(id) => onPageChange('simulation-demo', id)} 
+               onSelect={(id) => onPageChange('simulation-details', id)} 
              />
           </section>
-        ) : activeView === 'tools' ? (
-          <section className="px-12 pt-12">
-            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-12 uppercase">Instrument Studio</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
-              {[
-                { title: 'Financial Engine', desc: 'Construct complex capitalization tables and unit economic models.', icon: BarChart3 },
-                { title: 'Market Pulse', desc: 'Real-time aggregate data from Pan-African markets.', icon: Globe },
-                { title: 'Strategic Canvas', desc: 'Visualize and iterate on business model hypotheses.', icon: Wrench },
-                { title: 'Diligence Bot', desc: 'AI-powered stress tester for investment readiness.', icon: Zap }
-              ].map((tool, i) => (
-                <div key={i} className="bg-white p-10 rounded-[40px] border border-slate-100 hover:border-emerald-500 group transition-all">
-                  <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-50 transition-all">
-                    <tool.icon className="w-6 h-6 text-slate-400 group-hover:text-emerald-500" />
-                  </div>
-                  <h3 className="text-xl font-black uppercase mb-4 tracking-tight">{tool.title}</h3>
-                  <p className="text-sm text-slate-500 mb-8 font-medium leading-relaxed">{tool.desc}</p>
-                  <button className="text-[10px] font-black uppercase tracking-widest text-emerald-500 flex items-center space-x-2 group-hover:translate-x-2 transition-transform">
-                    <span>Open Tool</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </section>
         ) : activeView === 'network' ? (
-          <section className="px-12 pt-12 h-full flex flex-col">
-            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-8 uppercase">Cohort Network</h2>
-            <div className="flex-grow grid grid-cols-12 gap-8 pb-12">
-              <div className="col-span-8 flex flex-col space-y-6">
-                <div className="bg-slate-50 p-6 rounded-3xl flex-grow overflow-y-auto space-y-4">
-                   {communityMessages.map((chat, i) => (
-                     <div key={i} className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 max-w-[80%]">
-                        <div className="flex justify-between items-center mb-2">
-                           <span className="text-[10px] font-black tracking-tight text-emerald-500">{chat.user}</span>
-                           <span className="text-[8px] font-black text-slate-400">{chat.time}</span>
-                        </div>
-                        <p className="text-sm font-medium text-slate-600 leading-relaxed">{chat.msg}</p>
-                     </div>
-                   ))}
-                </div>
-                <div className="flex space-x-4">
-                   <input 
-                     className="flex-grow bg-white border border-slate-100 rounded-2xl px-6 py-4 text-sm focus:border-emerald-500 focus:outline-none shadow-sm" 
-                     placeholder="Message your cohort..." 
-                     value={chatMessage}
-                     onChange={(e) => setChatMessage(e.target.value)}
-                     onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                   />
-                   <button onClick={handleSendMessage} className="bg-botanical-950 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-botanical-950/20">Send</button>
-                </div>
-              </div>
-              <div className="col-span-4 bg-white border border-slate-100 rounded-[40px] p-10">
-                 <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8">Scholars Online</h4>
-                 <div className="space-y-6">
-                    {['Amara K.', 'Jean-Luc M.', 'Sade A.', 'Chidi E.', 'Zarah F.'].map( scholar => (
-                      <div key={scholar} className="flex items-center justify-between">
-                         <div className="flex items-center space-x-4">
-                            <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-[10px] font-black text-slate-400">
-                               {scholar[0]}
-                            </div>
-                            <span className="text-sm font-black text-botanical-950">{scholar}</span>
-                         </div>
-                         <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-                      </div>
-                    ))}
-                 </div>
-              </div>
-            </div>
-          </section>
+          <CommunityInterface />
         ) : activeView === 'performance' ? (
-          <section className="px-12 pt-12">
-            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-12 uppercase">Performance Analytics</h2>
+          <section className="px-6 md:px-12 pt-8 md:pt-12 pb-24">
+            <div className="mb-12">
+              <h2 className="text-4xl font-black text-botanical-950 tracking-tighter uppercase mb-2 text-center md:text-left">Performance & Progress</h2>
+              <p className="text-slate-500 font-medium tracking-tight text-center md:text-left">Track your execution, decisions, and growth across simulations and programs.</p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                {performanceMetrics.map((met, i) => (
-                 <div key={i} className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm relative overflow-hidden group">
-                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">{met.label}</div>
-                    <div className="text-4xl font-black text-botanical-950 tracking-tighter mb-4">{met.value}</div>
-                    <div className={`text-[8px] font-black uppercase tracking-widest inline-flex px-3 py-1 rounded-full ${
-                      met.trend.startsWith('+') || met.trend === 'Improving' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'
-                    }`}>
-                      {met.trend}
+                 <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden group hover:shadow-xl transition-all">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6">{met.label}</div>
+                    <div className="flex items-end justify-between">
+                      <div>
+                        <div className="text-4xl font-black text-botanical-950 tracking-tighter mb-2">{met.value}</div>
+                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{met.detail}</div>
+                      </div>
+                      <div className={`text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${
+                        met.trend.startsWith('+') || met.trend === 'Top 5%' || met.trend === 'On Track' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'
+                      }`}>
+                        {met.trend}
+                      </div>
                     </div>
                  </div>
                ))}
             </div>
-            <div className="bg-botanical-950 rounded-[48px] p-12 text-white overflow-hidden relative min-h-[400px] flex items-end">
-               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,#00D98E_0%,transparent_60%)]" />
-               <div className="absolute top-12 right-12 text-right">
-                  <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">Institutional Ranking</div>
-                  <div className="text-7xl font-black tracking-tighter">#12 <span className="text-3xl text-slate-500">/ 450</span></div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
+              <div className="lg:col-span-8 bg-white border border-slate-100 rounded-[48px] p-10 shadow-sm overflow-hidden">
+                <div className="flex items-center justify-between mb-10">
+                  <div>
+                    <h3 className="text-xl font-black text-botanical-950 uppercase tracking-tight mb-1">Execution Momentum</h3>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Growth score over the last 12 weeks</p>
+                  </div>
+                </div>
+                <div className="h-64 flex items-end justify-between gap-2">
+                   {[40, 55, 45, 65, 75, 60, 85, 80, 95, 88, 92, 100].map((h, i) => (
+                     <div key={i} className="flex-1 space-y-2 group">
+                        <div className="relative w-full bg-slate-50 rounded-lg overflow-hidden h-full flex flex-col justify-end">
+                          <motion.div 
+                            initial={{ height: 0 }}
+                            animate={{ height: `${h}%` }}
+                            transition={{ delay: i * 0.05, duration: 1 }}
+                            className="w-full bg-emerald-500 group-hover:bg-emerald-400 transition-colors"
+                          />
+                        </div>
+                        <div className="text-[8px] font-black text-slate-300 text-center uppercase tracking-widest">W{i+1}</div>
+                     </div>
+                   ))}
+                </div>
+              </div>
+
+              <div className="lg:col-span-4 space-y-8">
+                <div className="bg-botanical-950 rounded-[48px] p-10 text-white relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#10b981_0%,transparent_70%)] opacity-20" />
+                  <div className="relative z-10">
+                    <div className="flex items-center space-x-3 mb-8">
+                      <Zap className="w-6 h-6 text-emerald-500" />
+                      <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-500">AI Strategy Profile</h4>
+                    </div>
+                    <p className="text-lg font-medium text-slate-300 leading-relaxed italic mb-8">
+                      "You demonstrate strong execution and decision speed, but tend to underinvest in long-term strategy."
+                    </p>
+                    <div className="space-y-4">
+                      <button onClick={() => setActiveView('curriculum')} className="w-full bg-emerald-500 text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition-all">Improve Strategy Skills</button>
+                      <button onClick={() => setActiveView('simulation')} className="w-full bg-white/5 border border-white/10 text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">Enter Simulation</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white border border-slate-100 rounded-[40px] p-8">
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Simulation Status</h4>
+                  <div className="space-y-6">
+                    {[
+                      { name: 'Entrepreneurship Lab', score: 82 },
+                      { name: 'Market Expansion', score: 74 },
+                      { name: 'Leadership Lab', score: 88 }
+                    ].map((sim, i) => (
+                      <div key={i} className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs font-black text-botanical-950 uppercase tracking-tight">{sim.name}</span>
+                          <span className="text-[10px] font-black text-emerald-500">{sim.score}%</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-50 rounded-full overflow-hidden">
+                          <div className="h-full bg-emerald-500" style={{ width: `${sim.score}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <h3 className="text-xl font-black text-botanical-950 uppercase tracking-tight text-center md:text-left">Institutional Achievements</h3>
+              <div className="flex flex-wrap gap-6 justify-center md:justify-start">
+                 {[
+                   { name: 'Strategic Thinker', icon: ShieldCheck },
+                   { name: 'Market Operator', icon: Globe },
+                   { name: 'Execution Leader', icon: Rocket },
+                   { name: 'Financial Mastery', icon: Award }
+                 ].map((badge, i) => (
+                   <div key={i} className="bg-white border border-slate-100 px-6 py-4 rounded-2xl flex items-center space-x-4 shadow-sm hover:translate-y-[-2px] transition-all cursor-default group">
+                      <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                        <badge.icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-[10px] font-black text-botanical-950 uppercase tracking-widest">{badge.name}</span>
+                   </div>
+                 ))}
+              </div>
+            </div>
+          </section>
+        ) : activeView === 'notifications' ? (
+          <section className="px-6 md:px-12 pt-8 md:pt-12 pb-24 max-w-4xl mx-auto md:mx-0">
+            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-12 uppercase text-center md:text-left">Notifications</h2>
+            <div className="space-y-4">
+              {[
+                { type: 'simulation', title: 'Simulation Results Ready', desc: 'Your performance data from Market Expansion Lab is now live.', time: '2 mins ago', unread: true },
+                { type: 'cohort', title: 'New Cohort Session Scheduled', desc: 'Advanced Unit Economics with Dr. Amara Diop starts on Monday.', time: '1 hour ago', unread: true },
+                { type: 'system', title: 'Security Protocol Updated', desc: 'Your 2FA has been successfully configured.', time: '2 days ago', unread: false },
+                { type: 'application', title: 'Admissions Inquiry Response', desc: 'A response has been added to your partnership inquiry.', time: '3 days ago', unread: false }
+              ].map((notif, i) => (
+                <div key={i} className={`p-6 md:p-8 rounded-[32px] border transition-all cursor-pointer group hover:shadow-lg ${notif.unread ? 'bg-white border-emerald-500/20 shadow-md' : 'bg-slate-50/50 border-slate-100'}`} onClick={() => {
+                   if (notif.type === 'cohort') setActiveView('cohort');
+                   if (notif.type === 'simulation') setActiveView('performance');
+                   if (notif.type === 'application') onPageChange('admissions');
+                }}>
+                  <div className="flex items-start justify-between gap-6">
+                    <div className="flex items-start space-x-6">
+                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 ${notif.unread ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-400'}`}>
+                        {notif.type === 'simulation' ? <Monitor className="w-6 h-6" /> : 
+                         notif.type === 'cohort' ? <Calendar className="w-6 h-6" /> : 
+                         notif.type === 'system' ? <ShieldCheck className="w-6 h-6" /> : <Mail className="w-6 h-6" />}
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-black text-botanical-950 uppercase tracking-tight mb-2 group-hover:text-emerald-500 transition-colors">{notif.title}</h4>
+                        <p className="text-sm text-slate-500 font-medium mb-4 leading-relaxed">{notif.desc}</p>
+                        <div className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{notif.time}</div>
+                      </div>
+                    </div>
+                    {notif.unread && <div className="w-2 h-2 bg-emerald-500 rounded-full flex-shrink-0" />}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : activeView === 'cohort' ? (
+          <section className="px-6 md:px-12 pt-8 md:pt-12 pb-24">
+            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-12 uppercase text-center md:text-left">Cohort Experience</h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+               <div className="lg:col-span-8 space-y-12">
+                  <div className="space-y-6">
+                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-center md:text-left">Upcoming Sessions</h4>
+                    <div className="grid grid-cols-1 gap-6">
+                       {[
+                         { title: 'Advanced Unit Economics', time: 'Monday, 10:00 AM', desc: 'Case studies on scaling logistics in Lagos and Nairobi.' },
+                         { title: 'Capital Raising Architecture', time: 'Wednesday, 02:00 PM', desc: 'Live teardown of pitch decks that secured Series A funding.' }
+                       ].map((event, i) => (
+                         <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:shadow-xl transition-all">
+                            <div className="flex items-center space-x-6">
+                              <div className="w-16 h-16 bg-emerald-50 rounded-3xl flex flex-col items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                <Calendar className="w-6 h-6 mb-1" />
+                                <span className="text-[8px] font-black uppercase tracking-tight">MAY 0{i+4}</span>
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-black text-botanical-950 uppercase tracking-tight mb-1">{event.title}</h3>
+                                <p className="text-sm font-black text-emerald-500 uppercase tracking-widest mb-2">{event.time}</p>
+                                <p className="text-[10px] font-medium text-slate-500 leading-relaxed">{event.desc}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-4">
+                               <button 
+                                onClick={() => showToast('Connecting to ABC Virtual Boardroom...')}
+                                className="w-full md:w-auto bg-botanical-950 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all flex items-center justify-center space-x-2"
+                               >
+                                 <Monitor className="w-4 h-4" />
+                                 <span>Join Session</span>
+                               </button>
+                               <button 
+                                onClick={() => setShowCalendarModal(true)}
+                                className="hidden md:flex p-4 bg-slate-50 text-slate-400 rounded-xl hover:text-botanical-950 hover:bg-slate-100 transition-all"
+                               >
+                                 <Plus className="w-4 h-4" />
+                               </button>
+                            </div>
+                         </div>
+                       ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-center md:text-left">Past Sessions (Recordings)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                       {[
+                         { title: 'Market Entry Strategy', duration: '90m' },
+                         { title: 'Product-Market Fit', duration: '124m' },
+                         { title: 'Scaling Team Culture', duration: '75m' },
+                         { title: 'Fintech Regulations', duration: '110m' }
+                       ].map((session, i) => (
+                         <div key={i} className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center justify-between group cursor-pointer hover:bg-white transition-all">
+                            <div className="flex items-center space-x-4">
+                              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-botanical-950 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                <Play className="w-4 h-4 fill-current" />
+                              </div>
+                              <div>
+                                <h5 className="text-[10px] font-black text-botanical-950 uppercase tracking-tight line-clamp-1">{session.title}</h5>
+                                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest font-bold">{session.duration} • Shared Resource</p>
+                              </div>
+                            </div>
+                            <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 transition-colors" />
+                         </div>
+                       ))}
+                    </div>
+                  </div>
                </div>
-               <div className="relative z-10 max-w-xl">
-                  <h3 className="text-3xl font-black uppercase tracking-tight mb-6 leading-tight">Advanced Strategic Readiness</h3>
-                  <p className="text-slate-400 text-lg font-medium leading-relaxed mb-8">Your simulation performance indicates high adaptability in crisis management but moderate risk exposure in portfolio scaling. Focus on Unit 4 (Risk Mitigation) to optimize your profile.</p>
-                  <button onClick={() => showToast('Downloading secure dossier...')} className="bg-emerald-500 text-white px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-emerald-500/20">Download Full Record</button>
+
+               <div className="lg:col-span-4 space-y-12">
+                  <div className="bg-white border border-slate-100 rounded-[40px] p-10 shadow-sm overflow-hidden relative">
+                     <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8 font-mono">Cohort Efficiency</div>
+                     <div className="space-y-8 relative z-10">
+                        <div>
+                          <div className="text-4xl font-black text-botanical-950 tracking-tighter mb-1">94%</div>
+                          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Attendance Logic</div>
+                        </div>
+                        <div>
+                          <div className="text-4xl font-black text-botanical-950 tracking-tighter mb-1">12</div>
+                          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Projected Milestones</div>
+                        </div>
+                        <div>
+                          <div className="text-4xl font-black text-emerald-500 tracking-tighter mb-1"> Elite </div>
+                          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Cohort Health Score</div>
+                        </div>
+                     </div>
+                     <div className="absolute top-0 right-0 p-12 opacity-5 text-emerald-500">
+                        <Users className="w-48 h-48" />
+                     </div>
+                  </div>
+
+                  <div className="bg-botanical-950 p-10 rounded-[40px] text-white">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <MessageCircle className="w-6 h-6 text-emerald-500" />
+                      <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Live Support</h4>
+                    </div>
+                    <p className="text-sm font-medium text-slate-400 leading-relaxed mb-8">Need help? Our institutional support team is available 24/7 for strategic aid.</p>
+                    <button onClick={() => showToast('Connecting to support...')} className="w-full bg-white/5 border border-white/10 text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">Contact Registrar</button>
+                  </div>
+               </div>
+            </div>
+          </section>
+        ) : activeView === 'preferences' ? (
+          <section className="px-6 md:px-12 pt-8 md:pt-12 pb-24 max-w-4xl mx-auto md:mx-0">
+            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-12 uppercase text-center md:text-left">Account & Preferences</h2>
+            
+            <div className="space-y-12">
+               <div className="p-10 bg-white border border-slate-100 rounded-[40px] shadow-sm">
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-10">Institutional Profile</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div className="space-y-2">
+                       <label className="text-[10px] font-black uppercase tracking-widest text-botanical-950">Full Name</label>
+                       <input type="text" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-sm font-bold focus:border-emerald-500 outline-none" defaultValue={user?.name || "Kofi Mensah"} />
+                    </div>
+                    <div className="space-y-2">
+                       <label className="text-[10px] font-black uppercase tracking-widest text-botanical-950">Email Address</label>
+                       <input type="email" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-sm font-bold focus:border-emerald-500 outline-none" defaultValue={user?.email || "kofi.mensah@builder.abc"} />
+                    </div>
+                  </div>
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                    <button onClick={() => showToast('Changes saved')} className="w-full md:w-auto bg-botanical-950 text-white px-10 py-5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all">Save Changes</button>
+                  </div>
+               </div>
+
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="p-8 bg-white border border-slate-100 rounded-[32px] space-y-8">
+                     <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Learning Mode</h4>
+                     <div className="space-y-4">
+                        {['Self-paced', 'Guided', 'Hybrid'].map((mode) => (
+                          <label key={mode} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl cursor-pointer hover:bg-white border border-transparent hover:border-emerald-500/20 transition-all group">
+                             <span className="text-sm font-black text-botanical-950 uppercase tracking-tight">{mode}</span>
+                             <input type="radio" name="learning-mode" defaultChecked={mode === 'Guided'} className="w-4 h-4 text-emerald-500" />
+                          </label>
+                        ))}
+                     </div>
+                  </div>
+                  <div className="p-8 bg-white border border-slate-100 rounded-[32px] space-y-8">
+                     <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Simulation Difficulty</h4>
+                     <div className="space-y-4">
+                        {['Beginner', 'Intermediate', 'Advanced'].map((level) => (
+                          <label key={level} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl cursor-pointer hover:bg-white border border-transparent hover:border-emerald-500/20 transition-all group">
+                             <span className="text-sm font-black text-botanical-950 uppercase tracking-tight">{level}</span>
+                             <input type="radio" name="sim-diff" defaultChecked={level === 'Intermediate'} className="w-4 h-4 text-emerald-500" />
+                          </label>
+                        ))}
+                     </div>
+                  </div>
+               </div>
+
+               <div className="p-8 bg-white border border-slate-100 rounded-[32px]">
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8 font-bold">Security & Alerts</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black uppercase tracking-widest text-botanical-950">Enable 2FA</span>
+                        <div className="w-12 h-6 bg-emerald-500 rounded-full p-1 cursor-pointer flex justify-end transition-all"><div className="w-4 h-4 bg-white rounded-full shadow-sm" /></div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                         <span className="text-xs font-black uppercase tracking-widest text-botanical-950">Email Alerts</span>
+                         <div className="w-12 h-6 bg-emerald-500 rounded-full p-1 cursor-pointer flex justify-end transition-all"><div className="w-4 h-4 bg-white rounded-full shadow-sm" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <button onClick={() => showToast('Redirecting to reset...')} className="flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-botanical-950 transition-colors">
+                        <span>Change Password</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+               </div>
+
+               <div className="bg-botanical-950 p-10 rounded-[48px] text-white flex flex-col md:flex-row items-center justify-between gap-8">
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">Billing</div>
+                    <h3 className="text-2xl font-black uppercase tracking-tight">Pro Plan • Active</h3>
+                  </div>
+                  <button onClick={() => showToast('Managing subscription...')} className="w-full md:w-auto bg-white text-botanical-950 px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-white transition-all">Manage Subscription</button>
+               </div>
+
+               <div className="pt-12 border-t border-slate-100 flex items-center justify-between">
+                  <button onClick={handleLogout} className="flex items-center space-x-3 text-slate-400 hover:text-red-500 transition-colors uppercase text-[10px] font-black tracking-widest">
+                     <LogOut className="w-4 h-4" />
+                     <span>Terminate Session</span>
+                  </button>
+                  <button onClick={() => showToast('Institutional deletion requires confirmation...')} className="text-[10px] font-black uppercase tracking-widest text-red-500 p-4 hover:bg-red-50 rounded-xl transition-all">Delete Account</button>
                </div>
             </div>
           </section>
         ) : (
           <section className="px-12 pt-12">
-            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-8 uppercase">Preferences</h2>
-            <div className="max-w-2xl space-y-12">
+            <h2 className="text-4xl font-black text-botanical-950 tracking-tighter mb-8 uppercase text-center md:text-left">Preferences</h2>
+            <div className="max-w-2xl space-y-12 mx-auto md:mx-0">
                <div className="space-y-6">
                   <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Account Access</h4>
                   <div className="space-y-4">
@@ -526,7 +810,7 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
                </div>
                <div className="space-y-6">
                   <button onClick={handleLogout} className="flex items-center space-x-3 text-red-500 text-[10px] font-black uppercase tracking-widest hover:text-red-600 transition-colors">
-                     <Lock className="w-4 h-4" />
+                     <LogOut className="w-4 h-4" />
                      <span>Terminate Session</span>
                   </button>
                </div>
@@ -553,3 +837,5 @@ export const StudentDashboard = ({ onPageChange }: DashboardProps) => {
     </div>
   );
 };
+
+export default StudentDashboard;

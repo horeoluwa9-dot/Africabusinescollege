@@ -113,10 +113,39 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
 
   return (
     <section 
-      className="relative bg-botanical-950 min-h-[90vh] flex items-center overflow-hidden pt-32 pb-16"
+      className="relative bg-botanical-950 min-h-screen flex items-center overflow-hidden pt-32 pb-24"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
+      {/* Dynamic Background Gradient */}
+      <div className="absolute inset-0 z-0">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="w-full h-full object-cover opacity-30 grayscale brightness-50"
+        >
+          <source 
+            src="https://assets.mixkit.co/videos/preview/mixkit-businesswoman-working-at-a-computer-4734-large.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+        <motion.div 
+          animate={{
+            background: [
+              'radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)',
+            ]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 overflow-hidden"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-botanical-950 via-botanical-950/40 to-transparent" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 contrast-150 brightness-100" />
+      </div>
+
       <AnimatedBackground intensity="high" className="opacity-40" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
@@ -126,26 +155,32 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start py-20"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20"
           >
             {/* Left Content */}
-            <div className="lg:col-span-7 pt-4">
-              <SectionLabel className="mb-8" dark>
-                {slides[currentSlide].eyebrow}
-              </SectionLabel>
+            <div className="pt-4">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <SectionLabel className="mb-8" dark>
+                  {slides[currentSlide].eyebrow}
+                </SectionLabel>
+              </motion.div>
 
-              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.85] text-white mb-8 uppercase overflow-hidden">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight text-white mb-10 uppercase">
                 {slides[currentSlide].headline.split(' ').map((word, i) => (
-                  <span key={i} className="inline-block overflow-hidden mr-[0.2em] whitespace-nowrap">
+                  <span key={i} className="inline-block mr-[0.2em] whitespace-nowrap">
                     <motion.span
                       initial={{ y: "100%" }}
                       animate={{ y: 0 }}
                       transition={{ 
                         duration: 0.8, 
-                        delay: 0.1 + (i * 0.1),
+                        delay: 0.1 + (i * 0.05),
                         ease: [0.33, 1, 0.68, 1]
                       }}
-                      className="inline-block"
+                      className={`inline-block py-2 ${i === 1 ? 'text-emerald-500 italic' : ''}`}
                     >
                       {word}
                     </motion.span>
@@ -154,25 +189,29 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
               </h1>
 
               <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 1 }}
-                className="text-xl text-slate-400 leading-relaxed font-medium max-w-lg mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
+                className="text-xl text-slate-400 leading-relaxed font-medium max-w-xl mb-12"
               >
                 {slides[currentSlide].text}
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-6"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
+                className="flex flex-col sm:flex-row gap-6 mb-12"
               >
                 <button 
                   onClick={() => onPageChange(slides[currentSlide].target, (slides[currentSlide] as any).targetId)}
-                  className="bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-400 transition-all active:scale-95 shadow-2xl shadow-emerald-500/20"
+                  className="group relative bg-emerald-500 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all shadow-2xl shadow-emerald-500/20 overflow-hidden"
                 >
-                  {slides[currentSlide].cta1}
+                  <span className="relative z-10 flex items-center justify-center space-x-2">
+                    <span>{slides[currentSlide].cta1}</span>
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity" />
                 </button>
                 <button 
                   onClick={() => {
@@ -182,70 +221,100 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
                       handleDownload();
                     }
                   }}
-                  className="border border-white/20 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all active:scale-95"
+                  className="group border border-white/20 text-white px-10 py-5 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white/5 transition-all overflow-hidden relative"
                 >
-                  {slides[currentSlide].cta2}
+                  <span className="relative z-10">{slides[currentSlide].cta2}</span>
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500/50 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 </button>
               </motion.div>
             </div>
 
-            {/* Right Image */}
+            {/* Right Image Container */}
             <motion.div
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ 
-                duration: 1.2, 
+                duration: 1.5, 
                 delay: 0.4,
                 ease: [0.22, 1, 0.36, 1]
               }}
-              className="lg:col-span-5 relative"
+              className="relative"
             >
-              <div className="aspect-square bg-slate-100/10 rounded-[40px] overflow-hidden relative shadow-2xl group">
-                <motion.img 
-                  key={`img-${currentSlide}`}
-                  initial={{ scale: 1.2 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1.5 }}
-                  src={slides[currentSlide].image} 
-                  alt={slides[currentSlide].headline} 
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-botanical-950/80 via-transparent to-transparent" />
+              <div className="aspect-[4/5] bg-slate-100/5 rounded-[60px] overflow-hidden relative shadow-2xl group border border-white/10 p-4">
+                <div className="w-full h-full rounded-[44px] overflow-hidden relative">
+                  <motion.img 
+                    key={`img-${currentSlide}`}
+                    initial={{ scale: 1.3, filter: 'grayscale(100%)' }}
+                    animate={{ scale: 1, filter: 'grayscale(40%)' }}
+                    transition={{ duration: 2 }}
+                    src={slides[currentSlide].image} 
+                    alt={slides[currentSlide].headline} 
+                    className="w-full h-full object-cover group-hover:scale-110 group-hover:filter-none transition-all duration-1000"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-botanical-950/60 via-emerald-500/10 to-transparent mix-blend-overlay" />
+                  <div className="absolute inset-0 bg-botanical-950/20 pointer-events-none" />
+                </div>
+                
+                {/* Brand Elements for Depth */}
+                <div className="absolute -top-6 -right-6 w-32 h-32 bg-emerald-500/20 blur-3xl rounded-full" />
+                <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-emerald-500/10 blur-3xl rounded-full" />
               </div>
               
-              {/* Glass Effect Accent */}
-              <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-emerald-500/20 rounded-full blur-[120px] -z-10" />
+              {/* Floating Stat Card */}
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.5, duration: 1 }}
+                className="absolute -bottom-10 -right-10 bg-white/10 backdrop-blur-2xl border border-white/20 p-8 rounded-[32px] shadow-2xl hidden md:block"
+              >
+                <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">Live Now</div>
+                <div className="text-2xl font-black text-white tracking-tighter uppercase">Cohort 2026</div>
+                <div className="w-12 h-1 bg-emerald-500 mt-4 rounded-full" />
+              </motion.div>
             </motion.div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Navigation Controls */}
-        <div className="absolute bottom-6 left-6 md:left-12 right-6 md:right-12 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+        {/* Navigation Controls & Progress */}
+        <div className="absolute bottom-12 left-6 md:left-12 right-6 md:right-12 flex items-center justify-between">
+          <div className="flex items-center space-x-6">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`h-1.5 transition-all duration-500 rounded-full ${
-                  currentSlide === index ? 'w-12 bg-emerald-500' : 'w-3 bg-white/20 hover:bg-white/40'
-                }`}
-              />
+                className="group flex flex-col py-4"
+              >
+                <span className={`text-[10px] font-black tracking-widest uppercase mb-2 transition-colors ${currentSlide === index ? 'text-emerald-500' : 'text-slate-600'}`}>0{index + 1}</span>
+                <div className={`h-[2px] transition-all duration-700 rounded-full relative overflow-hidden ${
+                  currentSlide === index ? 'w-24 bg-emerald-500/20' : 'w-12 bg-white/10 hover:bg-white/30'
+                }`}>
+                  {currentSlide === index && !isPaused && (
+                    <motion.div 
+                      layoutId="progress"
+                      initial={{ x: "-100%" }}
+                      animate={{ x: "0%" }}
+                      transition={{ duration: 6, ease: "linear" }}
+                      className="absolute inset-0 bg-emerald-500"
+                    />
+                  )}
+                </div>
+              </button>
             ))}
           </div>
           
           <div className="flex space-x-4">
             <button 
               onClick={prevSlide}
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/5 transition-all"
+              className="w-16 h-16 rounded-2xl border border-white/10 flex items-center justify-center text-white hover:bg-emerald-500 transition-all group active:scale-95"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
             </button>
             <button 
               onClick={nextSlide}
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/5 transition-all"
+              className="w-16 h-16 rounded-2xl border border-white/10 flex items-center justify-center text-white hover:bg-emerald-500 transition-all group active:scale-95"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
@@ -253,6 +322,51 @@ const HeroSlider = ({ onPageChange }: HomeProps) => {
     </section>
   );
 };
+
+function AnimatedCounter({ value, label }: { value: string, label: string } & React.Attributes) {
+  const [count, setCount] = useState(0);
+  const target = parseInt(value.replace(/[^0-9]/g, ''));
+  const suffix = value.replace(/[0-9]/g, '');
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      onViewportEnter={() => {
+        let start = 0;
+        const duration = 2000;
+        const startTime = Date.now();
+        
+        const update = () => {
+          const now = Date.now();
+          const progress = Math.min((now - startTime) / duration, 1);
+          // Easing function: easeOutQuart
+          const easedProgress = 1 - Math.pow(1 - progress, 4);
+          const current = Math.floor(easedProgress * target);
+          setCount(current);
+          if (progress < 1) requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+      }}
+      className="text-center group"
+    >
+      <div className="text-5xl md:text-7xl font-black text-botanical-950 mb-4 tracking-tighter flex items-baseline justify-center">
+        <span>{count}</span>
+        <span className="text-emerald-500">{suffix}</span>
+      </div>
+      <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-botanical-950 transition-colors">
+        {label}
+      </div>
+      <motion.div 
+        initial={{ width: 0 }}
+        whileInView={{ width: "24px" }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="h-1 bg-emerald-500 mx-auto mt-6 rounded-full"
+      />
+    </motion.div>
+  );
+}
 
 const Stats = () => {
   const stats = [
@@ -263,15 +377,17 @@ const Stats = () => {
   ];
 
   return (
-    <section className="py-24 border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-2 lg:grid-cols-4 gap-12">
-        {stats.map(stat => (
-          <div key={stat.label} className="text-center">
-            <div className="text-4xl md:text-5xl font-black text-botanical-950 mb-2 tracking-tighter">{stat.value}</div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.label}</div>
-          </div>
-        ))}
+    <section className="py-32 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-16 md:gap-24">
+          {stats.map((s, idx) => (
+            <AnimatedCounter key={`stat-${idx}`} value={s.value} label={s.label} />
+          ))}
+        </div>
       </div>
+      
+      {/* Decorative background element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[1px] bg-slate-100 -z-10" />
     </section>
   );
 };
@@ -344,7 +460,7 @@ const Programs = ({ onPageChange }: HomeProps) => {
               <div className="p-10 flex flex-col flex-grow">
                 <div className="mb-6">
                   <span className="text-[8px] font-black tracking-widest text-emerald-500 uppercase block mb-2">{program.category}</span>
-                  <h3 className="text-[10px] font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors truncate">
+                  <h3 className="text-2xl font-black text-botanical-950 uppercase tracking-tight leading-tight group-hover:text-emerald-500 transition-colors">
                     {program.title}
                   </h3>
                 </div>
@@ -416,7 +532,7 @@ const Ecosystem = ({ onPageChange }: HomeProps) => {
     <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div>
-          <SectionLabel className="mb-8">Why ABC?</SectionLabel>
+          <SectionLabel className="mb-8 font-black">Learning Experience</SectionLabel>
           <h2 className="text-5xl md:text-6xl font-black text-botanical-950 tracking-tighter mb-8 leading-[0.9] uppercase">
             Built for <br />
             <span className="text-emerald-500 italic">Builders</span>
@@ -464,65 +580,65 @@ const Ecosystem = ({ onPageChange }: HomeProps) => {
         </div>
 
         <div className="relative">
-          <div className="aspect-[4/3] bg-botanical-950 rounded-[40px] p-12 flex items-center justify-center overflow-hidden group shadow-2xl">
-            {!isPlaying ? (
-              <>
-                <img 
-                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80" 
-                  alt="Ecosystem" 
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,#00D98E_0%,transparent_70%)]" />
-              </>
-            ) : (
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-80"
+          <div className="aspect-[4/3] bg-botanical-950 rounded-[60px] p-12 flex items-center justify-center overflow-hidden group shadow-2xl relative border border-white/5">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isPlaying ? 'opacity-80' : 'opacity-40 grayscale group-hover:grayscale-0'}`}
+            >
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-mentally-preparing-for-the-upcoming-workday-4735-large.mp4" type="video/mp4" />
+            </video>
+            
+            <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-transparent to-botanical-950/20" />
+            
+            {!isPlaying && (
+              <div className="relative z-10 flex flex-col items-center">
+                <button 
+                  onClick={() => setIsPlaying(true)}
+                  className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-2xl shadow-emerald-500/50 hover:scale-110 active:scale-95 transition-all group"
+                >
+                  <Play className="w-10 h-10 text-white fill-current group-hover:scale-110 transition-transform" />
+                </button>
+                <div className="text-white font-black tracking-[0.3em] text-xs uppercase text-center space-y-2">
+                  <div className="opacity-60">Watch The</div>
+                  <div className="text-emerald-400">Execution Demo</div>
+                </div>
+              </div>
+            )}
+
+            {isPlaying && (
+              <button 
+                onClick={() => setIsPlaying(false)}
+                className="absolute bottom-8 right-8 z-20 w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center hover:bg-white/20 transition-all"
               >
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-working-at-a-laptop-in-a-modern-office-4762-large.mp4" type="video/mp4" />
-              </video>
+                <div className="w-4 h-4 bg-white rounded-sm" />
+              </button>
             )}
             
-            {/* Learning Platform Visual */}
-            <div className="relative z-10 w-full max-w-md">
+            {/* Overlay Glass Elements */}
+            <div className="absolute top-8 left-8 z-10 hidden md:block">
               <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                className="bg-white/10 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl border border-white/20"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-2xl"
               >
-                <div className="aspect-video bg-botanical-950 rounded-2xl flex items-center justify-center border border-white/5 relative overflow-hidden">
-                  {!isPlaying && (
-                    <img 
-                      src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" 
-                      alt="Platform Interface" 
-                      className="absolute inset-0 w-full h-full object-cover opacity-40"
-                      referrerPolicy="no-referrer"
-                    />
-                  )}
-                  <div className="relative z-10 flex flex-col items-center">
-                    <button 
-                      onClick={() => setIsPlaying(!isPlaying)}
-                      className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-emerald-500/40 hover:scale-110 transition-transform"
-                    >
-                      {isPlaying ? (
-                        <div className="w-4 h-4 bg-white rounded-sm" />
-                      ) : (
-                        <Play className="w-6 h-6 text-white fill-current" />
-                      )}
-                    </button>
-                    <span className="text-white font-black tracking-widest text-[10px] uppercase">
-                      {isPlaying ? 'Playing Demo' : 'Learning Platform'}
-                    </span>
-                  </div>
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  <span className="text-[8px] font-black uppercase tracking-widest text-white">Execution Active</span>
+                </div>
+                <div className="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+                  <motion.div 
+                    animate={{ x: ["-100%", "100%"] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    className="w-1/2 h-full bg-emerald-500"
+                  />
                 </div>
               </motion.div>
             </div>
           </div>
-          <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-emerald-500 rounded-full -z-10 blur-[100px] opacity-20" />
+          <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-emerald-500 rounded-full -z-10 blur-[120px] opacity-20" />
         </div>
       </div>
     </section>
@@ -732,7 +848,7 @@ const Sessions = ({ onPageChange }: HomeProps) => {
             <h4 className="font-black text-botanical-950 mb-4">{t('home.mandelaFellowship')}</h4>
             <p className="text-sm text-slate-500 font-medium leading-relaxed mb-8">{t('home.mandelaFellowshipDesc')}</p>
             <button 
-              onClick={() => onPageChange('admissions')}
+              onClick={() => onPageChange('financial-aid' as Page)}
               className="text-[10px] font-black uppercase tracking-widest text-emerald-500 border-b border-emerald-500/30 hover:border-emerald-500 transition-all pb-1"
             >
               {t('home.applyFunding')}
@@ -752,19 +868,26 @@ const Sessions = ({ onPageChange }: HomeProps) => {
           </div>
           <div className="space-y-6">
             {SESSIONS.map(session => (
-              <div key={session.id} className="bg-surface-low p-8 rounded-2xl border border-slate-100 flex flex-col md:flex-row items-center gap-10 group cursor-pointer hover:border-emerald-500/30 transition-all">
+              <div 
+                key={session.id} 
+                onClick={() => onPageChange('event-detail', session.id)}
+                className="bg-slate-50 p-8 rounded-2xl border border-slate-100 flex flex-col md:flex-row items-center gap-10 group cursor-pointer hover:border-emerald-500/30 hover:bg-white hover:shadow-xl transition-all"
+              >
                 <div className="text-center md:text-left min-w-[80px]">
-                  <div className="text-4xl font-black text-botanical-950 tracking-tighter">{session.date.day}</div>
+                  <div className="text-4xl font-black text-botanical-950 tracking-tighter group-hover:text-emerald-500 transition-colors">{session.date.day}</div>
                   <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500">{session.date.month}</div>
                 </div>
                 <div className="flex-grow">
                   <div className="text-[8px] font-black tracking-widest text-emerald-500 uppercase mb-2">{session.type}</div>
-                  <h4 className="text-xl font-black text-botanical-950 mb-2 group-hover:text-emerald-500 transition-colors">{session.title}</h4>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed">{session.description}</p>
+                  <h4 className="text-xl font-black text-botanical-950 mb-2 group-hover:text-emerald-500 transition-colors uppercase tracking-tight">{session.title}</h4>
+                  <p className="text-sm text-slate-500 font-medium leading-relaxed line-clamp-2">{session.description}</p>
                 </div>
                 <div className="text-right hidden md:block">
                   <div className="text-[8px] font-black tracking-widest text-slate-400 uppercase mb-1">{session.location}</div>
-                  <div className="text-[10px] font-black text-botanical-950 uppercase tracking-widest">{session.attendees}</div>
+                  <div className="text-[10px] font-black text-botanical-950 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">{session.attendees}</div>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-botanical-950 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                  <ArrowRight className="w-5 h-5" />
                 </div>
               </div>
             ))}

@@ -530,7 +530,7 @@ export const STUDIO_TOOLS: StudioTool[] = [
 
 export const SESSIONS: Session[] = [
   {
-    id: '1',
+    id: 'wealth-funds',
     date: { day: '14', month: 'NOV' },
     title: 'The Future of Execution Wealth Funds',
     description: 'Join Dr. Amara Diop for an in-depth analysis of African national investment strategies.',
@@ -539,7 +539,7 @@ export const SESSIONS: Session[] = [
     attendees: '1.2K SILENT'
   },
   {
-    id: '2',
+    id: 'agribusiness-summit',
     date: { day: '22', month: 'NOV' },
     title: 'Agribusiness Supply Chain Summit',
     description: 'Solving the last-mile delivery challenge for agricultural exports in the region.',

@@ -18,7 +18,7 @@ export type Page =
   | 'login-student' | 'login-faculty'
   | 'dashboard-student' | 'dashboard-faculty' | 'news-detail' | 'insight-detail' | 'event-detail'
   | 'scholarship' | 'events' | 'join-network' | 'alumni' | 'simulation-details'
-  | 'who-should-apply' | 'inquire-details' | 'inquire-pricing' | 'financial-aid'
+  | 'who-should-apply' | 'inquire-details' | 'inquire-pricing' | 'financial-aid' | 'discovery-call'
   | 'admissions-faq' | 'view-curriculum';
 
 interface LayoutProps {
@@ -135,11 +135,13 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
       <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl py-2 md:py-3 border-b border-slate-100">
         <div className="max-w-[1600px] mx-auto px-4 md:px-6 flex justify-between items-center">
           {/* LEFT: LOGO */}
-            <div className={`flex items-center space-x-2 md:space-x-3 cursor-pointer group shrink-0 ${isRTL ? 'space-x-reverse' : ''}`}
+            <div className={`flex items-center space-x-2 md:space-x-3 cursor-pointer group shrink-0 transition-transform hover:scale-105 active:scale-95 ${isRTL ? 'space-x-reverse' : ''}`}
             onClick={() => onPageChange('home')}
+            aria-label="African Business College - Go to Homepage"
+            title="Go to Homepage"
           >
             <div className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden relative">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-xl flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-shadow overflow-hidden relative">
                 {/* Custom SVG Logo matching the ABC brand */}
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 md:w-8 md:h-8">
                   {/* Graduation Cap (Navy) */}
@@ -153,32 +155,34 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
               </div>
               <div className="flex flex-col">
                 <span className="text-lg md:text-xl font-black tracking-tighter text-botanical-950 group-hover:text-emerald-500 transition-colors leading-none">ABC</span>
-                <span className="text-[6px] md:text-[7px] font-black uppercase tracking-[0.1em] md:tracking-widest text-slate-400 leading-none mt-1 whitespace-nowrap hidden sm:block">African Business College</span>
+                <span className="text-[6px] md:text-[7px] font-black uppercase tracking-[0.1em] md:tracking-widest text-slate-400 group-hover:text-botanical-950 transition-colors leading-none mt-1 whitespace-nowrap hidden sm:block">African Business College</span>
               </div>
             </div>
           </div>
           
           {/* CENTER: NAV LINKS */}
-          <div className={`hidden lg:flex items-center justify-center flex-grow space-x-1 ${isRTL ? 'space-x-reverse' : ''}`}>
+          <div className={`hidden lg:flex items-center justify-center flex-grow space-x-2 xl:space-x-4 ${isRTL ? 'space-x-reverse' : ''}`}>
             {navLinks.map((item) => (
               <button 
                 key={item.page} 
                 onClick={() => onPageChange(item.page as Page)}
-                className={`px-3 xl:px-4 py-2 text-[8px] xl:text-[9px] font-black uppercase tracking-widest transition-all rounded-lg relative whitespace-nowrap ${
+                className={`px-4 py-2 text-[9px] xl:text-[10px] font-black uppercase tracking-widest transition-all rounded-lg relative whitespace-nowrap group ${
                   activePage === item.page
                     ? 'text-emerald-500 bg-emerald-50' 
                     : 'text-slate-500 hover:text-botanical-950 hover:bg-slate-50'
                 }`}
               >
-                {item.name}
+                <span>{item.name}</span>
+                <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-emerald-500 transition-all group-hover:w-1/2 ${activePage === item.page ? 'w-1/2' : ''}`} />
               </button>
             ))}
             
             {/* MORE DROPDOWN */}
             <div className="relative hidden xl:block" onMouseEnter={() => setIsMoreOpen(true)} onMouseLeave={() => setIsMoreOpen(false)}>
-              <button className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 hover:bg-slate-50 rounded-lg flex items-center space-x-1 ${isRTL ? 'space-x-reverse' : ''}`}>
+              <button className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-botanical-950 hover:bg-slate-50 rounded-lg flex items-center space-x-1 group ${isRTL ? 'space-x-reverse' : ''}`}>
                 <span>{t('nav.more')}</span>
                 <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isMoreOpen ? 'rotate-180' : ''}`} />
+                <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-emerald-500 transition-all group-hover:w-1/2`} />
               </button>
               
               <AnimatePresence>
@@ -429,12 +433,20 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
             {/* COLUMN 1: BRAND */}
             <div className="lg:col-span-4">
               <div 
-                className="text-3xl font-black tracking-tighter text-white mb-8 cursor-pointer"
+                className="flex items-center space-x-3 mb-8 cursor-pointer group"
                 onClick={() => onPageChange('home')}
               >
-                ABC
+                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden relative">
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
+                    <path d="M20 8L36 18L20 28L4 18L20 8Z" fill="#0a2540" />
+                    <path d="M10 21V28C10 28 15 32 20 32C25 32 30 28 30 28V21" stroke="#0a2540" strokeWidth="2.5" />
+                    <path d="M32 12L36 8M36 8H31M36 8V13" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M4 36C12 32 28 32 36 36" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span className="text-2xl font-black tracking-tighter text-white">ABC</span>
               </div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-10 leading-loose max-w-xs">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-10 leading-loose max-w-xs italic opacity-80">
                 A virtual-first African business institution building the next generation of entrepreneurs, leaders, and innovators.
               </p>
               <div className={`flex space-x-6 ${isRTL ? 'space-x-reverse' : ''}`}>
@@ -523,7 +535,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage, onPageChan
         <div className="relative z-10 border-t border-white/5 py-12">
           <div className={`max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">
-              © 2026 African Business College. All Rights Reserved. Delivered by ABC STUDIO
+              © 2026 AFRICA BUSINESS COLLEGE. DESIGNED BY <a href="https://cyclebreeze.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-500 hover:text-emerald-400 transition-colors">CYCLEBREEZE.</a>
             </p>
             <div className={`flex flex-wrap justify-center gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
               {[

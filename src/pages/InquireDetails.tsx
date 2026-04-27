@@ -62,9 +62,9 @@ const InquireDetails: React.FC<InquireDetailsProps> = ({ onPageChange }) => {
                   <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm border border-slate-100 group-hover:bg-emerald-500 group-hover:text-white transition-all text-emerald-500">
                     <item.icon className="w-6 h-6" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1 overflow-hidden">
                     <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</div>
-                    <div className="text-lg font-black text-botanical-950">{item.value}</div>
+                    <div className="text-lg font-black text-botanical-950 whitespace-nowrap overflow-hidden text-ellipsis">{item.value}</div>
                   </div>
                 </div>
               ))}

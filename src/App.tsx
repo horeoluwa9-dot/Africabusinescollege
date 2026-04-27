@@ -23,6 +23,7 @@ import { Welcome } from './pages/Welcome';
 import { Experience } from './pages/Experience';
 import { Careers } from './pages/Careers';
 import { Scholarship } from './pages/Scholarship';
+import { DiscoveryCall } from './pages/DiscoveryCall';
 import { ProgramDetail } from './pages/ProgramDetail';
 import { NewsDetail } from './pages/NewsDetail';
 import { InsightDetail } from './pages/InsightDetail';
@@ -179,6 +180,10 @@ export default function App() {
                 return <Careers onPageChange={handlePageChange} />;
               case 'scholarship':
                 return <Scholarship onPageChange={handlePageChange} />;
+              case 'financial-aid':
+                return <FinancialAidPortal onPageChange={handlePageChange} />;
+              case 'discovery-call':
+                return <DiscoveryCall onPageChange={handlePageChange} />;
               case 'events':
                 return <EventsPage onPageChange={handlePageChange} onBack={() => setActivePage('community')} />;
               case 'alumni':
@@ -213,7 +218,7 @@ export default function App() {
               case 'login-student':
                 return <StudentPortal onPageChange={handlePageChange} />;
               case 'login-faculty':
-                return <GenericPage title="Faculty Portal" description="Manage your sessions, research, and student progress." onBack={() => setActivePage('home')} />;
+                return <FacultyDashboard onPageChange={handlePageChange} />;
 
               case 'program-detail':
                 return <ProgramDetail programId={selectedProgramId} onPageChange={handlePageChange} onBack={() => setActivePage('programs')} />;

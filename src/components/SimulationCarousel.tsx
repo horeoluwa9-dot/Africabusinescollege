@@ -62,7 +62,7 @@ export const SimulationCarousel = ({ items, onSelect, onExplore, title, subtitle
             
             <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/40 to-transparent" />
             
-            <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end">
+            <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-center">
               <div className="max-w-2xl">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -81,11 +81,11 @@ export const SimulationCarousel = ({ items, onSelect, onExplore, title, subtitle
                       <span className="text-[10px] font-black uppercase tracking-widest text-white/50">Active Environment</span>
                     </div>
 
-                    <h3 className="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6 leading-none">
+                    <h3 className="text-3xl md:text-5xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-6 leading-[0.9]">
                       {activeItem.name}
                     </h3>
                     
-                    <p className="text-xl text-slate-300 font-medium mb-12 leading-relaxed line-clamp-3">
+                    <p className="text-lg text-slate-300 font-medium mb-12 leading-relaxed line-clamp-3 max-w-xl">
                       {activeItem.desc}
                     </p>
 
